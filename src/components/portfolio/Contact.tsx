@@ -1,6 +1,7 @@
 import { Mail, MapPin, ArrowUpRight } from "lucide-react";
 import { SectionTitle } from "./SectionTitle";
 import { ContactForm } from "./ContactForm";
+import { Reveal, RevealItem } from "./Reveal";
 
 const socials = ["Instagram", "Twitter", "LinkedIn", "Dribbble"];
 
@@ -11,15 +12,17 @@ export function Contact() {
         <SectionTitle eyebrow="Contact" title="Let's work together." />
 
         <div className="mt-16 grid gap-12 lg:grid-cols-12">
-          <div className="space-y-8 lg:col-span-5">
-            <p className="text-lg text-muted-foreground">
-              Have a project in mind? Tell me about it. I usually reply within 48 hours.
-            </p>
-            <div className="space-y-4">
+          <Reveal className="space-y-8 lg:col-span-5">
+            <RevealItem>
+              <p className="text-lg text-muted-foreground">
+                Have a project in mind? Tell me about it. I usually reply within 48 hours.
+              </p>
+            </RevealItem>
+            <RevealItem className="space-y-4">
               <InfoRow icon={Mail} label="Email" value="hello@studio.folio" />
               <InfoRow icon={MapPin} label="Location" value="Lisbon, Portugal" />
-            </div>
-            <div>
+            </RevealItem>
+            <RevealItem>
               <p className="mb-3 text-xs uppercase tracking-[0.2em] text-muted-foreground">Social</p>
               <ul className="grid gap-2">
                 {socials.map((s) => (
@@ -37,12 +40,14 @@ export function Contact() {
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
+            </RevealItem>
+          </Reveal>
 
-          <div className="rounded-3xl border border-border bg-card p-6 sm:p-10 lg:col-span-7">
-            <ContactForm />
-          </div>
+          <Reveal className="rounded-3xl border border-border bg-card p-6 sm:p-10 lg:col-span-7">
+            <RevealItem>
+              <ContactForm />
+            </RevealItem>
+          </Reveal>
         </div>
       </div>
     </section>

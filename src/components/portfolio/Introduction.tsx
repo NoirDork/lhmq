@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { SectionTitle } from "./SectionTitle";
+import { Reveal, RevealItem } from "./Reveal";
 
 const previews = [
   { title: "Aurora — Brand System", tag: "Identity / 2025", hue: "from-neutral-300 to-neutral-500" },
@@ -15,7 +16,7 @@ export function Introduction() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7 }}
             className="lg:col-span-5"
           >
@@ -30,28 +31,27 @@ export function Introduction() {
 
           <div className="lg:col-span-7">
             <SectionTitle eyebrow="Introduction" title="A studio for considered design." />
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground"
+            >
               We partner with founders and creative teams to design and build digital
               products with clarity and craft. Editorial layouts, motion, and code —
               shipped end-to-end.
-            </p>
+            </motion.p>
 
-            <div className="mt-12 grid gap-5 sm:grid-cols-3">
-              {previews.map((p, i) => (
-                <motion.div
-                  key={p.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group cursor-pointer"
-                >
+            <Reveal className="mt-12 grid gap-5 sm:grid-cols-3">
+              {previews.map((p) => (
+                <RevealItem key={p.title} className="group cursor-pointer">
                   <div className={`aspect-square overflow-hidden rounded-2xl bg-gradient-to-br ${p.hue} transition-transform duration-500 group-hover:scale-[1.03]`} />
                   <p className="mt-3 text-sm font-medium">{p.title}</p>
                   <p className="text-xs text-muted-foreground">{p.tag}</p>
-                </motion.div>
+                </RevealItem>
               ))}
-            </div>
+            </Reveal>
           </div>
         </div>
       </div>

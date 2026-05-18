@@ -1,5 +1,6 @@
 import { SectionTitle } from "./SectionTitle";
 import { ProjectCard, type Project } from "./ProjectCard";
+import { Reveal } from "./Reveal";
 
 const projects: Project[] = [
   { title: "Aurora", category: "Brand & Web", year: "2025", description: "Identity system and marketing site for a climate fintech.", hue: "from-amber-200 to-rose-300 dark:from-amber-900/60 dark:to-rose-900/60" },
@@ -21,11 +22,11 @@ export function Work() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p, i) => (
-            <ProjectCard key={p.title} project={p} index={i} />
+        <Reveal className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((p) => (
+            <ProjectCard key={p.title} project={p} />
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
