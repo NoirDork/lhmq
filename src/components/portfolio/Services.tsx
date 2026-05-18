@@ -13,7 +13,7 @@ const timeline = [
 
 export function Services() {
   return (
-    <section id="memories" className="px-4 py-32 sm:px-6">
+    <section id="timeline" className="px-4 py-32 sm:px-6">
       <div className="mx-auto max-w-7xl">
         <SectionTitle eyebrow="Timeline" title="Event schedule." />
         <Reveal className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
