@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight, MapPin, Mail, Globe, Instagram } from "lucide-react";
+import { ArrowUpRight, MapPin, Mail, Calendar, GraduationCap } from "lucide-react";
 import { Signature } from "./Signature";
 import { Reveal, RevealItem } from "./Reveal";
 
 const info = [
-  { Icon: Instagram, text: "@studio.folio" },
-  { Icon: Globe, text: "studiofolio.com" },
-  { Icon: MapPin, text: "Lisbon, PT" },
-  { Icon: Mail, text: "hello@studio.folio" },
+  { Icon: GraduationCap, text: "Crestwood University" },
+  { Icon: Calendar, text: "Graduation Ceremony — 2026" },
+  { Icon: MapPin, text: "Crestwood Convention Center" },
+  { Icon: Mail, text: "jordan.r@example.com" },
 ];
 
 export function Hero() {
@@ -22,9 +22,9 @@ export function Hero() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signature" />
-            <span>Available for work — 2026</span>
+            <span>You're invited — 2026</span>
           </span>
-          <span>Designer · Developer · Creative</span>
+          <span>Class of 2026 · Computer Science</span>
         </motion.div>
 
         <div className="relative mt-10">
@@ -34,7 +34,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-[20vw] font-bold leading-[0.85] tracking-[-0.04em] lg:text-[16rem]"
           >
-            portfolio
+            graduation
           </motion.h1>
           <motion.div
             initial={{ opacity: 0, scale: 0.9, rotate: -8 }}
@@ -52,23 +52,28 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end"
         >
-          <p className="max-w-md text-lg text-muted-foreground">
-            An independent design & development studio crafting editorial digital
-            experiences for ambitious brands.
-          </p>
+          <div className="max-w-md">
+            <p className="text-lg text-muted-foreground">
+              You are warmly invited to celebrate my university graduation ceremony.
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              After years of learning, effort, and unforgettable memories, this special day
+              marks the beginning of a new journey. Your presence would make it even more meaningful.
+            </p>
+          </div>
           <div className="flex flex-wrap gap-3">
             <a
-              href="#work"
+              href="#details"
               className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
             >
-              <span>View Work</span>
+              <span>View Ceremony Details</span>
               <ArrowUpRight size={16} className="transition-transform group-hover:rotate-45" />
             </a>
             <a
-              href="#contact"
+              href="#rsvp"
               className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium transition-colors hover:bg-accent"
             >
-              Contact Me
+              Send Your Wishes
             </a>
           </div>
         </motion.div>

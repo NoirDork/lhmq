@@ -5,10 +5,10 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
   { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#work", label: "Work" },
-  { href: "#services", label: "Services" },
-  { href: "#contact", label: "Contact" },
+  { href: "#invitation", label: "Invitation" },
+  { href: "#details", label: "Details" },
+  { href: "#memories", label: "Memories" },
+  { href: "#rsvp", label: "RSVP" },
 ];
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
@@ -36,7 +36,7 @@ export function Navbar() {
             animate={{ scale: [1, 1.25, 1], opacity: [1, 0.75, 1] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
           />
-          studio<span className="text-muted-foreground">.folio</span>
+          grad<span className="text-muted-foreground">·2026</span>
         </motion.a>
         <ul className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
@@ -65,13 +65,13 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <motion.a
-            href="#contact"
+            href="#rsvp"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
             transition={{ type: "spring", stiffness: 400, damping: 22 }}
             className="hidden rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 md:inline-flex"
           >
-            Hire me
+            Send Wishes
           </motion.a>
           <motion.button
             whileTap={{ scale: 0.92 }}
