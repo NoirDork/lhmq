@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { revealVariants } from "./Reveal";
 
 export interface Project {
   title: string;
@@ -9,13 +10,10 @@ export interface Project {
   hue: string;
 }
 
-export function ProjectCard({ project, index }: { project: Project; index: number }) {
+export function ProjectCard({ project }: { project: Project }) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
+      variants={revealVariants.item}
       whileHover={{ y: -4 }}
       className="group cursor-pointer rounded-3xl border border-border bg-card p-4 transition-shadow hover:shadow-xl"
     >

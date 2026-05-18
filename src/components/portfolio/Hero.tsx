@@ -1,6 +1,14 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, MapPin, Mail, Globe, Instagram } from "lucide-react";
 import { Signature } from "./Signature";
+import { Reveal, RevealItem } from "./Reveal";
+
+const info = [
+  { Icon: Instagram, text: "@studio.folio" },
+  { Icon: Globe, text: "studiofolio.com" },
+  { Icon: MapPin, text: "Lisbon, PT" },
+  { Icon: Mail, text: "hello@studio.folio" },
+];
 
 export function Hero() {
   return (
@@ -14,7 +22,7 @@ export function Hero() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-signature" />
-            Available for work — 2026
+            <span>Available for work — 2026</span>
           </span>
           <span>Designer · Developer · Creative</span>
         </motion.div>
@@ -53,7 +61,7 @@ export function Hero() {
               href="#work"
               className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
             >
-              View Work
+              <span>View Work</span>
               <ArrowUpRight size={16} className="transition-transform group-hover:rotate-45" />
             </a>
             <a
@@ -65,12 +73,14 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <div className="mt-16 grid grid-cols-2 gap-y-4 border-t border-border pt-6 text-sm text-muted-foreground md:grid-cols-4">
-          <div className="flex items-center gap-2"><Instagram size={14} /> @studio.folio</div>
-          <div className="flex items-center gap-2"><Globe size={14} /> studiofolio.com</div>
-          <div className="flex items-center gap-2"><MapPin size={14} /> Lisbon, PT</div>
-          <div className="flex items-center gap-2"><Mail size={14} /> hello@studio.folio</div>
-        </div>
+        <Reveal className="mt-16 grid grid-cols-2 gap-y-4 border-t border-border pt-6 text-sm text-muted-foreground md:grid-cols-4">
+          {info.map(({ Icon, text }) => (
+            <RevealItem key={text} className="flex items-center gap-2">
+              <Icon size={14} />
+              <span>{text}</span>
+            </RevealItem>
+          ))}
+        </Reveal>
       </div>
     </section>
   );
