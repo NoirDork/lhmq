@@ -11,7 +11,7 @@ const details = [
   { icon: Bell, label: "Guest Note", value: "Please arrive early for check-in and photos" },
 ];
 
-export function Work() {
+export function EventDetails() {
   return (
     <section id="details" className="px-4 py-32 sm:px-6">
       <div className="mx-auto max-w-7xl">
@@ -35,7 +35,9 @@ export function Work() {
                     <Icon size={18} />
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{d.label}</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                      {d.label}
+                    </p>
                     <p className="mt-1 text-lg font-semibold tracking-tight">{d.value}</p>
                   </div>
                 </motion.div>

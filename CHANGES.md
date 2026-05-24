@@ -2,24 +2,25 @@
 
 ## What changed (10 modified, 1 created, 1 dependency)
 
-| File | Change |
-|---|---|
-| `Navbar.tsx` | Labels: Home, Invitation, Details, Memories, RSVP. Brand → `grad·2026`. Button → "Send Wishes" |
-| `Hero.tsx` | Headline → "graduation". Invitation message + personal note. CTAs → "View Ceremony Details" / "Send Your Wishes" |
-| `Introduction.tsx` | → "My Graduation Day." with gratitude paragraph + info cards (Uni, Major, Class, ID) |
-| `About.tsx` | → Journey story + milestone chips |
-| `Work.tsx` | → **Event Details**: Date, Time, Venue, Dress Code, Guest Note |
-| `ProjectCard.tsx` | `Project` → `Memory` interface. Heart icon. "Memory" badge |
-| `Gallery.tsx` | **New** — 6 memory cards using ProjectCard |
-| `Services.tsx` | → **Timeline**: Guest Arrival → Photo → Ceremony → Gathering → Dinner |
-| `Contact.tsx` | → **RSVP**: "Send Your Wishes." with graduate contact info |
-| `ContactForm.tsx` | Fields: Name, Relationship, Email, Attendance (select), Message. **EmailJS** integration |
-| `Footer.tsx` | "With gratitude" / "thank you for being here." Graduation credits |
-| `index.tsx` | Added Gallery. Section order: Hero → Invitation → About → Details → Gallery → Timeline → RSVP |
-| `__root.tsx` | Updated metadata + SEO tags |
-| `package.json` | Added `@emailjs/browser` |
+| File               | Change                                                                                                           |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `Navbar.tsx`       | Labels: Home, Invitation, Details, Memories, RSVP. Brand → `grad·2026`. Button → "Send Wishes"                   |
+| `Hero.tsx`         | Headline → "graduation". Invitation message + personal note. CTAs → "View Ceremony Details" / "Send Your Wishes" |
+| `Introduction.tsx` | → "My Graduation Day." with gratitude paragraph + info cards (Uni, Major, Class, ID)                             |
+| `About.tsx`        | → Journey story + milestone chips                                                                                |
+| `Work.tsx`         | → **Event Details**: Date, Time, Venue, Dress Code, Guest Note                                                   |
+| `ProjectCard.tsx`  | `Project` → `Memory` interface. Heart icon. "Memory" badge                                                       |
+| `Gallery.tsx`      | **New** — 6 memory cards using ProjectCard                                                                       |
+| `Services.tsx`     | → **Timeline**: Guest Arrival → Photo → Ceremony → Gathering → Dinner                                            |
+| `Contact.tsx`      | → **RSVP**: "Send Your Wishes." with graduate contact info                                                       |
+| `ContactForm.tsx`  | Fields: Name, Relationship, Email, Attendance (select), Message. **EmailJS** integration                         |
+| `Footer.tsx`       | "With gratitude" / "thank you for being here." Graduation credits                                                |
+| `index.tsx`        | Added Gallery. Section order: Hero → Invitation → About → Details → Gallery → Timeline → RSVP                    |
+| `__root.tsx`       | Updated metadata + SEO tags                                                                                      |
+| `package.json`     | Added `@emailjs/browser`                                                                                         |
 
 ## Preserved
+
 - Visual style, typography, animations, hover effects, color palette, dark/light theme, responsive layout, component structure
 
 ## ⚠️ You need to configure
@@ -33,9 +34,11 @@
 ## Session Log: 2026-05-18
 
 ### Goal
+
 Convert a personal portfolio website into a university graduation invitation website with image carousels per memory page and EmailJS integration.
 
 ### Constraints & Preferences
+
 - Keep existing visual style, typography, animations, color palette, dark/light theme, responsive layout, and component structure.
 - Do not redesign the whole website or change core UI style.
 - Only replace content, text, labels, sections, and imagery direction.
@@ -44,6 +47,7 @@ Convert a personal portfolio website into a university graduation invitation web
 - The website is for another person — personal info replaced with random dummy data (Jordan Riley, Crestwood University, etc.) for now.
 
 ### Done
+
 - Updated Navbar.tsx: labels → Home, Invitation, Details, Memories, RSVP; brand → `grad·2026`; button → "Send Wishes".
 - Updated Hero.tsx: headline → "graduation"; invitation message + personal note; CTAs → "View Ceremony Details" / "Send Your Wishes"; info → university details.
 - Updated Introduction.tsx → "My Graduation Day." with gratitude paragraph + info cards (University, Major, Class, Student ID).
@@ -56,7 +60,7 @@ Convert a personal portfolio website into a university graduation invitation web
 - Updated ContactForm.tsx: fields → Name, Relationship, Email, Attendance (select), Message; integrated EmailJS (`@emailjs/browser`).
 - Updated Footer.tsx: "With gratitude" / "thank you for being here."; graduation credits.
 - Updated index.tsx: added Gallery import; section order → Hero → Invitation → About → Details → Gallery → Timeline → RSVP; updated metadata.
-- Updated __root.tsx: updated root metadata + SEO tags.
+- Updated \_\_root.tsx: updated root metadata + SEO tags.
 - Added memory.$slug.tsx: dynamic route `/memory/:slug` with detail page for each memory.
 - Added image carousel (Embla-based) on each memory detail page using picsum.photos placeholder images (3–5 per memory).
 - Made every memory card in Gallery section clickable — navigates to `/memory/:slug`.
@@ -66,23 +70,27 @@ Convert a personal portfolio website into a university graduation invitation web
 - Updated README.md: reflects graduation invitation project.
 
 ### Key Decisions
+
 - Used existing embla-carousel-react + shadcn Carousel component for memory sliders rather than adding a new library.
 - Used picsum.photos placeholder images with deterministic seeds for each memory slug.
 - Reused ProjectCard component for memory cards by renaming `Project` → `Memory` interface.
 - Reused the same gradient overlay styling for carousel images to match overall design.
 
 ### Next Steps
+
 1. Replace dummy personal info with the actual graduate's details (name, email, university, major, class, student ID).
 2. Replace picum.photos placeholder URLs with real photos in each memory's carousel.
 3. Configure EmailJS credentials (`YOUR_SERVICE_ID`, `YOUR_TEMPLATE_ID`, `YOUR_PUBLIC_KEY`) in ContactForm.tsx.
 
 ### Critical Context
+
 - The first `npm install @emailjs/browser` timed out; it was re-run successfully.
 - `bun` is not available on this machine — all commands use `npm` / `node`.
 - Vite build fails with `spawn EFTYPE` (Windows/esbuild issue). TypeScript compilation (`tsc --noEmit`) passes cleanly — the project is valid.
 - Route tree (`routeTree.gen.ts`) auto-regenerated when `memory.$slug.tsx` was created; no manual changes needed.
 
 ### Relevant Files
+
 - `src/routes/memory.$slug.tsx`: dynamic route for memory detail pages with image carousel.
 - `src/components/portfolio/Gallery.tsx`: Memories gallery section using ProjectCard.
 - `src/components/portfolio/ProjectCard.tsx`: `Memory` interface with `slug` field; clickable via TanStack Router `Link`.

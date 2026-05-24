@@ -10,7 +10,7 @@ const highlights = [
   { icon: Users, label: "Student ID", value: "2021456789" },
 ];
 
-export function Introduction() {
+export function Invitation() {
   return (
     <section id="invitation" className="px-4 py-32 sm:px-6">
       <div className="mx-auto max-w-7xl">
@@ -40,20 +40,25 @@ export function Introduction() {
               transition={{ duration: 0.6, delay: 0.15 }}
               className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground"
             >
-              This graduation is not only the end of a university journey, but also a moment
-              to thank my family, teachers, and friends who have supported me along the way.
+              This graduation is not only the end of a university journey, but also a moment to
+              thank my family, teachers, and friends who have supported me along the way.
             </motion.p>
 
             <Reveal className="mt-12 grid gap-4 sm:grid-cols-2">
               {highlights.map((h) => {
                 const Icon = h.icon;
                 return (
-                  <RevealItem key={h.label} className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4">
+                  <RevealItem
+                    key={h.label}
+                    className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4"
+                  >
                     <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent">
                       <Icon size={16} />
                     </div>
                     <div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{h.label}</p>
+                      <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                        {h.label}
+                      </p>
                       <p className="text-sm font-medium">{h.value}</p>
                     </div>
                   </RevealItem>

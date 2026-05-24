@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, MapPin, Mail, Calendar, GraduationCap } from "lucide-react";
-import { Signature } from "./Signature";
 import { Reveal, RevealItem } from "./Reveal";
+import { ParticleField } from "./ParticleField";
 
 const info = [
   { Icon: GraduationCap, text: "Crestwood University" },
@@ -12,8 +12,9 @@ const info = [
 
 export function Hero() {
   return (
-    <section id="home" className="relative px-4 pt-32 sm:px-6 lg:pt-40">
-      <div className="mx-auto max-w-7xl">
+    <section id="home" className="relative overflow-hidden px-4 pt-32 sm:px-6 lg:pt-40">
+      <ParticleField />
+      <div className="relative z-10 mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -36,14 +37,6 @@ export function Hero() {
           >
             graduation
           </motion.h1>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotate: -8 }}
-            animate={{ opacity: 1, scale: 1, rotate: -6 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="pointer-events-none absolute inset-0 flex items-center justify-center text-signature"
-          >
-            <Signature className="h-[40%] w-[70%] -translate-y-2" />
-          </motion.div>
         </div>
 
         <motion.div
@@ -57,8 +50,8 @@ export function Hero() {
               You are warmly invited to celebrate my university graduation ceremony.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              After years of learning, effort, and unforgettable memories, this special day
-              marks the beginning of a new journey. Your presence would make it even more meaningful.
+              After years of learning, effort, and unforgettable memories, this special day marks
+              the beginning of a new journey. Your presence would make it even more meaningful.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

@@ -69,13 +69,13 @@ Open the printed URL (usually <http://localhost:5173>).
 
 ## 4. Other scripts
 
-| Command            | What it does                          |
-| ------------------ | ------------------------------------- |
-| `npm run dev`      | Start the local dev server with HMR   |
-| `npm run build`    | Production build                      |
-| `npm run preview`  | Preview the production build locally  |
-| `npm run lint`     | Run ESLint                            |
-| `npm run format`   | Format code with Prettier             |
+| Command           | What it does                         |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start the local dev server with HMR  |
+| `npm run build`   | Production build                     |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint`    | Run ESLint                           |
+| `npm run format`  | Format code with Prettier            |
 
 Replace `npm run` with `bun` if you prefer Bun (e.g. `bun dev`, `bun run build`).
 
@@ -83,15 +83,15 @@ Replace `npm run` with `bun` if you prefer Bun (e.g. `bun dev`, `bun run build`)
 
 ## Sections
 
-| Section | ID | Description |
-|---|---|---|
-| Hero | `#home` | Invitation headline, personal message, CTA buttons |
-| Invitation | `#invitation` | Graduate details (name, university, major, class, ID) |
-| About | `#about` | Journey story and milestone highlights |
-| Event Details | `#details` | Date, time, venue, dress code, guest notes |
-| Memories | `#memories` | 6 memory cards → each opens a detail page with image slider |
-| Timeline | `#timeline` | Event schedule (arrival → ceremony → dinner) |
-| RSVP | `#rsvp` | Contact form with EmailJS for wishes & attendance |
+| Section       | ID            | Description                                                 |
+| ------------- | ------------- | ----------------------------------------------------------- |
+| Hero          | `#home`       | Invitation headline, personal message, CTA buttons          |
+| Invitation    | `#invitation` | Graduate details (name, university, major, class, ID)       |
+| About         | `#about`      | Journey story and milestone highlights                      |
+| Event Details | `#details`    | Date, time, venue, dress code, guest notes                  |
+| Memories      | `#memories`   | 6 memory cards → each opens a detail page with image slider |
+| Timeline      | `#timeline`   | Event schedule (arrival → ceremony → dinner)                |
+| RSVP          | `#rsvp`       | Contact form with EmailJS for wishes & attendance           |
 
 ## Tech stack
 

@@ -73,14 +73,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Graduation Invitation | Jordan Riley" },
-      { name: "description", content: "You are warmly invited to celebrate my university graduation ceremony at Crestwood University." },
+      {
+        name: "description",
+        content:
+          "You are warmly invited to celebrate my university graduation ceremony at Crestwood University.",
+      },
       { property: "og:title", content: "Graduation Invitation | Jordan Riley" },
-      { property: "og:description", content: "Join us in celebrating a milestone — university graduation ceremony 2026." },
+      {
+        property: "og:description",
+        content: "Join us in celebrating a milestone — university graduation ceremony 2026.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@grad2026" },
       { name: "twitter:title", content: "Graduation Invitation | Jordan Riley" },
-      { name: "twitter:description", content: "Join us in celebrating a milestone — university graduation ceremony 2026." },
+      {
+        name: "twitter:description",
+        content: "Join us in celebrating a milestone — university graduation ceremony 2026.",
+      },
     ],
     links: [
       {

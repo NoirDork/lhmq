@@ -4,14 +4,34 @@ import { SectionTitle } from "./SectionTitle";
 import { Reveal, revealVariants } from "./Reveal";
 
 const timeline = [
-  { icon: DoorOpen, title: "Guest Arrival", desc: "Guests check in and find their seats in the main hall." },
-  { icon: Camera, title: "Photo Session", desc: "Graduates and families gather for commemorative photos." },
-  { icon: Award, title: "Graduation Ceremony", desc: "Degree conferral, speeches, and the moment we've all been waiting for." },
-  { icon: Users, title: "Family & Friends Gathering", desc: "A warm reception to celebrate with loved ones." },
-  { icon: GlassWater, title: "Celebration — Dinner", desc: "An intimate dinner to close the day with joy and gratitude." },
+  {
+    icon: DoorOpen,
+    title: "Guest Arrival",
+    desc: "Guests check in and find their seats in the main hall.",
+  },
+  {
+    icon: Camera,
+    title: "Photo Session",
+    desc: "Graduates and families gather for commemorative photos.",
+  },
+  {
+    icon: Award,
+    title: "Graduation Ceremony",
+    desc: "Degree conferral, speeches, and the moment we've all been waiting for.",
+  },
+  {
+    icon: Users,
+    title: "Family & Friends Gathering",
+    desc: "A warm reception to celebrate with loved ones.",
+  },
+  {
+    icon: GlassWater,
+    title: "Celebration — Dinner",
+    desc: "An intimate dinner to close the day with joy and gratitude.",
+  },
 ];
 
-export function Services() {
+export function Timeline() {
   return (
     <section id="timeline" className="px-4 py-32 sm:px-6">
       <div className="mx-auto max-w-7xl">

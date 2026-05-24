@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 import { revealVariants } from "./Reveal";
+import { useMouseTilt } from "@/hooks/use-mouse-tilt";
 
 export interface Memory {
   slug: string;
@@ -11,14 +12,19 @@ export interface Memory {
 }
 
 export function ProjectCard({ project }: { project: Memory }) {
+  const tilt = useMouseTilt(6);
+
   return (
     <Link to="/memory/$slug" params={{ slug: project.slug }}>
       <motion.article
         variants={revealVariants.item}
         whileHover={{ y: -4 }}
         className="group cursor-pointer rounded-3xl border border-border bg-card p-4 transition-shadow hover:shadow-xl"
+        {...tilt}
       >
-        <div className={`relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br ${project.hue}`}>
+        <div
+          className={`relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br ${project.hue}`}
+        >
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,transparent,rgba(0,0,0,0.35))]" />
           <div className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-card text-foreground transition-transform duration-500 group-hover:scale-110">
             <Heart size={16} />

@@ -21,7 +21,8 @@ export function About() {
           transition={{ duration: 0.7 }}
           className="max-w-5xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-7xl lg:text-8xl"
         >
-          A journey of <span className="text-muted-foreground">growth, passion & friendship</span> — culminating in this special day.
+          A journey of <span className="text-muted-foreground">growth, passion & friendship</span> —
+          culminating in this special day.
         </motion.h2>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-2">
@@ -32,10 +33,10 @@ export function About() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-lg leading-relaxed text-muted-foreground"
           >
-            From the first day walking onto campus to the final submission of my thesis,
-            these years have been filled with challenges, laughter, and growth. I am deeply
-            grateful to every professor, friend, and family member who stood by me. This
-            graduation is as much yours as it is mine.
+            From the first day walking onto campus to the final submission of my thesis, these years
+            have been filled with challenges, laughter, and growth. I am deeply grateful to every
+            professor, friend, and family member who stood by me. This graduation is as much yours
+            as it is mine.
           </motion.p>
 
           <Reveal as="ul" className="grid grid-cols-2 gap-3 sm:grid-cols-3">
