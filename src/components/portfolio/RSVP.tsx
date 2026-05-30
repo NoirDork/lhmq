@@ -3,30 +3,30 @@ import { SectionTitle } from "./SectionTitle";
 import { ContactForm } from "./ContactForm";
 import { Reveal, RevealItem } from "./Reveal";
 
-const wishes = ["Share a memory", "Send a blessing", "Offer a quote", "RSVP response"];
+const wishes = ["Chia sẻ kỷ niệm", "Gửi lời chúc", "Gửi câu danh ngôn", "Xác nhận tham dự"];
 
 export function RSVP() {
   return (
-    <section id="rsvp" className="px-4 py-32 sm:px-6">
+    <section id="rsvp" className="scroll-mt-24 px-4 py-20 sm:py-32 sm:px-6">
       <div className="mx-auto max-w-7xl">
-        <SectionTitle eyebrow="RSVP" title="Send Your Wishes." />
+        <SectionTitle eyebrow="RSVP" title="Gửi Lời Chúc." />
 
         <div className="mt-16 grid gap-12 lg:grid-cols-12">
           <Reveal className="space-y-8 lg:col-span-5">
             <RevealItem>
               <p className="text-lg text-muted-foreground">
-                Leave a message, blessing, or RSVP response. Your words mean a lot on this special
-                day.
+                Gửi lời nhắn, lời chúc hay xác nhận tham dự. Những dòng chia sẻ của bạn
+                thực sự ý nghĩa trong ngày đặc biệt này.
               </p>
             </RevealItem>
             <RevealItem className="space-y-4">
-              <InfoRow icon={GraduationCap} label="Graduate" value="Jordan Riley" />
-              <InfoRow icon={Mail} label="Contact" value="jordan.r@example.com" />
-              <InfoRow icon={MapPin} label="University" value="Crestwood University" />
+              <InfoRow icon={GraduationCap} label="Tốt Nghiệp" value="Lâm Hồng Minh Quân" />
+              <InfoRow icon={Mail} label="Liên Hệ" value="lamquan3005@gmail.com" />
+              <InfoRow icon={MapPin} label="Trường" value="Đại học Kinh tế - Luật, ĐHQG-HCM" />
             </RevealItem>
             <RevealItem>
               <p className="mb-3 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                You can
+                Bạn có thể
               </p>
               <ul className="grid gap-2">
                 {wishes.map((w) => (

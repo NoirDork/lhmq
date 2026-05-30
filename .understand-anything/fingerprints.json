@@ -1,0 +1,1553 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "ea676f9a3b9e3deed3900e4c28eec3ec40d07967",
+  "generatedAt": "2026-05-26T15:30:27.976Z",
+  "files": {
+    ".cursor/rules/codegraph.mdc": {
+      "filePath": ".cursor/rules/codegraph.mdc",
+      "contentHash": "f60cde20259dfcd654d8c0743ecadb6f7b9ea5f77541a3ed3c9852be3175ac77",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 39,
+      "hasStructuralAnalysis": false
+    },
+    ".env.example": {
+      "filePath": ".env.example",
+      "contentHash": "67d63a567083d6616af468fdf4645c0781fbd49978d29d053088731b97fbb620",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    ".prettierignore": {
+      "filePath": ".prettierignore",
+      "contentHash": "a0ab34b9cd9654dc9e1c96d95d129fe6748eb530bfaf271761098a08d429470a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": false
+    },
+    ".understand-anything/.understandignore": {
+      "filePath": ".understand-anything/.understandignore",
+      "contentHash": "d06aab57aed9bf407d24f583aa2c4c3a0ce660540856016254540f7fed6a54fa",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 34,
+      "hasStructuralAnalysis": false
+    },
+    "eslint.config.js": {
+      "filePath": "eslint.config.js",
+      "contentHash": "3266245a1ff610a0b37dbb8b8c77b93a125e0d8758b9838cfd04b2e0a1397d56",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@eslint/js",
+          "specifiers": [
+            "js"
+          ]
+        },
+        {
+          "source": "eslint-plugin-prettier/recommended",
+          "specifiers": [
+            "eslintPluginPrettier"
+          ]
+        },
+        {
+          "source": "globals",
+          "specifiers": [
+            "globals"
+          ]
+        },
+        {
+          "source": "eslint-plugin-react-hooks",
+          "specifiers": [
+            "reactHooks"
+          ]
+        },
+        {
+          "source": "eslint-plugin-react-refresh",
+          "specifiers": [
+            "reactRefresh"
+          ]
+        },
+        {
+          "source": "typescript-eslint",
+          "specifiers": [
+            "tseslint"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "index.html": {
+      "filePath": "index.html",
+      "contentHash": "9a60aca6b90186d3729a81fd33e6a00e3ebc6f05f58579bc48a975e9b8d2b2f4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": false
+    },
+    "package.json": {
+      "filePath": "package.json",
+      "contentHash": "0a4b5f42467cfe40dead4d0e02933f8d6f11e1c6227011b0911425f9cce91d3f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "f57a8c8e05b4ca34293b59c1a16b5e04f4db828c40e84306c79f10efe735ee57",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 150,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/__tests__/SectionTitle.test.tsx": {
+      "filePath": "src/components/portfolio/__tests__/SectionTitle.test.tsx",
+      "contentHash": "877a1af8d9cda15dfe549d545bfca14e66a31e46feb70f81aaa143d653f74750",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@testing-library/react",
+          "specifiers": [
+            "render",
+            "screen"
+          ]
+        },
+        {
+          "source": "vitest",
+          "specifiers": [
+            "describe",
+            "expect",
+            "it"
+          ]
+        },
+        {
+          "source": "../SectionTitle",
+          "specifiers": [
+            "SectionTitle"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/About.tsx": {
+      "filePath": "src/components/portfolio/About.tsx",
+      "contentHash": "62c3470b65343e44e1c6232c27f2be18c446b4ffaedcfb51f4ec337889eacec9",
+      "functions": [
+        {
+          "name": "About",
+          "params": [],
+          "exported": true,
+          "lineCount": 44
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion"
+          ]
+        },
+        {
+          "source": "./Reveal",
+          "specifiers": [
+            "Reveal",
+            "RevealItem"
+          ]
+        }
+      ],
+      "exports": [
+        "About"
+      ],
+      "totalLines": 57,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/ContactForm.tsx": {
+      "filePath": "src/components/portfolio/ContactForm.tsx",
+      "contentHash": "3beb87ae01859b880486df690c45e6020ac7cb303ef4839a6b0302f848f70304",
+      "functions": [
+        {
+          "name": "ContactForm",
+          "params": [],
+          "exported": true,
+          "lineCount": 113
+        },
+        {
+          "name": "Field",
+          "params": [
+            "{\n  label,\n  name,\n  type = \"text\",\n  placeholder,\n}"
+          ],
+          "exported": false,
+          "lineCount": 31
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useState",
+            "FormEvent"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "ArrowUpRight"
+          ]
+        },
+        {
+          "source": "@emailjs/browser",
+          "specifiers": [
+            "emailjs"
+          ]
+        },
+        {
+          "source": "canvas-confetti",
+          "specifiers": [
+            "confetti"
+          ]
+        }
+      ],
+      "exports": [
+        "ContactForm"
+      ],
+      "totalLines": 155,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/EventDetails.tsx": {
+      "filePath": "src/components/portfolio/EventDetails.tsx",
+      "contentHash": "add0c83b4129a2853bca6afa38a6042e1ae79912f85acf08159ef42c780d78ac",
+      "functions": [
+        {
+          "name": "EventDetails",
+          "params": [],
+          "exported": true,
+          "lineCount": 38
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Calendar",
+            "Clock",
+            "MapPin",
+            "Shirt",
+            "Bell"
+          ]
+        },
+        {
+          "source": "./SectionTitle",
+          "specifiers": [
+            "SectionTitle"
+          ]
+        },
+        {
+          "source": "./Reveal",
+          "specifiers": [
+            "Reveal",
+            "RevealItem"
+          ]
+        }
+      ],
+      "exports": [
+        "EventDetails"
+      ],
+      "totalLines": 52,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/Footer.tsx": {
+      "filePath": "src/components/portfolio/Footer.tsx",
+      "contentHash": "d7f75de9c202bb52d255dc08693a48d66e348ad61ef5eff370102bc23f6bcba6",
+      "functions": [
+        {
+          "name": "Footer",
+          "params": [],
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "Footer"
+      ],
+      "totalLines": 23,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/Gallery.tsx": {
+      "filePath": "src/components/portfolio/Gallery.tsx",
+      "contentHash": "9cdab021ad85cfe50f6c55dea2aeb9034bebec294f1f67fbae165e719ae7a294",
+      "functions": [
+        {
+          "name": "Gallery",
+          "params": [],
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./SectionTitle",
+          "specifiers": [
+            "SectionTitle"
+          ]
+        },
+        {
+          "source": "./ProjectCard",
+          "specifiers": [
+            "ProjectCard",
+            "Memory"
+          ]
+        },
+        {
+          "source": "./Reveal",
+          "specifiers": [
+            "Reveal"
+          ]
+        }
+      ],
+      "exports": [
+        "Gallery"
+      ],
+      "totalLines": 64,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/GraduationCap3D.tsx": {
+      "filePath": "src/components/portfolio/GraduationCap3D.tsx",
+      "contentHash": "c64affac5bac6f3316802028677c351f3e76e2dbcda7b5ca5c3e7b747a5e4dc1",
+      "functions": [
+        {
+          "name": "GraduationCap",
+          "params": [],
+          "exported": false,
+          "lineCount": 28
+        },
+        {
+          "name": "GraduationCap3D",
+          "params": [],
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useRef"
+          ]
+        },
+        {
+          "source": "@react-three/fiber",
+          "specifiers": [
+            "Canvas",
+            "useFrame"
+          ]
+        },
+        {
+          "source": "@react-three/drei",
+          "specifiers": [
+            "Float"
+          ]
+        }
+      ],
+      "exports": [
+        "GraduationCap3D"
+      ],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/Hero.tsx": {
+      "filePath": "src/components/portfolio/Hero.tsx",
+      "contentHash": "6005177aedf9bd377c404f5f39b84cdb085c7764af773abedfe8d0eab3bc5c83",
+      "functions": [
+        {
+          "name": "Hero",
+          "params": [],
+          "exported": true,
+          "lineCount": 135
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useCallback",
+            "useRef"
+          ]
+        },
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion",
+            "useMotionValue",
+            "useScroll",
+            "useSpring",
+            "useTransform",
+            "useReducedMotion"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "ArrowUpRight",
+            "MapPin",
+            "Mail",
+            "Calendar",
+            "GraduationCap"
+          ]
+        },
+        {
+          "source": "./Reveal",
+          "specifiers": [
+            "Reveal",
+            "RevealItem"
+          ]
+        },
+        {
+          "source": "./ParticleField",
+          "specifiers": [
+            "ParticleField"
+          ]
+        }
+      ],
+      "exports": [
+        "Hero"
+      ],
+      "totalLines": 156,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/Invitation.tsx": {
+      "filePath": "src/components/portfolio/Invitation.tsx",
+      "contentHash": "ff4b5d76aa211ccc0d0e9c378496c3795b060750c7204f6cff9cf9f2b13fc77e",
+      "functions": [
+        {
+          "name": "Invitation",
+          "params": [],
+          "exported": true,
+          "lineCount": 61
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion"
+          ]
+        },
+        {
+          "source": "./SectionTitle",
+          "specifiers": [
+            "SectionTitle"
+          ]
+        },
+        {
+          "source": "./Reveal",
+          "specifiers": [
+            "Reveal",
+            "RevealItem"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "GraduationCap",
+            "BookOpen",
+            "Hash",
+            "Users"
+          ]
+        }
+      ],
+      "exports": [
+        "Invitation"
+      ],
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/Navbar.tsx": {
+      "filePath": "src/components/portfolio/Navbar.tsx",
+      "contentHash": "89cba710921c40a6f00611f1a39c084a686fd49056aea65b2478240001dab516",
+      "functions": [
+        {
+          "name": "Navbar",
+          "params": [],
+          "exported": true,
+          "lineCount": 129
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Menu",
+            "X"
+          ]
+        },
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "AnimatePresence",
+            "motion"
+          ]
+        },
+        {
+          "source": "./ThemeToggle",
+          "specifiers": [
+            "ThemeToggle"
+          ]
+        }
+      ],
+      "exports": [
+        "Navbar"
+      ],
+      "totalLines": 145,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/ParticleField.tsx": {
+      "filePath": "src/components/portfolio/ParticleField.tsx",
+      "contentHash": "411ef7e41131159170aa7f9e07d2cbfa1da2d412e7e11922a30dd0f90b847b39",
+      "functions": [
+        {
+          "name": "prefersReduced",
+          "params": [],
+          "returnType": "boolean",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "ParticleField",
+          "params": [],
+          "exported": true,
+          "lineCount": 140
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useRef"
+          ]
+        }
+      ],
+      "exports": [
+        "ParticleField"
+      ],
+      "totalLines": 156,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/ProjectCard.tsx": {
+      "filePath": "src/components/portfolio/ProjectCard.tsx",
+      "contentHash": "ffad9115afc964a213f45dcc606cc0788d2680dd33ed78fffe7b16bee3db6cc8",
+      "functions": [
+        {
+          "name": "ProjectCard",
+          "params": [
+            "{ project }"
+          ],
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@tanstack/react-router",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Heart"
+          ]
+        },
+        {
+          "source": "./Reveal",
+          "specifiers": [
+            "revealVariants"
+          ]
+        },
+        {
+          "source": "@/hooks/use-mouse-tilt",
+          "specifiers": [
+            "useMouseTilt"
+          ]
+        }
+      ],
+      "exports": [
+        "ProjectCard"
+      ],
+      "totalLines": 44,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/RSVP.tsx": {
+      "filePath": "src/components/portfolio/RSVP.tsx",
+      "contentHash": "056a19c2659642782c63bee55c1d7c333eb2455ea09b707a54172fe5d33cf818",
+      "functions": [
+        {
+          "name": "RSVP",
+          "params": [],
+          "exported": true,
+          "lineCount": 46
+        },
+        {
+          "name": "InfoRow",
+          "params": [
+            "{\n  icon: Icon,\n  label,\n  value,\n}"
+          ],
+          "exported": false,
+          "lineCount": 21
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Mail",
+            "MapPin",
+            "Heart",
+            "GraduationCap"
+          ]
+        },
+        {
+          "source": "./SectionTitle",
+          "specifiers": [
+            "SectionTitle"
+          ]
+        },
+        {
+          "source": "./ContactForm",
+          "specifiers": [
+            "ContactForm"
+          ]
+        },
+        {
+          "source": "./Reveal",
+          "specifiers": [
+            "Reveal",
+            "RevealItem"
+          ]
+        }
+      ],
+      "exports": [
+        "RSVP"
+      ],
+      "totalLines": 76,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/Reveal.tsx": {
+      "filePath": "src/components/portfolio/Reveal.tsx",
+      "contentHash": "1dd57df07c085c484bdd954bc4deedbb05941e1b28e9ca0817eae31df503748e",
+      "functions": [
+        {
+          "name": "Reveal",
+          "params": [
+            "{\n  children,\n  className,\n  style,\n  as: Tag = \"div\",\n}"
+          ],
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "RevealItem",
+          "params": [
+            "{ children, className }"
+          ],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion",
+            "Variants"
+          ]
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "ReactNode"
+          ]
+        }
+      ],
+      "exports": [
+        "Reveal",
+        "RevealItem",
+        "revealVariants"
+      ],
+      "totalLines": 49,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/SectionTitle.tsx": {
+      "filePath": "src/components/portfolio/SectionTitle.tsx",
+      "contentHash": "5d6dd3f17471d5ee5a32e9f2996ed9f9a81e7886eaa55137ca47f6101f0954fb",
+      "functions": [
+        {
+          "name": "SectionTitle",
+          "params": [
+            "{\n  eyebrow,\n  title,\n  align = \"left\",\n}"
+          ],
+          "exported": true,
+          "lineCount": 33
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion"
+          ]
+        }
+      ],
+      "exports": [
+        "SectionTitle"
+      ],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/Signature.tsx": {
+      "filePath": "src/components/portfolio/Signature.tsx",
+      "contentHash": "0cf393dff220e4a04ea1fdc6be64f95c9b2d2b7e541c76e693b4242784d9d14f",
+      "functions": [
+        {
+          "name": "Signature",
+          "params": [
+            "{ className = \"\" }"
+          ],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion",
+            "Variants"
+          ]
+        }
+      ],
+      "exports": [
+        "Signature"
+      ],
+      "totalLines": 49,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/ThemeToggle.tsx": {
+      "filePath": "src/components/portfolio/ThemeToggle.tsx",
+      "contentHash": "af9b054306aae99436c5c7b2d4bd6ac792cde004791865122bb0111a4d90fd5d",
+      "functions": [
+        {
+          "name": "getThemeSnapshot",
+          "params": [],
+          "returnType": "boolean",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "subscribeToTheme",
+          "params": [
+            "callback"
+          ],
+          "returnType": "() => void",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "ThemeToggle",
+          "params": [],
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useSyncExternalStore"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Moon",
+            "Sun"
+          ]
+        }
+      ],
+      "exports": [
+        "ThemeToggle"
+      ],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/portfolio/Timeline.tsx": {
+      "filePath": "src/components/portfolio/Timeline.tsx",
+      "contentHash": "3f400b371b882caae41f593cef5ed746e8b2dcba9444e7cd86d1978b5062de33",
+      "functions": [
+        {
+          "name": "TimelineCard",
+          "params": [
+            "{ event, index }"
+          ],
+          "exported": false,
+          "lineCount": 34
+        },
+        {
+          "name": "Timeline",
+          "params": [],
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useRef"
+          ]
+        },
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion",
+            "useScroll",
+            "useTransform"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "DoorOpen",
+            "Camera",
+            "Award",
+            "Users",
+            "GlassWater"
+          ]
+        },
+        {
+          "source": "./SectionTitle",
+          "specifiers": [
+            "SectionTitle"
+          ]
+        },
+        {
+          "source": "./Reveal",
+          "specifiers": [
+            "Reveal",
+            "revealVariants"
+          ]
+        }
+      ],
+      "exports": [
+        "Timeline"
+      ],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/ui/button.tsx": {
+      "filePath": "src/components/ui/button.tsx",
+      "contentHash": "e39813b666ba434660ec088356a0349246b6803a4e99961295d0c82bab1ab862",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "* as React"
+          ]
+        },
+        {
+          "source": "@radix-ui/react-slot",
+          "specifiers": [
+            "Slot"
+          ]
+        },
+        {
+          "source": "class-variance-authority",
+          "specifiers": [
+            "cva",
+            "VariantProps"
+          ]
+        },
+        {
+          "source": "@/lib/utils",
+          "specifiers": [
+            "cn"
+          ]
+        }
+      ],
+      "exports": [
+        "Button",
+        "buttonVariants"
+      ],
+      "totalLines": 50,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/ui/carousel.tsx": {
+      "filePath": "src/components/ui/carousel.tsx",
+      "contentHash": "568e00e8edbfab8af67ee902ca9ef5ceb6d5ed6f3045e7f9b3c15b4f7ef9e974",
+      "functions": [
+        {
+          "name": "useCarousel",
+          "params": [],
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "* as React"
+          ]
+        },
+        {
+          "source": "embla-carousel-react",
+          "specifiers": [
+            "useEmblaCarousel",
+            "UseEmblaCarouselType"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "ArrowLeft",
+            "ArrowRight"
+          ]
+        },
+        {
+          "source": "@/lib/utils",
+          "specifiers": [
+            "cn"
+          ]
+        },
+        {
+          "source": "@/components/ui/button",
+          "specifiers": [
+            "Button"
+          ]
+        }
+      ],
+      "exports": [
+        "CarouselApi",
+        "Carousel",
+        "CarouselContent",
+        "CarouselItem",
+        "CarouselPrevious",
+        "CarouselNext"
+      ],
+      "totalLines": 241,
+      "hasStructuralAnalysis": true
+    },
+    "src/env.d.ts": {
+      "filePath": "src/env.d.ts",
+      "contentHash": "6773431cac0b1e546f5cc069315262113875db0b74884c10b5edc918756a9dd8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": true
+    },
+    "src/hooks/use-mobile.tsx": {
+      "filePath": "src/hooks/use-mobile.tsx",
+      "contentHash": "21eff740f9e5c965c7f0782925a7e8f67ddfcdf0f58b6613550f99c3e1c454e9",
+      "functions": [
+        {
+          "name": "useIsMobile",
+          "params": [],
+          "exported": true,
+          "lineCount": 15
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "* as React"
+          ]
+        }
+      ],
+      "exports": [
+        "useIsMobile"
+      ],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "src/hooks/use-mouse-tilt.ts": {
+      "filePath": "src/hooks/use-mouse-tilt.ts",
+      "contentHash": "7516b84ef8f5cb8f7488c46db0234bff0bf89a5f4c98b3975e6489ac9b74ffad",
+      "functions": [
+        {
+          "name": "useMouseTilt",
+          "params": [
+            "degrees"
+          ],
+          "returnType": "TiltResult",
+          "exported": true,
+          "lineCount": 41
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "useMotionValue",
+            "useSpring",
+            "useTransform",
+            "useMotionTemplate"
+          ]
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "useCallback"
+          ]
+        }
+      ],
+      "exports": [
+        "useMouseTilt"
+      ],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "src/lib/utils.ts": {
+      "filePath": "src/lib/utils.ts",
+      "contentHash": "d1f1e0d62cb8d8d1e04c26e14de842d8a151f75812d81b046c65b5d1fe8e4b27",
+      "functions": [
+        {
+          "name": "cn",
+          "params": [
+            "...inputs"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "clsx",
+          "specifiers": [
+            "clsx",
+            "ClassValue"
+          ]
+        },
+        {
+          "source": "tailwind-merge",
+          "specifiers": [
+            "twMerge"
+          ]
+        }
+      ],
+      "exports": [
+        "cn"
+      ],
+      "totalLines": 7,
+      "hasStructuralAnalysis": true
+    },
+    "src/main.tsx": {
+      "filePath": "src/main.tsx",
+      "contentHash": "75767cd02887b8d5918a4c2ad8b6ed5a1b892162e1b6f029a7cd20dac0636af9",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "StrictMode"
+          ]
+        },
+        {
+          "source": "react-dom/client",
+          "specifiers": [
+            "ReactDOM"
+          ]
+        },
+        {
+          "source": "@tanstack/react-router",
+          "specifiers": [
+            "RouterProvider"
+          ]
+        },
+        {
+          "source": "./router",
+          "specifiers": [
+            "getRouter"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "src/router.tsx": {
+      "filePath": "src/router.tsx",
+      "contentHash": "282f1e9561d53125bd878262ad764601aa61608f89b5b72089c4c4e148374024",
+      "functions": [
+        {
+          "name": "getRouter",
+          "params": [],
+          "exported": true,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@tanstack/react-router",
+          "specifiers": [
+            "createRouter"
+          ]
+        },
+        {
+          "source": "./routeTree.gen",
+          "specifiers": [
+            "routeTree"
+          ]
+        }
+      ],
+      "exports": [
+        "getRouter"
+      ],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "src/routes/__root.tsx": {
+      "filePath": "src/routes/__root.tsx",
+      "contentHash": "26f7cb1a2c7a8389b80e85c24f115521a17eb8cadf354653de02d8ce547274a2",
+      "functions": [
+        {
+          "name": "NotFoundComponent",
+          "params": [],
+          "exported": false,
+          "lineCount": 21
+        },
+        {
+          "name": "ErrorComponent",
+          "params": [
+            "{ error, reset }"
+          ],
+          "exported": false,
+          "lineCount": 34
+        },
+        {
+          "name": "RootComponent",
+          "params": [],
+          "exported": false,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "lazy",
+            "Suspense"
+          ]
+        },
+        {
+          "source": "@tanstack/react-router",
+          "specifiers": [
+            "Outlet",
+            "Link",
+            "createRootRoute",
+            "useRouter",
+            "HeadContent"
+          ]
+        },
+        {
+          "source": "../styles.css",
+          "specifiers": []
+        }
+      ],
+      "exports": [
+        "Route",
+        "component"
+      ],
+      "totalLines": 85,
+      "hasStructuralAnalysis": true
+    },
+    "src/routes/index.tsx": {
+      "filePath": "src/routes/index.tsx",
+      "contentHash": "492fb50ce2743e5a8f19969517c0d594cc81ae227518e48181e14e2dc5781347",
+      "functions": [
+        {
+          "name": "Index",
+          "params": [],
+          "exported": false,
+          "lineCount": 15
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@tanstack/react-router",
+          "specifiers": [
+            "createFileRoute"
+          ]
+        },
+        {
+          "source": "@/components/portfolio/Navbar",
+          "specifiers": [
+            "Navbar"
+          ]
+        },
+        {
+          "source": "@/components/portfolio/Hero",
+          "specifiers": [
+            "Hero"
+          ]
+        },
+        {
+          "source": "@/components/portfolio/Invitation",
+          "specifiers": [
+            "Invitation"
+          ]
+        },
+        {
+          "source": "@/components/portfolio/About",
+          "specifiers": [
+            "About"
+          ]
+        },
+        {
+          "source": "@/components/portfolio/EventDetails",
+          "specifiers": [
+            "EventDetails"
+          ]
+        },
+        {
+          "source": "@/components/portfolio/Gallery",
+          "specifiers": [
+            "Gallery"
+          ]
+        },
+        {
+          "source": "@/components/portfolio/Timeline",
+          "specifiers": [
+            "Timeline"
+          ]
+        },
+        {
+          "source": "@/components/portfolio/RSVP",
+          "specifiers": [
+            "RSVP"
+          ]
+        },
+        {
+          "source": "@/components/portfolio/Footer",
+          "specifiers": [
+            "Footer"
+          ]
+        }
+      ],
+      "exports": [
+        "Route"
+      ],
+      "totalLines": 73,
+      "hasStructuralAnalysis": true
+    },
+    "src/routes/memory.$slug.tsx": {
+      "filePath": "src/routes/memory.$slug.tsx",
+      "contentHash": "83e6b09476a48c6d0c4d6690a4d22f7298945c10844fbbe0d3eab6ee4c4d07ec",
+      "functions": [
+        {
+          "name": "imageUrl",
+          "params": [
+            "slug",
+            "index"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "ImageWithSkeleton",
+          "params": [
+            "{ src, alt, hue }"
+          ],
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "MemoryDetail",
+          "params": [],
+          "exported": false,
+          "lineCount": 84
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "@tanstack/react-router",
+          "specifiers": [
+            "Link",
+            "createFileRoute"
+          ]
+        },
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "ArrowLeft",
+            "Heart"
+          ]
+        },
+        {
+          "source": "@/components/ui/carousel",
+          "specifiers": [
+            "Carousel",
+            "CarouselContent",
+            "CarouselItem",
+            "CarouselNext",
+            "CarouselPrevious"
+          ]
+        }
+      ],
+      "exports": [
+        "Route"
+      ],
+      "totalLines": 197,
+      "hasStructuralAnalysis": true
+    },
+    "src/routeTree.gen.ts": {
+      "filePath": "src/routeTree.gen.ts",
+      "contentHash": "6cf92946404dd352856e4e9191a6215000725686877cffb973d386d7014ecb68",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./routes/__root",
+          "specifiers": [
+            "rootRouteImport"
+          ]
+        },
+        {
+          "source": "./routes/index",
+          "specifiers": [
+            "IndexRouteImport"
+          ]
+        },
+        {
+          "source": "./routes/memory.$slug",
+          "specifiers": [
+            "MemorySlugRouteImport"
+          ]
+        }
+      ],
+      "exports": [
+        "routeTree"
+      ],
+      "totalLines": 78,
+      "hasStructuralAnalysis": true
+    },
+    "src/styles.css": {
+      "filePath": "src/styles.css",
+      "contentHash": "553fc937b853363158ed94b6430b5e75442fcf7ca492762258da20c64b0e44d5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 83,
+      "hasStructuralAnalysis": false
+    },
+    "src/test/setup.ts": {
+      "filePath": "src/test/setup.ts",
+      "contentHash": "0186b0d60b57c08e0b954cf77d3c02cac977aacf310febcaef51244bdca93f46",
+      "functions": [],
+      "classes": [
+        {
+          "name": "MockIntersectionObserver",
+          "methods": [
+            "observe",
+            "unobserve",
+            "disconnect",
+            "takeRecords"
+          ],
+          "properties": [
+            "root",
+            "rootMargin",
+            "thresholds"
+          ],
+          "exported": false,
+          "lineCount": 11
+        }
+      ],
+      "imports": [
+        {
+          "source": "@testing-library/jest-dom/vitest",
+          "specifiers": []
+        }
+      ],
+      "exports": [],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "tsconfig.json": {
+      "filePath": "tsconfig.json",
+      "contentHash": "8f085c1d4841928370f6922fc9b8cabe3dfe84d266fc734a08d3e0dc3f92490d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "vercel.json": {
+      "filePath": "vercel.json",
+      "contentHash": "0faf96401e6d774a6277f4df8a4883e33c9e5468b685f5ecad85221e01fa79a0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "vite.config.ts": {
+      "filePath": "vite.config.ts",
+      "contentHash": "9bf6cd773b1b07b85030238a5c4176f5f3695236d6e9f18baff07b4b0fc5121f",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vite",
+          "specifiers": [
+            "defineConfig"
+          ]
+        },
+        {
+          "source": "@tanstack/router-plugin/vite",
+          "specifiers": [
+            "TanStackRouterVite"
+          ]
+        },
+        {
+          "source": "@vitejs/plugin-react",
+          "specifiers": [
+            "react"
+          ]
+        },
+        {
+          "source": "@tailwindcss/vite",
+          "specifiers": [
+            "tailwindcss"
+          ]
+        },
+        {
+          "source": "vite-tsconfig-paths",
+          "specifiers": [
+            "tsconfigPaths"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": true
+    },
+    "vitest.config.ts": {
+      "filePath": "vitest.config.ts",
+      "contentHash": "1851d7d53c08265c3f9a98da38031d0b0f210134adf158fcb196f66457c529ca",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "vitest/config",
+          "specifiers": [
+            "defineConfig"
+          ]
+        },
+        {
+          "source": "@vitejs/plugin-react",
+          "specifiers": [
+            "react"
+          ]
+        },
+        {
+          "source": "vite-tsconfig-paths",
+          "specifiers": [
+            "tsconfigPaths"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

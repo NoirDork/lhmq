@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ThemeToggle } from "./ThemeToggle";
 
 const links = [
-  { href: "#home", label: "Home" },
-  { href: "#invitation", label: "Invitation" },
-  { href: "#details", label: "Details" },
-  { href: "#memories", label: "Memories" },
+  { href: "#home", label: "Trang chủ" },
+  { href: "#invitation", label: "Lời Mời" },
+  { href: "#details", label: "Chi Tiết" },
+  { href: "#memories", label: "Kỷ Niệm" },
   { href: "#rsvp", label: "RSVP" },
 ];
 
@@ -21,7 +20,7 @@ export function Navbar() {
       initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: easeOut }}
-      className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6"
+      className="fixed inset-x-0 top-4 z-50 mx-auto max-w-[calc(100vw-2rem)] sm:max-w-none sm:inset-x-6"
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-border bg-card/80 px-4 py-2 backdrop-blur-xl sm:px-6">
         <motion.a
@@ -33,8 +32,9 @@ export function Navbar() {
         >
           <motion.span
             className="inline-block h-2 w-2 rounded-full bg-signature"
+            initial={{ scale: 1, opacity: 1 }}
             animate={{ scale: [1, 1.25, 1], opacity: [1, 0.75, 1] }}
-            transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 2.4, repeat: 2, ease: "easeInOut" }}
           />
           grad<span className="text-muted-foreground">·2026</span>
         </motion.a>
@@ -63,7 +63,6 @@ export function Navbar() {
           ))}
         </ul>
         <div className="flex items-center gap-2">
-          <ThemeToggle />
           <motion.a
             href="#rsvp"
             whileHover={{ scale: 1.04 }}
@@ -71,7 +70,7 @@ export function Navbar() {
             transition={{ type: "spring", stiffness: 400, damping: 22 }}
             className="hidden rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 md:inline-flex"
           >
-            Send Wishes
+            Gửi Lời Chúc
           </motion.a>
           <motion.button
             whileTap={{ scale: 0.92 }}

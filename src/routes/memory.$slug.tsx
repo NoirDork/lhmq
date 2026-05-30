@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowLeft, Heart } from "lucide-react";
@@ -18,51 +19,46 @@ const memories: Record<
   { title: string; caption: string; detail: string; hue: string; images: number }
 > = {
   "university-memories": {
-    title: "University Memories",
-    caption: "From lectures to late nights — every moment shaped who I am today.",
+    title: "Kỷ Niệm Đại Học",
+    caption: "Từ những buổi học đến đêm khuya — từng khoảnh khắc đã tạo nên tôi của ngày hôm nay.",
     detail:
-      "The university years were a whirlwind of new experiences. From the very first lecture hall to the final exam, every day brought something new — friendships, knowledge, challenges, and triumphs. The library sessions, the group projects, the cafeteria laughs — all of it built the foundation for who I've become.",
-    hue: "from-amber-200 to-rose-300 dark:from-amber-900/60 dark:to-rose-900/60",
-    images: 5,
+      "Những năm đại học là chuỗi ngày trải nghiệm mới mẻ. Từ giảng đường đầu tiên đến kỳ thi cuối cùng, mỗi ngày đều mang đến điều mới — tình bạn, kiến thức, thử thách và chiến thắng. Những buổi học trong thư viện, đồ án nhóm, tiếng cười ở căng tin — tất cả đã xây nên con người tôi hôm nay.",
+    hue: "from-amber-900/60 to-rose-900/60",
   },
   "friends-classmates": {
-    title: "Friends & Classmates",
-    caption: "The people who made the journey unforgettable.",
+    title: "Bạn Bè & Đồng Môn",
+    caption: "Những người đã làm hành trình này thật khó quên.",
     detail:
-      "None of this would have been the same without the incredible people I met along the way. Classmates who became study partners, then became friends, then became family. The shared stress before exams, the celebrations after deadlines, and the countless memories in between — these bonds will last a lifetime.",
-    hue: "from-emerald-200 to-teal-400 dark:from-emerald-900/60 dark:to-teal-900/60",
-    images: 5,
+      "Mọi thứ sẽ chẳng thể trọn vẹn nếu thiếu những con người tuyệt vời tôi gặp trên đường đời. Bạn học thành bạn nhóm, rồi thành bạn thân, rồi thành gia đình. Những áp lực trước kỳ thi, những niềm vui sau hạn chót, và vô vàn kỷ niệm giữa những khoảnh khắc ấy — những sợi dây liên kết này sẽ tồn tại mãi.",
+    hue: "from-emerald-900/60 to-teal-900/60",
   },
   "graduation-moments": {
-    title: "Graduation Moments",
-    caption: "The cap toss, the smiles, and the pride of reaching this day.",
+    title: "Khoảnh Khắc Tốt Nghiệp",
+    caption: "Những nụ cười, niềm tự hào và chiếc mũ cử nhân tung bay.",
     detail:
-      "Walking across that stage, diploma in hand, was the culmination of years of dedication. The applause, the cheers from family in the crowd, the weight of the graduation gown — every second was surreal. This is the moment we all worked toward, and it was everything we dreamed it would be.",
-    hue: "from-slate-300 to-slate-500 dark:from-slate-700 dark:to-slate-900",
-    images: 5,
+      "Bước lên sân khấu, tấm bằng trong tay, là kết tinh của bao năm cống hiến. Tiếng vỗ tay, tiếng reo hò của gia đình dưới khán đài, sức nặng của áo cử nhân — từng giây phút thật kỳ diệu. Đây là khoảnh khắc tất cả chúng ta đã hướng đến, và nó đẹp hơn cả những gì ta từng mơ.",
+    hue: "from-slate-700 to-slate-900",
   },
   "behind-the-journey": {
-    title: "Behind the Journey",
-    caption: "The sweat, tears, and perseverance that led to this milestone.",
+    title: "Hậu Trường Hành Trình",
+    caption: "Mồ hôi, nước mắt và sự kiên trì dẫn đến cột mốc này.",
     detail:
-      "What you see on graduation day is just the tip of the iceberg. Behind every cap and gown are countless all-nighters, moments of doubt, pages of notes, cups of coffee, and the quiet determination to keep going when things got hard. This journey taught me resilience, patience, and the value of hard work.",
-    hue: "from-stone-200 to-stone-400 dark:from-stone-700 dark:to-stone-900",
-    images: 4,
+      "Những gì bạn thấy trong ngày tốt nghiệp chỉ là phần nổi của tảng băng. Đằng sau mỗi chiếc mũ và áo cử nhân là vô số đêm thức trắng, những phút giây nghi ngờ, hàng trang ghi chép, vô số tách cà phê và quyết tâm thầm lặng để tiếp tục bước đi. Hành trình này đã dạy tôi về sự kiên cường, nhẫn nại và giá trị của lao động chăm chỉ.",
+    hue: "from-stone-700 to-stone-900",
   },
   "family-support": {
-    title: "Family Support",
-    caption: "To my family — thank you for believing in me every step of the way.",
+    title: "Hậu Phương Gia Đình",
+    caption: "Gửi lời cảm ơn đến gia đình — những người luôn tin tưởng tôi từng bước trên đường đời.",
     detail:
-      "My family has been my anchor through it all. From the late-night pep talks to the unwavering belief in my potential, they never let me give up. They celebrated my small victories and lifted me during my low moments. This diploma is as much theirs as it is mine.",
-    hue: "from-indigo-200 to-violet-300 dark:from-indigo-900/60 dark:to-violet-900/60",
-    images: 3,
+      "Gia đình là điểm tựa của tôi trong suốt chặng đường. Từ những lời động viên lúc nửa đêm đến niềm tin không lay chuyển vào khả năng của tôi, họ không bao giờ để tôi bỏ cuộc. Họ cùng tôi ăn mừng từng chiến thắng nhỏ và nâng tôi dậy trong những giây phút yếu lòng. Tấm bằng này thuộc về họ cũng như thuộc về tôi.",
+    hue: "from-indigo-900/60 to-violet-900/60",
   },
   "new-beginning": {
-    title: "New Beginning",
-    caption: "One chapter ends — a new adventure begins.",
+    title: "Khởi Đầu Mới",
+    caption: "Một chương kết thúc — một cuộc phiêu lưu mới bắt đầu.",
     detail:
-      "Graduation isn't just an ending — it's a doorway to everything that comes next. Armed with knowledge, memories, and the support of those who believed in me, I'm ready to step into the world and build the future. The best is yet to come.",
-    hue: "from-sky-200 to-cyan-300 dark:from-sky-900/60 dark:to-cyan-900/60",
+      "Tốt nghiệp không chỉ là điểm kết — mà là cánh cửa mở ra mọi điều phía trước. Với hành trang kiến thức, kỷ niệm và sự ủng hộ của những người tin tưởng tôi, tôi sẵn sàng bước ra thế giới và xây dựng tương lai. Những điều tốt đẹp nhất vẫn đang chờ đón.",
+    hue: "from-sky-900/60 to-cyan-900/60",
     images: 3,
   },
 };
@@ -71,20 +67,43 @@ export const Route = createFileRoute("/memory/$slug")({
   notFoundComponent: () => (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-4xl font-bold text-foreground">Memory not found</h1>
-        <p className="mt-4 text-muted-foreground">This memory doesn't seem to exist.</p>
+        <h1 className="text-4xl font-bold text-foreground">Không tìm thấy</h1>
+        <p className="mt-4 text-muted-foreground">Kỷ niệm này không tồn tại.</p>
         <Link
           to="/"
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
           <ArrowLeft size={16} />
-          Back home
+          Về trang chủ
         </Link>
       </div>
     </div>
   ),
   component: MemoryDetail,
 });
+
+function ImageWithSkeleton({ src, alt, hue }: { src: string; alt: string; hue: string }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="relative aspect-[16/9] overflow-hidden rounded-3xl">
+      <div className={`absolute inset-0 bg-gradient-to-br ${hue}`} />
+      {!loaded && <div className="absolute inset-0 animate-pulse bg-accent/50" />}
+      <img
+        src={src}
+        alt={alt}
+        onLoad={() => setLoaded(true)}
+        className={`absolute inset-0 h-full w-full object-cover mix-blend-overlay transition-opacity duration-500 ${loaded ? "opacity-70" : "opacity-0"}`}
+        loading="lazy"
+      />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,transparent,rgba(0,0,0,0.35))]" />
+      <div className="absolute bottom-6 left-6 inline-flex items-center gap-2 rounded-full bg-card/80 px-4 py-2 text-sm backdrop-blur">
+        <Heart size={14} className="text-signature" />
+        <span>{alt.split("—")[1]?.trim() ?? ""}</span>
+      </div>
+    </div>
+  );
+}
 
 function MemoryDetail() {
   const { slug } = Route.useParams();
@@ -105,7 +124,7 @@ function MemoryDetail() {
             className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" />
-            Back to home
+            Về trang chủ
           </Link>
         </motion.div>
 
@@ -119,22 +138,11 @@ function MemoryDetail() {
             <CarouselContent>
               {Array.from({ length: memory.images }).map((_, i) => (
                 <CarouselItem key={i}>
-                  <div className="relative aspect-[16/9] overflow-hidden rounded-3xl">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${memory.hue}`} />
-                    <img
-                      src={imageUrl(slug, i)}
-                      alt={`${memory.title} — photo ${i + 1}`}
-                      className="absolute inset-0 h-full w-full object-cover mix-blend-overlay opacity-70"
-                      loading={i === 0 ? "eager" : "lazy"}
-                    />
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,transparent,rgba(0,0,0,0.35))]" />
-                    <div className="absolute bottom-6 left-6 inline-flex items-center gap-2 rounded-full bg-card/80 px-4 py-2 text-sm backdrop-blur">
-                      <Heart size={14} className="text-signature" />
-                      <span>
-                        {i + 1} / {memory.images}
-                      </span>
-                    </div>
-                  </div>
+                  <ImageWithSkeleton
+                    src={imageUrl(slug, i)}
+                    alt={`${memory.title} — photo ${i + 1} / ${memory.images}`}
+                    hue={memory.hue}
+                  />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -174,7 +182,7 @@ function MemoryDetail() {
             className="group inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium transition-colors hover:bg-accent"
           >
             <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" />
-            Back to all memories
+            Xem tất cả kỷ niệm
           </Link>
         </motion.div>
       </div>

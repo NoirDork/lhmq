@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Particle {
   x: number;
@@ -15,9 +16,10 @@ function prefersReduced(): boolean {
 
 export function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
-    if (prefersReduced()) return;
+    if (prefersReduced() || isMobile) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -25,12 +27,28 @@ export function ParticleField() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let animId: number;
+    let animId: number | null = null;
     let w = 0;
     let h = 0;
+    let isVisible = true;
 
     const particles: Particle[] = [];
-    const PARTICLE_COUNT = 40;
+    const PARTICLE_COUNT = window.innerWidth < 1024 ? 20 : 40;
+
+    function handleVisibilityChange() {
+      if (document.hidden) {
+        isVisible = false;
+        if (animId !== null) {
+          cancelAnimationFrame(animId);
+          animId = null;
+        }
+      } else {
+        isVisible = true;
+        if (animId === null) {
+          animId = requestAnimationFrame(animate);
+        }
+      }
+    }
 
     function resize() {
       const parent = canvas!.parentElement!;
@@ -85,6 +103,8 @@ export function ParticleField() {
     }
 
     function animate() {
+      if (!isVisible) return;
+
       ctx!.clearRect(0, 0, w, h);
 
       for (const p of particles) {
@@ -115,15 +135,19 @@ export function ParticleField() {
 
     resize();
     initParticles();
-    animate();
+    animId = requestAnimationFrame(animate);
 
     window.addEventListener("resize", resize);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      cancelAnimationFrame(animId);
+      if (animId !== null) cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
+
+  if (isMobile) return null;
 
   return (
     <canvas

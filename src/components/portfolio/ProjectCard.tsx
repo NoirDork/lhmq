@@ -30,7 +30,7 @@ export function ProjectCard({ project }: { project: Memory }) {
             <Heart size={16} />
           </div>
           <span className="absolute bottom-4 left-4 rounded-full bg-card/80 px-3 py-1 text-xs backdrop-blur">
-            Memory
+            Kỷ Niệm
           </span>
         </div>
         <div className="px-2 pb-2 pt-5">

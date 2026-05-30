@@ -1,0 +1,182 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "tanstack_start_ts",
+    "languages": ["typescript","javascript","css","html","json","markdown"],
+    "frameworks": ["React","Vite","Tailwind CSS","Framer Motion","TanStack Router","Vitest","Three.js"],
+    "description": "A modern graduation invitation website built with React 19, TanStack Start, Tailwind CSS, and Framer Motion.",
+    "analyzedAt": "2026-05-26T22:29:37.0320344+07:00",
+    "gitCommitHash": "ea676f9a3b9e3deed3900e4c28eec3ec40d07967"
+  },
+  "nodes": [{"id":"file:src/components/ui/button.tsx","name":"src/components/ui/button.tsx","tags":["button","ui","shadcn-ui","cva"],"complexity":"moderate","filePath":null,"type":"file","summary":"Shadcn/ui-style Button component with variant and size props, built with class-variance-authority and Radix Slot for polymorphic rendering."},{"id":"file:src/components/ui/carousel.tsx","name":"src/components/ui/carousel.tsx","tags":["carousel","ui","embla","slider"],"complexity":"moderate","filePath":null,"type":"file","summary":"Accessible carousel component built on Embla Carousel with custom navigation buttons and keyboard support, providing scroll state via React Context."},{"id":"file:src/lib/utils.ts","name":"src/lib/utils.ts","tags":["utility","tailwind","cn"],"complexity":"moderate","filePath":null,"type":"file","summary":"Tailwind CSS class merging utility combining clsx and tailwind-merge for conditional class name handling."},{"id":"file:src/main.tsx","name":"src/main.tsx","tags":["entry-point","react","root"],"complexity":"moderate","filePath":null,"type":"file","summary":"Application entry point that mounts the TanStack Router provider into the DOM root element."},{"id":"file:src/routeTree.gen.ts","name":"src/routeTree.gen.ts","tags":["generated","router","route-tree"],"complexity":"moderate","filePath":null,"type":"file","summary":"Auto-generated TanStack Router route tree defining two routes: index (/) and memory detail (/memory/$slug)."},{"id":"file:src/router.tsx","name":"src/router.tsx","tags":["router","tanstack-router"],"complexity":"moderate","filePath":null,"type":"file","summary":"Router factory function that creates a TanStack Router instance with the generated route tree and scroll restoration enabled."},{"id":"file:src/routes/__root.tsx","name":"src/routes/__root.tsx","tags":["root-route","layout","error-boundary"],"complexity":"moderate","filePath":null,"type":"file","summary":"Root route layout with 404 not-found page, error boundary component with retry, 3D graduation cap animation, and Outlet for child routes."},{"id":"file:src/routes/memory.$slug.tsx","name":"src/routes/memory.$slug.tsx","tags":["memory","detail","carousel","gallery"],"complexity":"moderate","filePath":null,"type":"file","summary":"Dynamic memory detail page with image carousel, lazy-loaded images with skeleton placeholders, and animated page transitions using Framer Motion."},{"id":"function:src/components/ui/button.tsx:Button","name":"Button","tags":["component","button"],"complexity":"moderate","filePath":null,"type":"function","summary":"Polymorphic button component supporting variant, size, and asChild props via Radix Slot."},{"id":"function:src/components/ui/carousel.tsx:Carousel","name":"Carousel","tags":["component","carousel"],"complexity":"moderate","filePath":null,"type":"function","summary":"Main carousel container managing Embla instance, scroll state, and keyboard navigation."},{"id":"function:src/components/ui/carousel.tsx:CarouselContent","name":"CarouselContent","tags":["component","carousel"],"complexity":"moderate","filePath":null,"type":"function","summary":"Carousel content wrapper that renders the scrollable track."},{"id":"function:src/components/ui/carousel.tsx:CarouselItem","name":"CarouselItem","tags":["component","carousel"],"complexity":"moderate","filePath":null,"type":"function","summary":"Individual carousel slide with full-width basis and role=\u0027group\u0027 for accessibility."},{"id":"function:src/components/ui/carousel.tsx:CarouselNext","name":"CarouselNext","tags":["component","carousel","navigation"],"complexity":"moderate","filePath":null,"type":"function","summary":"Next slide navigation button with ArrowRight icon, positioned absolutely."},{"id":"function:src/components/ui/carousel.tsx:CarouselPrevious","name":"CarouselPrevious","tags":["component","carousel","navigation"],"complexity":"moderate","filePath":null,"type":"function","summary":"Previous slide navigation button with ArrowLeft icon, positioned absolutely."},{"id":"function:src/components/ui/carousel.tsx:useCarousel","name":"useCarousel","tags":["hook","context"],"complexity":"moderate","filePath":null,"type":"function","summary":"Custom hook consuming CarouselContext; throws if used outside a Carousel."},{"id":"function:src/lib/utils.ts:cn","name":"cn","tags":["utility","tailwind"],"complexity":"moderate","filePath":null,"type":"function","summary":"Merges Tailwind CSS classes using clsx for conditional logic and tailwind-merge for conflict resolution."},{"id":"function:src/router.tsx:getRouter","name":"getRouter","tags":["factory","router"],"complexity":"moderate","filePath":null,"type":"function","summary":"Creates and returns a TanStack Router instance with the generated route tree and scroll restoration."},{"id":"function:src/routes/__root.tsx:ErrorComponent","name":"ErrorComponent","tags":["component","error-boundary"],"complexity":"moderate","filePath":null,"type":"function","summary":"Error boundary UI showing error message with try-again and go-home buttons."},{"id":"function:src/routes/__root.tsx:NotFoundComponent","name":"NotFoundComponent","tags":["component","404"],"complexity":"moderate","filePath":null,"type":"function","summary":"404 not-found page with a large heading, description, and go-home link."},{"id":"function:src/routes/__root.tsx:RootComponent","name":"RootComponent","tags":["component","layout"],"complexity":"moderate","filePath":null,"type":"function","summary":"Root layout rendering HeadContent, Suspense-wrapped 3D graduation cap, and child route Outlet."},{"id":"function:src/routes/memory.$slug.tsx:ImageWithSkeleton","name":"ImageWithSkeleton","tags":["component","image","lazy-load"],"complexity":"moderate","filePath":null,"type":"function","summary":"Lazy-loaded image with gradient overlay, skeleton placeholder, and caption badge."},{"id":"function:src/routes/memory.$slug.tsx:MemoryDetail","name":"MemoryDetail","tags":["component","page","memory"],"complexity":"moderate","filePath":null,"type":"function","summary":"Memory detail page displaying an image carousel, title, detail text, and animated Framer Motion entrance."},{"id":"file:src/components/portfolio/About.tsx","name":"About.tsx","tags":"untagged","complexity":"moderate","filePath":"","type":"file","summary":"About section component that shares the graduate\u0027s university journey story. Renders a motion-animated heading, a personal narrative paragraph, and a grid of milestone cards using Reveal/RevealItem for staggered scroll-animated entry."},{"id":"file:src/components/portfolio/Footer.tsx","name":"Footer.tsx","tags":"untagged","complexity":"moderate","filePath":"","type":"file","summary":"Footer component displaying a gratitude message, dynamic copyright year, and the graduate\u0027s name, university, and degree program. Styled with a rounded card inside a bordered container."},{"id":"file:src/components/portfolio/Navbar.tsx","name":"Navbar.tsx","tags":"untagged","complexity":"moderate","filePath":"","type":"file","summary":"Fixed-position navigation bar with desktop link list, mobile hamburger menu with animated drawer, theme toggle button, and a \u0027Send Wishes\u0027 CTA. Uses Framer Motion for entrance, hover, and menu stagger animations."},{"id":"file:src/components/portfolio/ThemeToggle.tsx","name":"ThemeToggle.tsx","tags":"untagged","complexity":"moderate","filePath":"","type":"file","summary":"Dark/light mode toggle button that uses React\u0027s useSyncExternalStore with a MutationObserver on \u003chtml\u003e class attribute. Persists the selection to localStorage and renders Sun/Moon icons from lucide-react."},{"id":"file:src/components/portfolio/Timeline.tsx","name":"Timeline.tsx","tags":"untagged","complexity":"moderate","filePath":"","type":"file","summary":"Event schedule section with scroll-driven 3D card animations. Each TimelineCard uses framer-motion useScroll/useTransform to map scroll progress to rotateY and y-offset. Renders a 5-item timeline from guest arrival through dinner."},{"id":"file:src/routes/index.tsx","name":"index.tsx","tags":"untagged","complexity":"moderate","filePath":"","type":"file","summary":"Home page route definition with structured data SEO metadata (schema.org Event), canonical URL, OG tags, and the Index layout component that composes all portfolio sections (Navbar, Hero, Invitation, About, EventDetails, Gallery, Timeline, RSVP, Footer)."},{"id":"function:About","name":"About","tags":"untagged","complexity":"moderate","filePath":"","type":"function","summary":"Renders the \u0027About\u0027 section with a journey narrative, motion-animated heading, and a milestone card grid."},{"id":"function:Footer","name":"Footer","tags":"untagged","complexity":"moderate","filePath":"","type":"function","summary":"Renders the page footer with gratitude message, copyright, and university attribution."},{"id":"function:Navbar","name":"Navbar","tags":"untagged","complexity":"moderate","filePath":"","type":"function","summary":"Renders the top navigation bar with animated links, mobile menu, theme toggle, and CTA button."},{"id":"function:getThemeSnapshot","name":"getThemeSnapshot","tags":"untagged","complexity":"moderate","filePath":"","type":"function","summary":"Returns whether the document currently has the \u0027dark\u0027 class."},{"id":"function:subscribeToTheme","name":"subscribeToTheme","tags":"untagged","complexity":"moderate","filePath":"","type":"function","summary":"Sets up a MutationObserver on \u003chtml\u003e class changes and returns a cleanup disconnect function."},{"id":"function:ThemeToggle","name":"ThemeToggle","tags":"untagged","complexity":"moderate","filePath":"","type":"function","summary":"Renders a toggle button that switches dark/light mode via classList and localStorage."},{"id":"function:TimelineCard","name":"TimelineCard","tags":"untagged","complexity":"moderate","filePath":"","type":"function","summary":"Renders a single timeline event card with scroll-driven 3D perspective animation using useScroll/useTransform."},{"id":"function:Timeline","name":"Timeline","tags":"untagged","complexity":"moderate","filePath":"","type":"function","summary":"Renders the full event schedule section with SectionTitle, Reveal container, and a grid of TimelineCards."},{"id":"function:Index","name":"Index","tags":"untagged","complexity":"moderate","filePath":"","type":"function","summary":"Renders the main page layout composing all portfolio sections in order."},{"id":"config:Route","name":"Route","tags":"untagged","complexity":"moderate","filePath":"","type":"function","summary":"TanStack Router route configuration for \u0027/\u0027 with SEO meta tags, canonical link, and structured data JSON-LD for schema.org Event."},{"id":"file:src/components/portfolio/ContactForm.tsx","name":"src/components/portfolio/ContactForm.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"No summary available"},{"id":"file:src/components/portfolio/EventDetails.tsx","name":"src/components/portfolio/EventDetails.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"No summary available"},{"id":"file:src/components/portfolio/Invitation.tsx","name":"src/components/portfolio/Invitation.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"No summary available"},{"id":"file:src/components/portfolio/RSVP.tsx","name":"src/components/portfolio/RSVP.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"No summary available"},{"id":"file:src/components/portfolio/SectionTitle.tsx","name":"src/components/portfolio/SectionTitle.tsx","tags":"tested","complexity":"moderate","filePath":null,"type":"file","summary":"No summary available"},{"id":"file:src/components/portfolio/__tests__/SectionTitle.test.tsx","name":"src/components/portfolio/__tests__/SectionTitle.test.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"No summary available"},{"id":"file:component:ContactForm","name":"ContactForm","tags":"untagged","complexity":"moderate","filePath":null,"type":"function","summary":"No summary available"},{"id":"file:component:Field","name":"Field","tags":"untagged","complexity":"moderate","filePath":null,"type":"function","summary":"No summary available"},{"id":"file:component:EventDetails","name":"EventDetails","tags":"untagged","complexity":"moderate","filePath":null,"type":"function","summary":"No summary available"},{"id":"file:component:Invitation","name":"Invitation","tags":"untagged","complexity":"moderate","filePath":null,"type":"function","summary":"No summary available"},{"id":"file:component:RSVP","name":"RSVP","tags":"untagged","complexity":"moderate","filePath":null,"type":"function","summary":"No summary available"},{"id":"file:component:InfoRow","name":"InfoRow","tags":"untagged","complexity":"moderate","filePath":null,"type":"function","summary":"No summary available"},{"id":"file:component:SectionTitle","name":"SectionTitle","tags":"untagged","complexity":"moderate","filePath":null,"type":"function","summary":"No summary available"},{"id":"file:test:SectionTitle-suite","name":"SectionTitle-suite","tags":"untagged","complexity":"moderate","filePath":null,"type":"test","summary":"No summary available"},{"id":"config:.env.example","name":".env.example","tags":"untagged","complexity":"moderate","filePath":null,"type":"config","summary":"Environment variables template with EmailJS placeholders (VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY)"},{"id":"document:README.md","name":"README.md","tags":"untagged","complexity":"moderate","filePath":null,"type":"document","summary":"Project documentation covering prerequisites, setup instructions (clone, install, run), available scripts, sections overview, tech stack (React 19, TanStack Start, Tailwind CSS v4, Framer Motion 12), project structure tree, configuration notes, and troubleshooting"},{"id":"file:index.html","name":"index.html","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"HTML entry point with Google Fonts preconnect (Great Vibes, Inter, Playfair Display) and root div for React SPA"},{"id":"config:package.json","name":"package.json","tags":"untagged","complexity":"moderate","filePath":null,"type":"config","summary":"Project manifest with scripts (dev, build, preview, lint, format, test), dependencies (React 19, TanStack Router, Framer Motion 12, Tailwind CSS v4, Three.js, EmailJS, Embla Carousel) and devDependencies (TypeScript, ESLint, Prettier, Vitest, Vite 7)"},{"id":"config:tsconfig.json","name":"tsconfig.json","tags":"untagged","complexity":"moderate","filePath":null,"type":"config","summary":"TypeScript configuration targeting ES2022 with react-jsx, bundler module resolution, strict mode, and @/* path alias mapping to ./src/*"},{"id":"config:vercel.json","name":"vercel.json","tags":"untagged","complexity":"moderate","filePath":null,"type":"config","summary":"Vercel deployment config with SPA rewrites (all routes to /index.html)"},{"id":"file:.cursor/rules/codegraph.mdc","name":".cursor/rules/codegraph.mdc","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Cursor rule defining CodeGraph MCP server usage guidelines for the AI assistant."},{"id":"file:.prettierignore","name":".prettierignore","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Prettier formatting exclusion list (node_modules, dist, lock files, routeTree.gen.ts)."},{"id":"file:.understand-anything/.understandignore","name":".understand-anything/.understandignore","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Exclusion patterns for understand-anything analysis tool."},{"id":"file:eslint.config.js","name":"eslint.config.js","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"ESLint flat config with TypeScript, React hooks, React Refresh, and Prettier integration."},{"id":"file:src/components/portfolio/GraduationCap3D.tsx","name":"src/components/portfolio/GraduationCap3D.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"3D graduation cap using Three.js (react-three-fiber/drei) rendered as a fixed background decoration."},{"id":"file:src/components/portfolio/Signature.tsx","name":"src/components/portfolio/Signature.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Animated SVG signature with framer-motion path drawing animations."},{"id":"file:src/env.d.ts","name":"src/env.d.ts","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"TypeScript ambient declarations for Vite env vars (EMAILJS_*)."},{"id":"file:src/hooks/use-mobile.tsx","name":"src/hooks/use-mobile.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"React hook that detects mobile viewport via matchMedia(768px breakpoint)."},{"id":"file:src/styles.css","name":"src/styles.css","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Tailwind v4 CSS entry with custom theme variables, dark mode, and base layer styles."},{"id":"file:src/test/setup.ts","name":"src/test/setup.ts","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Test environment setup with jest-dom matchers, mock IntersectionObserver, and mock matchMedia."},{"id":"file:vite.config.ts","name":"vite.config.ts","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Vite build config with TanStack Router, React, Tailwind CSS, and tsconfig-paths plugins."},{"id":"file:vitest.config.ts","name":"vitest.config.ts","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Vitest test runner config with jsdom environment, globals, and setup file reference."},{"id":"file:src/components/portfolio/Gallery.tsx","name":"Gallery.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Gallery section displaying project cards in a responsive grid with scroll-reveal animations."},{"id":"file:src/components/portfolio/Hero.tsx","name":"Hero.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Hero section with particle field background, invitation text, and animated scroll indicator."},{"id":"file:src/components/portfolio/ParticleField.tsx","name":"ParticleField.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Interactive particle animation canvas background using canvas API."},{"id":"file:src/components/portfolio/ProjectCard.tsx","name":"ProjectCard.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Reveal-animated project card displaying a memory with image and description."},{"id":"file:src/components/portfolio/Reveal.tsx","name":"Reveal.tsx","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Scroll-triggered reveal animation wrapper using framer-motion for staggered entry."},{"id":"file:src/hooks/use-mouse-tilt.ts","name":"use-mouse-tilt.ts","tags":"untagged","complexity":"moderate","filePath":null,"type":"file","summary":"Custom hook that tracks mouse position relative to an element for tilt/parallax effects."}],
+  "edges": [{"target":"file:src/components/portfolio/SectionTitle.tsx","direction":"forward","source":"file:src/components/portfolio/EventDetails.tsx","type":"imports","weight":0.5},{"target":"file:src/components/portfolio/SectionTitle.tsx","direction":"forward","source":"file:src/components/portfolio/Invitation.tsx","type":"imports","weight":0.5},{"target":"file:src/components/portfolio/SectionTitle.tsx","direction":"forward","source":"file:src/components/portfolio/RSVP.tsx","type":"imports","weight":0.5},{"target":"file:src/components/portfolio/ContactForm.tsx","direction":"forward","source":"file:src/components/portfolio/RSVP.tsx","type":"imports","weight":0.5},{"target":"file:src/components/portfolio/SectionTitle.tsx","direction":"forward","source":"file:src/components/portfolio/__tests__/SectionTitle.test.tsx","type":"imports","weight":0.5},{"target":"config:package.json","direction":"forward","source":"document:README.md","type":"documents","weight":0.5},{"target":"config:tsconfig.json","direction":"forward","source":"document:README.md","type":"documents","weight":0.5},{"target":"file:index.html","direction":"forward","source":"document:README.md","type":"documents","weight":0.5},{"target":"file:index.html","direction":"forward","source":"config:package.json","type":"configures","weight":0.5},{"target":"file:index.html","direction":"forward","source":"config:tsconfig.json","type":"configures","weight":0.5},{"target":"file:index.html","direction":"forward","source":"config:vercel.json","type":"deploys","weight":0.5},{"target":"document:README.md","direction":"forward","source":"config:.env.example","type":"configures","weight":0.5},{"target":"file:src/test/setup.ts","direction":"forward","source":"file:vitest.config.ts","type":"configures","weight":0.5},{"target":"file:src/components/portfolio/__tests__/SectionTitle.test.tsx","direction":"forward","source":"file:src/components/portfolio/SectionTitle.tsx","type":"tested_by","weight":0.5},{"target":"file:src/lib/utils.ts","direction":"forward","source":"file:src/components/ui/button.tsx","type":"imports","weight":0.7},{"target":"file:src/components/ui/button.tsx","direction":"forward","source":"file:src/components/ui/carousel.tsx","type":"imports","weight":0.7},{"target":"file:src/lib/utils.ts","direction":"forward","source":"file:src/components/ui/carousel.tsx","type":"imports","weight":0.7},{"target":"file:src/router.tsx","direction":"forward","source":"file:src/main.tsx","type":"imports","weight":0.7},{"target":"file:src/routeTree.gen.ts","direction":"forward","source":"file:src/router.tsx","type":"imports","weight":0.7},{"target":"file:src/styles.css","direction":"forward","source":"file:src/routes/__root.tsx","type":"imports","weight":0.7},{"target":"file:src/components/ui/carousel.tsx","direction":"forward","source":"file:src/routes/memory.$slug.tsx","type":"imports","weight":0.7},{"target":"file:src/routes/__root.tsx","direction":"forward","source":"file:src/routeTree.gen.ts","type":"imports","weight":0.7},{"target":"file:src/routes/memory.$slug.tsx","direction":"forward","source":"file:src/routeTree.gen.ts","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Reveal.tsx","direction":"forward","source":"file:src/components/portfolio/About.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Reveal.tsx","direction":"forward","source":"file:src/components/portfolio/EventDetails.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/ProjectCard.tsx","direction":"forward","source":"file:src/components/portfolio/Gallery.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Reveal.tsx","direction":"forward","source":"file:src/components/portfolio/Gallery.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/SectionTitle.tsx","direction":"forward","source":"file:src/components/portfolio/Gallery.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/ParticleField.tsx","direction":"forward","source":"file:src/components/portfolio/Hero.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Reveal.tsx","direction":"forward","source":"file:src/components/portfolio/Hero.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Reveal.tsx","direction":"forward","source":"file:src/components/portfolio/Invitation.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/ThemeToggle.tsx","direction":"forward","source":"file:src/components/portfolio/Navbar.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Reveal.tsx","direction":"forward","source":"file:src/components/portfolio/ProjectCard.tsx","type":"imports","weight":0.7},{"target":"file:src/hooks/use-mouse-tilt.ts","direction":"forward","source":"file:src/components/portfolio/ProjectCard.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Reveal.tsx","direction":"forward","source":"file:src/components/portfolio/RSVP.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Reveal.tsx","direction":"forward","source":"file:src/components/portfolio/Timeline.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/SectionTitle.tsx","direction":"forward","source":"file:src/components/portfolio/Timeline.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/About.tsx","direction":"forward","source":"file:src/routes/index.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/EventDetails.tsx","direction":"forward","source":"file:src/routes/index.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Footer.tsx","direction":"forward","source":"file:src/routes/index.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Gallery.tsx","direction":"forward","source":"file:src/routes/index.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Hero.tsx","direction":"forward","source":"file:src/routes/index.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Invitation.tsx","direction":"forward","source":"file:src/routes/index.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Navbar.tsx","direction":"forward","source":"file:src/routes/index.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/RSVP.tsx","direction":"forward","source":"file:src/routes/index.tsx","type":"imports","weight":0.7},{"target":"file:src/components/portfolio/Timeline.tsx","direction":"forward","source":"file:src/routes/index.tsx","type":"imports","weight":0.7},{"target":"file:src/routes/index.tsx","direction":"forward","source":"file:src/routeTree.gen.ts","type":"imports","weight":0.7}],
+  "layers": [
+  {
+    "id": "layer:ui-components",
+    "name": "UI Components",
+    "description": "All React UI components including reusable primitives (Button, Carousel) and portfolio section components (Hero, About, Gallery, Timeline, RSVP, Navbar, etc.) that compose the graduation invitation page.",
+    "nodeIds": [
+      "file:src/components/ui/button.tsx",
+      "file:src/components/ui/carousel.tsx",
+      "file:src/components/portfolio/About.tsx",
+      "file:src/components/portfolio/ContactForm.tsx",
+      "file:src/components/portfolio/EventDetails.tsx",
+      "file:src/components/portfolio/Footer.tsx",
+      "file:src/components/portfolio/Gallery.tsx",
+      "file:src/components/portfolio/GraduationCap3D.tsx",
+      "file:src/components/portfolio/Hero.tsx",
+      "file:src/components/portfolio/Invitation.tsx",
+      "file:src/components/portfolio/Navbar.tsx",
+      "file:src/components/portfolio/ParticleField.tsx",
+      "file:src/components/portfolio/ProjectCard.tsx",
+      "file:src/components/portfolio/Reveal.tsx",
+      "file:src/components/portfolio/RSVP.tsx",
+      "file:src/components/portfolio/SectionTitle.tsx",
+      "file:src/components/portfolio/Signature.tsx",
+      "file:src/components/portfolio/ThemeToggle.tsx",
+      "file:src/components/portfolio/Timeline.tsx",
+      "file:src/components/portfolio/__tests__/SectionTitle.test.tsx"
+    ]
+  },
+  {
+    "id": "layer:application-core",
+    "name": "Application Core",
+    "description": "Application entry point, TanStack Router setup, auto-generated route tree, page routes (index and memory detail), root layout with error boundary, HTML shell, global Tailwind stylesheet, and TypeScript environment declarations.",
+    "nodeIds": [
+      "file:src/main.tsx",
+      "file:src/router.tsx",
+      "file:src/routeTree.gen.ts",
+      "file:src/routes/__root.tsx",
+      "file:src/routes/index.tsx",
+      "file:src/routes/memory.$slug.tsx",
+      "file:index.html",
+      "file:src/styles.css",
+      "file:src/env.d.ts"
+    ]
+  },
+  {
+    "id": "layer:hooks-and-utilities",
+    "name": "Hooks & Utilities",
+    "description": "Shared custom React hooks (mobile detection, mouse tilt/parallax), Tailwind CSS class merging utility (cn), and Vitest test setup file with global mocks.",
+    "nodeIds": [
+      "file:src/hooks/use-mobile.tsx",
+      "file:src/hooks/use-mouse-tilt.ts",
+      "file:src/lib/utils.ts",
+      "file:src/test/setup.ts"
+    ]
+  },
+  {
+    "id": "layer:project-configuration",
+    "name": "Project Configuration",
+    "description": "Core project metadata and TypeScript configuration including package.json dependencies and scripts, TypeScript compiler options with path aliases, and environment variable template for EmailJS integration.",
+    "nodeIds": [
+      "config:package.json",
+      "config:tsconfig.json",
+      "config:.env.example"
+    ]
+  },
+  {
+    "id": "layer:build-and-tool-system",
+    "name": "Build & Tool System",
+    "description": "Build toolchain configuration including Vite bundler with plugins, Vitest test runner with jsdom environment, ESLint flat config with React/TypeScript rules, Prettier ignore rules, Cursor IDE codegraph rules, and understand-anything analysis tool exclusions.",
+    "nodeIds": [
+      "file:vite.config.ts",
+      "file:vitest.config.ts",
+      "file:eslint.config.js",
+      "file:.prettierignore",
+      "file:.cursor/rules/codegraph.mdc",
+      "file:.understand-anything/.understandignore"
+    ]
+  },
+  {
+    "id": "layer:infrastructure-and-documentation",
+    "name": "Infrastructure & Documentation",
+    "description": "Vercel deployment configuration with SPA rewrite rules and project README documentation covering setup, scripts, tech stack, and troubleshooting.",
+    "nodeIds": [
+      "config:vercel.json",
+      "document:README.md"
+    ]
+  }
+]
+,
+  "tour": [
+  {
+    "order": 1,
+    "title": "Application Entry Point",
+    "description": "Start here: src/main.tsx mounts the TanStack Router provider into the DOM root from index.html. The HTML shell preloads Google Fonts (Great Vibes, Inter, Playfair Display) for the typography-heavy invitation design.",
+    "nodeIds": ["file:src/main.tsx", "file:index.html"]
+  },
+  {
+    "order": 2,
+    "title": "Router & Auto-Generated Route Tree",
+    "description": "src/router.tsx creates the TanStack Router instance with scroll restoration. The route tree is auto-generated at src/routeTree.gen.ts â€” it defines exactly two routes: the home page (/) and a dynamic memory detail page (/memory/$slug).",
+    "nodeIds": ["file:src/router.tsx", "file:src/routeTree.gen.ts"]
+  },
+  {
+    "order": 3,
+    "title": "Root Layout & Global Styling",
+    "description": "src/routes/__root.tsx is the layout shell wrapping all routes: it renders a 3D graduation cap (Three.js), global HeadContent, a Suspense boundary, error/404 components with retry buttons, and the Outlet for child routes. src/styles.css is the Tailwind v4 entry with custom theme variables and dark mode.",
+    "nodeIds": ["file:src/routes/__root.tsx", "file:src/styles.css", "file:src/components/portfolio/GraduationCap3D.tsx"]
+  },
+  {
+    "order": 4,
+    "title": "Page Routes: Home & Memory Detail",
+    "description": "src/routes/index.tsx composes all portfolio sections (Navbar, Hero, Invitation, About, EventDetails, Gallery, Timeline, RSVP, Footer) into a single-page layout with SEO metadata (schema.org Event JSON-LD). src/routes/memory.$slug.tsx is the secondary route â€” a dynamic detail page with an Embla-based image carousel, lazy-loaded images with skeleton placeholders, and Framer Motion page transitions.",
+    "nodeIds": ["file:src/routes/index.tsx", "file:src/routes/memory.$slug.tsx"]
+  },
+  {
+    "order": 5,
+    "title": "Portfolio Section Components",
+    "description": "These components compose the home page: Hero (particle background + invitation text + scroll indicator), Invitation (graduate details), About (journey story with milestone cards), EventDetails (date/time/venue), Gallery (memory cards linking to detail route), Timeline (scroll-driven 3D event schedule cards), RSVP (EmailJS contact form), Navbar (fixed nav with mobile drawer + theme toggle), and Footer (copyright attribution).",
+    "nodeIds": [
+      "file:src/components/portfolio/Hero.tsx",
+      "file:src/components/portfolio/Invitation.tsx",
+      "file:src/components/portfolio/About.tsx",
+      "file:src/components/portfolio/EventDetails.tsx",
+      "file:src/components/portfolio/Gallery.tsx",
+      "file:src/components/portfolio/Timeline.tsx",
+      "file:src/components/portfolio/RSVP.tsx",
+      "file:src/components/portfolio/Navbar.tsx",
+      "file:src/components/portfolio/Footer.tsx",
+      "file:src/components/portfolio/ContactForm.tsx",
+      "file:src/components/portfolio/SectionTitle.tsx",
+      "file:src/components/portfolio/ProjectCard.tsx"
+    ]
+  },
+  {
+    "order": 6,
+    "title": "Shared UI Primitives & Utilities",
+    "description": "Under src/components/ui/: button.tsx is a shadcn/ui-style polymorphic Button using class-variance-authority and Radix Slot; carousel.tsx is a full-featured accessible carousel built on Embla. The cn utility in src/lib/utils.ts merges Tailwind classes using clsx + tailwind-merge â€” used by every component.",
+    "nodeIds": ["file:src/components/ui/button.tsx", "file:src/components/ui/carousel.tsx", "file:src/lib/utils.ts"]
+  },
+  {
+    "order": 7,
+    "title": "Custom Hooks & Animation System",
+    "description": "Reusable hooks: use-mobile.tsx detects mobile viewport at 768px, use-mouse-tilt.ts tracks mouse position for parallax/tilt effects. The Reveal.tsx component is a scroll-triggered Framer Motion wrapper used across sections for staggered entrance animations. ParticleField.tsx draws an interactive canvas particle background, ThemeToggle.tsx persists dark/light mode via localStorage and MutationObserver.",
+    "nodeIds": [
+      "file:src/hooks/use-mobile.tsx",
+      "file:src/hooks/use-mouse-tilt.ts",
+      "file:src/components/portfolio/Reveal.tsx",
+      "file:src/components/portfolio/ParticleField.tsx",
+      "file:src/components/portfolio/ThemeToggle.tsx",
+      "file:src/components/portfolio/Signature.tsx"
+    ]
+  },
+  {
+    "order": 8,
+    "title": "Configuration, Tooling & Documentation",
+    "description": "Top-level config: package.json defines deps (React 19, TanStack Router, Framer Motion 12, Three.js, Embla, EmailJS, Tailwind v4) and scripts; tsconfig.json sets strict mode with @/* path alias; vite.config.ts wires TanStack Router + Tailwind + React plugins; vitest.config.ts configures jsdom test environment; vercel.json deploys with SPA rewrites. README.md ties it all together â€” the best starting point for new contributors.",
+    "nodeIds": [
+      "config:package.json",
+      "config:tsconfig.json",
+      "config:vercel.json",
+      "config:.env.example",
+      "file:vite.config.ts",
+      "file:vitest.config.ts",
+      "file:eslint.config.js",
+      "document:README.md"
+    ]
+  }
+]
+
+}

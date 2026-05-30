@@ -14,10 +14,12 @@ const item: Variants = {
 export function Reveal({
   children,
   className,
+  style,
   as: Tag = "div",
 }: {
   children: ReactNode;
   className?: string;
+  style?: Record<string, string | number>;
   as?: "div" | "section" | "ul" | "article";
 }) {
   const MotionTag = motion[Tag] as typeof motion.div;
@@ -28,6 +30,7 @@ export function Reveal({
       whileInView="show"
       viewport={{ once: true, margin: "-80px" }}
       className={className}
+      style={style}
     >
       {children}
     </MotionTag>
