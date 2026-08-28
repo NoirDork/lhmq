@@ -1,13 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { supabase } from "@/lib/supabase";
-
-interface Guest {
-  guest_name: string;
-  attending_status: string;
-  created_at: string;
-}
+import { fetchGuests, type PublicGuest } from "@/lib/rsvps";
 
 const statusColor: Record<string, string> = {
   Attending: "text-green-400",
@@ -16,7 +10,7 @@ const statusColor: Record<string, string> = {
 };
 
 export function GuestList() {
-  const [guests, setGuests] = useState<Guest[]>([]);
+  const [guests, setGuests] = useState<PublicGuest[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
@@ -50,15 +44,10 @@ export function GuestList() {
     setLoading(true);
     setError(false);
 
-    const { data, error: fetchError } = await supabase
-      .from("rsvps")
-      .select("guest_name, attending_status, created_at")
-      .order("created_at", { ascending: false });
-
-    if (fetchError) {
+    try {
+      setGuests(await fetchGuests());
+    } catch {
       setError(true);
-    } else {
-      setGuests(data ?? []);
     }
 
     setLoading(false);

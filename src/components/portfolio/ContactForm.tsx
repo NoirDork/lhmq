@@ -5,7 +5,7 @@ import emailjs from "@emailjs/browser";
 import confetti from "canvas-confetti";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { supabase } from "@/lib/supabase";
+import { submitRsvp } from "@/lib/rsvps";
 
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -84,26 +84,14 @@ export function ContactForm() {
     setErrorMessage("");
 
     let emailOk = false;
-    let supabaseOk = false;
+    let rsvpOk = false;
 
     const attendingStatus = formData.get("attendance") as string;
     const email = formData.get("email") as string;
 
     try {
-      const { data: existing } = await supabase
-        .from("rsvps")
-        .select("email")
-        .eq("email", email);
-
-      if (existing && existing.length > 0) {
-        throw new Error("Email này đã được dùng để RSVP trước đó.");
-      }
-
-      const { error: supabaseError } = await supabase
-        .from("rsvps")
-        .insert({ guest_name: guestName, attending_status: attendingStatus, email });
-      if (supabaseError) throw supabaseError;
-      supabaseOk = true;
+      await submitRsvp({ guestName, attendingStatus, email });
+      rsvpOk = true;
     } catch (e) {
       setError(true);
       setErrorMessage(e instanceof Error ? e.message : "Không thể gửi RSVP. Vui lòng thử lại.");
@@ -119,7 +107,7 @@ export function ContactForm() {
       console.error("EmailJS error:", e);
     }
 
-    if (emailOk && supabaseOk) {
+    if (emailOk && rsvpOk) {
       setSent(true);
       form.reset();
       setSelectKey((k) => k + 1);
