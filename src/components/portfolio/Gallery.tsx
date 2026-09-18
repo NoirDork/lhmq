@@ -35,7 +35,8 @@ const memories: Memory[] = [
   {
     slug: "family-support",
     title: "Hậu Phương Gia Đình",
-    caption: "Gửi lời cảm ơn đến gia đình — những người luôn tin tưởng tôi từng bước trên đường đời.",
+    caption:
+      "Gửi lời cảm ơn đến gia đình — những người luôn tin tưởng tôi từng bước trên đường đời.",
     hue: "from-indigo-900/60 to-violet-900/60",
   },
   {
@@ -80,10 +81,7 @@ export function Gallery() {
           </p>
         </div>
 
-        <div
-          ref={cardsRef}
-          className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <div ref={cardsRef} className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {memories.map((m) => (
             <ProjectCard key={m.title} project={m} />
           ))}

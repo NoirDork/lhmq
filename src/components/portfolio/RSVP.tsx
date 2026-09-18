@@ -15,8 +15,8 @@ export function RSVP() {
           <Reveal className="space-y-8 lg:col-span-5">
             <RevealItem>
               <p className="text-lg text-muted-foreground">
-                Gửi lời nhắn, lời chúc hay xác nhận tham dự. Những dòng chia sẻ của bạn
-                thực sự ý nghĩa trong ngày đặc biệt này.
+                Gửi lời nhắn, lời chúc hay xác nhận tham dự. Những dòng chia sẻ của bạn thực sự ý
+                nghĩa trong ngày đặc biệt này.
               </p>
             </RevealItem>
             <RevealItem className="space-y-4">

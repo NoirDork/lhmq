@@ -51,39 +51,27 @@
       "imports": [
         {
           "source": "@eslint/js",
-          "specifiers": [
-            "js"
-          ]
+          "specifiers": ["js"]
         },
         {
           "source": "eslint-plugin-prettier/recommended",
-          "specifiers": [
-            "eslintPluginPrettier"
-          ]
+          "specifiers": ["eslintPluginPrettier"]
         },
         {
           "source": "globals",
-          "specifiers": [
-            "globals"
-          ]
+          "specifiers": ["globals"]
         },
         {
           "source": "eslint-plugin-react-hooks",
-          "specifiers": [
-            "reactHooks"
-          ]
+          "specifiers": ["reactHooks"]
         },
         {
           "source": "eslint-plugin-react-refresh",
-          "specifiers": [
-            "reactRefresh"
-          ]
+          "specifiers": ["reactRefresh"]
         },
         {
           "source": "typescript-eslint",
-          "specifiers": [
-            "tseslint"
-          ]
+          "specifiers": ["tseslint"]
         }
       ],
       "exports": [],
@@ -128,24 +116,15 @@
       "imports": [
         {
           "source": "@testing-library/react",
-          "specifiers": [
-            "render",
-            "screen"
-          ]
+          "specifiers": ["render", "screen"]
         },
         {
           "source": "vitest",
-          "specifiers": [
-            "describe",
-            "expect",
-            "it"
-          ]
+          "specifiers": ["describe", "expect", "it"]
         },
         {
           "source": "../SectionTitle",
-          "specifiers": [
-            "SectionTitle"
-          ]
+          "specifiers": ["SectionTitle"]
         }
       ],
       "exports": [],
@@ -167,21 +146,14 @@
       "imports": [
         {
           "source": "framer-motion",
-          "specifiers": [
-            "motion"
-          ]
+          "specifiers": ["motion"]
         },
         {
           "source": "./Reveal",
-          "specifiers": [
-            "Reveal",
-            "RevealItem"
-          ]
+          "specifiers": ["Reveal", "RevealItem"]
         }
       ],
-      "exports": [
-        "About"
-      ],
+      "exports": ["About"],
       "totalLines": 57,
       "hasStructuralAnalysis": true
     },
@@ -197,9 +169,7 @@
         },
         {
           "name": "Field",
-          "params": [
-            "{\n  label,\n  name,\n  type = \"text\",\n  placeholder,\n}"
-          ],
+          "params": ["{\n  label,\n  name,\n  type = \"text\",\n  placeholder,\n}"],
           "exported": false,
           "lineCount": 31
         }
@@ -208,34 +178,22 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "useEffect",
-            "useState",
-            "FormEvent"
-          ]
+          "specifiers": ["useEffect", "useState", "FormEvent"]
         },
         {
           "source": "lucide-react",
-          "specifiers": [
-            "ArrowUpRight"
-          ]
+          "specifiers": ["ArrowUpRight"]
         },
         {
           "source": "@emailjs/browser",
-          "specifiers": [
-            "emailjs"
-          ]
+          "specifiers": ["emailjs"]
         },
         {
           "source": "canvas-confetti",
-          "specifiers": [
-            "confetti"
-          ]
+          "specifiers": ["confetti"]
         }
       ],
-      "exports": [
-        "ContactForm"
-      ],
+      "exports": ["ContactForm"],
       "totalLines": 155,
       "hasStructuralAnalysis": true
     },
@@ -254,37 +212,22 @@
       "imports": [
         {
           "source": "framer-motion",
-          "specifiers": [
-            "motion"
-          ]
+          "specifiers": ["motion"]
         },
         {
           "source": "lucide-react",
-          "specifiers": [
-            "Calendar",
-            "Clock",
-            "MapPin",
-            "Shirt",
-            "Bell"
-          ]
+          "specifiers": ["Calendar", "Clock", "MapPin", "Shirt", "Bell"]
         },
         {
           "source": "./SectionTitle",
-          "specifiers": [
-            "SectionTitle"
-          ]
+          "specifiers": ["SectionTitle"]
         },
         {
           "source": "./Reveal",
-          "specifiers": [
-            "Reveal",
-            "RevealItem"
-          ]
+          "specifiers": ["Reveal", "RevealItem"]
         }
       ],
-      "exports": [
-        "EventDetails"
-      ],
+      "exports": ["EventDetails"],
       "totalLines": 52,
       "hasStructuralAnalysis": true
     },
@@ -301,9 +244,7 @@
       ],
       "classes": [],
       "imports": [],
-      "exports": [
-        "Footer"
-      ],
+      "exports": ["Footer"],
       "totalLines": 23,
       "hasStructuralAnalysis": true
     },
@@ -322,27 +263,18 @@
       "imports": [
         {
           "source": "./SectionTitle",
-          "specifiers": [
-            "SectionTitle"
-          ]
+          "specifiers": ["SectionTitle"]
         },
         {
           "source": "./ProjectCard",
-          "specifiers": [
-            "ProjectCard",
-            "Memory"
-          ]
+          "specifiers": ["ProjectCard", "Memory"]
         },
         {
           "source": "./Reveal",
-          "specifiers": [
-            "Reveal"
-          ]
+          "specifiers": ["Reveal"]
         }
       ],
-      "exports": [
-        "Gallery"
-      ],
+      "exports": ["Gallery"],
       "totalLines": 64,
       "hasStructuralAnalysis": true
     },
@@ -367,27 +299,18 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "useRef"
-          ]
+          "specifiers": ["useRef"]
         },
         {
           "source": "@react-three/fiber",
-          "specifiers": [
-            "Canvas",
-            "useFrame"
-          ]
+          "specifiers": ["Canvas", "useFrame"]
         },
         {
           "source": "@react-three/drei",
-          "specifiers": [
-            "Float"
-          ]
+          "specifiers": ["Float"]
         }
       ],
-      "exports": [
-        "GraduationCap3D"
-      ],
+      "exports": ["GraduationCap3D"],
       "totalLines": 50,
       "hasStructuralAnalysis": true
     },
@@ -406,10 +329,7 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "useCallback",
-            "useRef"
-          ]
+          "specifiers": ["useCallback", "useRef"]
         },
         {
           "source": "framer-motion",
@@ -424,31 +344,18 @@
         },
         {
           "source": "lucide-react",
-          "specifiers": [
-            "ArrowUpRight",
-            "MapPin",
-            "Mail",
-            "Calendar",
-            "GraduationCap"
-          ]
+          "specifiers": ["ArrowUpRight", "MapPin", "Mail", "Calendar", "GraduationCap"]
         },
         {
           "source": "./Reveal",
-          "specifiers": [
-            "Reveal",
-            "RevealItem"
-          ]
+          "specifiers": ["Reveal", "RevealItem"]
         },
         {
           "source": "./ParticleField",
-          "specifiers": [
-            "ParticleField"
-          ]
+          "specifiers": ["ParticleField"]
         }
       ],
-      "exports": [
-        "Hero"
-      ],
+      "exports": ["Hero"],
       "totalLines": 156,
       "hasStructuralAnalysis": true
     },
@@ -467,36 +374,22 @@
       "imports": [
         {
           "source": "framer-motion",
-          "specifiers": [
-            "motion"
-          ]
+          "specifiers": ["motion"]
         },
         {
           "source": "./SectionTitle",
-          "specifiers": [
-            "SectionTitle"
-          ]
+          "specifiers": ["SectionTitle"]
         },
         {
           "source": "./Reveal",
-          "specifiers": [
-            "Reveal",
-            "RevealItem"
-          ]
+          "specifiers": ["Reveal", "RevealItem"]
         },
         {
           "source": "lucide-react",
-          "specifiers": [
-            "GraduationCap",
-            "BookOpen",
-            "Hash",
-            "Users"
-          ]
+          "specifiers": ["GraduationCap", "BookOpen", "Hash", "Users"]
         }
       ],
-      "exports": [
-        "Invitation"
-      ],
+      "exports": ["Invitation"],
       "totalLines": 74,
       "hasStructuralAnalysis": true
     },
@@ -515,34 +408,22 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "useState"
-          ]
+          "specifiers": ["useState"]
         },
         {
           "source": "lucide-react",
-          "specifiers": [
-            "Menu",
-            "X"
-          ]
+          "specifiers": ["Menu", "X"]
         },
         {
           "source": "framer-motion",
-          "specifiers": [
-            "AnimatePresence",
-            "motion"
-          ]
+          "specifiers": ["AnimatePresence", "motion"]
         },
         {
           "source": "./ThemeToggle",
-          "specifiers": [
-            "ThemeToggle"
-          ]
+          "specifiers": ["ThemeToggle"]
         }
       ],
-      "exports": [
-        "Navbar"
-      ],
+      "exports": ["Navbar"],
       "totalLines": 145,
       "hasStructuralAnalysis": true
     },
@@ -568,15 +449,10 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "useEffect",
-            "useRef"
-          ]
+          "specifiers": ["useEffect", "useRef"]
         }
       ],
-      "exports": [
-        "ParticleField"
-      ],
+      "exports": ["ParticleField"],
       "totalLines": 156,
       "hasStructuralAnalysis": true
     },
@@ -586,9 +462,7 @@
       "functions": [
         {
           "name": "ProjectCard",
-          "params": [
-            "{ project }"
-          ],
+          "params": ["{ project }"],
           "exported": true,
           "lineCount": 30
         }
@@ -597,38 +471,26 @@
       "imports": [
         {
           "source": "@tanstack/react-router",
-          "specifiers": [
-            "Link"
-          ]
+          "specifiers": ["Link"]
         },
         {
           "source": "framer-motion",
-          "specifiers": [
-            "motion"
-          ]
+          "specifiers": ["motion"]
         },
         {
           "source": "lucide-react",
-          "specifiers": [
-            "Heart"
-          ]
+          "specifiers": ["Heart"]
         },
         {
           "source": "./Reveal",
-          "specifiers": [
-            "revealVariants"
-          ]
+          "specifiers": ["revealVariants"]
         },
         {
           "source": "@/hooks/use-mouse-tilt",
-          "specifiers": [
-            "useMouseTilt"
-          ]
+          "specifiers": ["useMouseTilt"]
         }
       ],
-      "exports": [
-        "ProjectCard"
-      ],
+      "exports": ["ProjectCard"],
       "totalLines": 44,
       "hasStructuralAnalysis": true
     },
@@ -644,9 +506,7 @@
         },
         {
           "name": "InfoRow",
-          "params": [
-            "{\n  icon: Icon,\n  label,\n  value,\n}"
-          ],
+          "params": ["{\n  icon: Icon,\n  label,\n  value,\n}"],
           "exported": false,
           "lineCount": 21
         }
@@ -655,36 +515,22 @@
       "imports": [
         {
           "source": "lucide-react",
-          "specifiers": [
-            "Mail",
-            "MapPin",
-            "Heart",
-            "GraduationCap"
-          ]
+          "specifiers": ["Mail", "MapPin", "Heart", "GraduationCap"]
         },
         {
           "source": "./SectionTitle",
-          "specifiers": [
-            "SectionTitle"
-          ]
+          "specifiers": ["SectionTitle"]
         },
         {
           "source": "./ContactForm",
-          "specifiers": [
-            "ContactForm"
-          ]
+          "specifiers": ["ContactForm"]
         },
         {
           "source": "./Reveal",
-          "specifiers": [
-            "Reveal",
-            "RevealItem"
-          ]
+          "specifiers": ["Reveal", "RevealItem"]
         }
       ],
-      "exports": [
-        "RSVP"
-      ],
+      "exports": ["RSVP"],
       "totalLines": 76,
       "hasStructuralAnalysis": true
     },
@@ -694,17 +540,13 @@
       "functions": [
         {
           "name": "Reveal",
-          "params": [
-            "{\n  children,\n  className,\n  style,\n  as: Tag = \"div\",\n}"
-          ],
+          "params": ["{\n  children,\n  className,\n  style,\n  as: Tag = \"div\",\n}"],
           "exported": true,
           "lineCount": 25
         },
         {
           "name": "RevealItem",
-          "params": [
-            "{ children, className }"
-          ],
+          "params": ["{ children, className }"],
           "exported": true,
           "lineCount": 7
         }
@@ -713,23 +555,14 @@
       "imports": [
         {
           "source": "framer-motion",
-          "specifiers": [
-            "motion",
-            "Variants"
-          ]
+          "specifiers": ["motion", "Variants"]
         },
         {
           "source": "react",
-          "specifiers": [
-            "ReactNode"
-          ]
+          "specifiers": ["ReactNode"]
         }
       ],
-      "exports": [
-        "Reveal",
-        "RevealItem",
-        "revealVariants"
-      ],
+      "exports": ["Reveal", "RevealItem", "revealVariants"],
       "totalLines": 49,
       "hasStructuralAnalysis": true
     },
@@ -739,9 +572,7 @@
       "functions": [
         {
           "name": "SectionTitle",
-          "params": [
-            "{\n  eyebrow,\n  title,\n  align = \"left\",\n}"
-          ],
+          "params": ["{\n  eyebrow,\n  title,\n  align = \"left\",\n}"],
           "exported": true,
           "lineCount": 33
         }
@@ -750,14 +581,10 @@
       "imports": [
         {
           "source": "framer-motion",
-          "specifiers": [
-            "motion"
-          ]
+          "specifiers": ["motion"]
         }
       ],
-      "exports": [
-        "SectionTitle"
-      ],
+      "exports": ["SectionTitle"],
       "totalLines": 36,
       "hasStructuralAnalysis": true
     },
@@ -767,9 +594,7 @@
       "functions": [
         {
           "name": "Signature",
-          "params": [
-            "{ className = \"\" }"
-          ],
+          "params": ["{ className = \"\" }"],
           "exported": true,
           "lineCount": 26
         }
@@ -778,15 +603,10 @@
       "imports": [
         {
           "source": "framer-motion",
-          "specifiers": [
-            "motion",
-            "Variants"
-          ]
+          "specifiers": ["motion", "Variants"]
         }
       ],
-      "exports": [
-        "Signature"
-      ],
+      "exports": ["Signature"],
       "totalLines": 49,
       "hasStructuralAnalysis": true
     },
@@ -803,9 +623,7 @@
         },
         {
           "name": "subscribeToTheme",
-          "params": [
-            "callback"
-          ],
+          "params": ["callback"],
           "returnType": "() => void",
           "exported": false,
           "lineCount": 5
@@ -821,21 +639,14 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "useSyncExternalStore"
-          ]
+          "specifiers": ["useSyncExternalStore"]
         },
         {
           "source": "lucide-react",
-          "specifiers": [
-            "Moon",
-            "Sun"
-          ]
+          "specifiers": ["Moon", "Sun"]
         }
       ],
-      "exports": [
-        "ThemeToggle"
-      ],
+      "exports": ["ThemeToggle"],
       "totalLines": 33,
       "hasStructuralAnalysis": true
     },
@@ -845,9 +656,7 @@
       "functions": [
         {
           "name": "TimelineCard",
-          "params": [
-            "{ event, index }"
-          ],
+          "params": ["{ event, index }"],
           "exported": false,
           "lineCount": 34
         },
@@ -862,45 +671,26 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "useRef"
-          ]
+          "specifiers": ["useRef"]
         },
         {
           "source": "framer-motion",
-          "specifiers": [
-            "motion",
-            "useScroll",
-            "useTransform"
-          ]
+          "specifiers": ["motion", "useScroll", "useTransform"]
         },
         {
           "source": "lucide-react",
-          "specifiers": [
-            "DoorOpen",
-            "Camera",
-            "Award",
-            "Users",
-            "GlassWater"
-          ]
+          "specifiers": ["DoorOpen", "Camera", "Award", "Users", "GlassWater"]
         },
         {
           "source": "./SectionTitle",
-          "specifiers": [
-            "SectionTitle"
-          ]
+          "specifiers": ["SectionTitle"]
         },
         {
           "source": "./Reveal",
-          "specifiers": [
-            "Reveal",
-            "revealVariants"
-          ]
+          "specifiers": ["Reveal", "revealVariants"]
         }
       ],
-      "exports": [
-        "Timeline"
-      ],
+      "exports": ["Timeline"],
       "totalLines": 87,
       "hasStructuralAnalysis": true
     },
@@ -912,34 +702,22 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "* as React"
-          ]
+          "specifiers": ["* as React"]
         },
         {
           "source": "@radix-ui/react-slot",
-          "specifiers": [
-            "Slot"
-          ]
+          "specifiers": ["Slot"]
         },
         {
           "source": "class-variance-authority",
-          "specifiers": [
-            "cva",
-            "VariantProps"
-          ]
+          "specifiers": ["cva", "VariantProps"]
         },
         {
           "source": "@/lib/utils",
-          "specifiers": [
-            "cn"
-          ]
+          "specifiers": ["cn"]
         }
       ],
-      "exports": [
-        "Button",
-        "buttonVariants"
-      ],
+      "exports": ["Button", "buttonVariants"],
       "totalLines": 50,
       "hasStructuralAnalysis": true
     },
@@ -958,35 +736,23 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "* as React"
-          ]
+          "specifiers": ["* as React"]
         },
         {
           "source": "embla-carousel-react",
-          "specifiers": [
-            "useEmblaCarousel",
-            "UseEmblaCarouselType"
-          ]
+          "specifiers": ["useEmblaCarousel", "UseEmblaCarouselType"]
         },
         {
           "source": "lucide-react",
-          "specifiers": [
-            "ArrowLeft",
-            "ArrowRight"
-          ]
+          "specifiers": ["ArrowLeft", "ArrowRight"]
         },
         {
           "source": "@/lib/utils",
-          "specifiers": [
-            "cn"
-          ]
+          "specifiers": ["cn"]
         },
         {
           "source": "@/components/ui/button",
-          "specifiers": [
-            "Button"
-          ]
+          "specifiers": ["Button"]
         }
       ],
       "exports": [
@@ -1025,14 +791,10 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "* as React"
-          ]
+          "specifiers": ["* as React"]
         }
       ],
-      "exports": [
-        "useIsMobile"
-      ],
+      "exports": ["useIsMobile"],
       "totalLines": 20,
       "hasStructuralAnalysis": true
     },
@@ -1042,9 +804,7 @@
       "functions": [
         {
           "name": "useMouseTilt",
-          "params": [
-            "degrees"
-          ],
+          "params": ["degrees"],
           "returnType": "TiltResult",
           "exported": true,
           "lineCount": 41
@@ -1054,23 +814,14 @@
       "imports": [
         {
           "source": "framer-motion",
-          "specifiers": [
-            "useMotionValue",
-            "useSpring",
-            "useTransform",
-            "useMotionTemplate"
-          ]
+          "specifiers": ["useMotionValue", "useSpring", "useTransform", "useMotionTemplate"]
         },
         {
           "source": "react",
-          "specifiers": [
-            "useCallback"
-          ]
+          "specifiers": ["useCallback"]
         }
       ],
-      "exports": [
-        "useMouseTilt"
-      ],
+      "exports": ["useMouseTilt"],
       "totalLines": 51,
       "hasStructuralAnalysis": true
     },
@@ -1080,9 +831,7 @@
       "functions": [
         {
           "name": "cn",
-          "params": [
-            "...inputs"
-          ],
+          "params": ["...inputs"],
           "exported": true,
           "lineCount": 3
         }
@@ -1091,21 +840,14 @@
       "imports": [
         {
           "source": "clsx",
-          "specifiers": [
-            "clsx",
-            "ClassValue"
-          ]
+          "specifiers": ["clsx", "ClassValue"]
         },
         {
           "source": "tailwind-merge",
-          "specifiers": [
-            "twMerge"
-          ]
+          "specifiers": ["twMerge"]
         }
       ],
-      "exports": [
-        "cn"
-      ],
+      "exports": ["cn"],
       "totalLines": 7,
       "hasStructuralAnalysis": true
     },
@@ -1117,27 +859,19 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "StrictMode"
-          ]
+          "specifiers": ["StrictMode"]
         },
         {
           "source": "react-dom/client",
-          "specifiers": [
-            "ReactDOM"
-          ]
+          "specifiers": ["ReactDOM"]
         },
         {
           "source": "@tanstack/react-router",
-          "specifiers": [
-            "RouterProvider"
-          ]
+          "specifiers": ["RouterProvider"]
         },
         {
           "source": "./router",
-          "specifiers": [
-            "getRouter"
-          ]
+          "specifiers": ["getRouter"]
         }
       ],
       "exports": [],
@@ -1159,20 +893,14 @@
       "imports": [
         {
           "source": "@tanstack/react-router",
-          "specifiers": [
-            "createRouter"
-          ]
+          "specifiers": ["createRouter"]
         },
         {
           "source": "./routeTree.gen",
-          "specifiers": [
-            "routeTree"
-          ]
+          "specifiers": ["routeTree"]
         }
       ],
-      "exports": [
-        "getRouter"
-      ],
+      "exports": ["getRouter"],
       "totalLines": 13,
       "hasStructuralAnalysis": true
     },
@@ -1188,9 +916,7 @@
         },
         {
           "name": "ErrorComponent",
-          "params": [
-            "{ error, reset }"
-          ],
+          "params": ["{ error, reset }"],
           "exported": false,
           "lineCount": 34
         },
@@ -1205,30 +931,18 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "lazy",
-            "Suspense"
-          ]
+          "specifiers": ["lazy", "Suspense"]
         },
         {
           "source": "@tanstack/react-router",
-          "specifiers": [
-            "Outlet",
-            "Link",
-            "createRootRoute",
-            "useRouter",
-            "HeadContent"
-          ]
+          "specifiers": ["Outlet", "Link", "createRootRoute", "useRouter", "HeadContent"]
         },
         {
           "source": "../styles.css",
           "specifiers": []
         }
       ],
-      "exports": [
-        "Route",
-        "component"
-      ],
+      "exports": ["Route", "component"],
       "totalLines": 85,
       "hasStructuralAnalysis": true
     },
@@ -1247,68 +961,46 @@
       "imports": [
         {
           "source": "@tanstack/react-router",
-          "specifiers": [
-            "createFileRoute"
-          ]
+          "specifiers": ["createFileRoute"]
         },
         {
           "source": "@/components/portfolio/Navbar",
-          "specifiers": [
-            "Navbar"
-          ]
+          "specifiers": ["Navbar"]
         },
         {
           "source": "@/components/portfolio/Hero",
-          "specifiers": [
-            "Hero"
-          ]
+          "specifiers": ["Hero"]
         },
         {
           "source": "@/components/portfolio/Invitation",
-          "specifiers": [
-            "Invitation"
-          ]
+          "specifiers": ["Invitation"]
         },
         {
           "source": "@/components/portfolio/About",
-          "specifiers": [
-            "About"
-          ]
+          "specifiers": ["About"]
         },
         {
           "source": "@/components/portfolio/EventDetails",
-          "specifiers": [
-            "EventDetails"
-          ]
+          "specifiers": ["EventDetails"]
         },
         {
           "source": "@/components/portfolio/Gallery",
-          "specifiers": [
-            "Gallery"
-          ]
+          "specifiers": ["Gallery"]
         },
         {
           "source": "@/components/portfolio/Timeline",
-          "specifiers": [
-            "Timeline"
-          ]
+          "specifiers": ["Timeline"]
         },
         {
           "source": "@/components/portfolio/RSVP",
-          "specifiers": [
-            "RSVP"
-          ]
+          "specifiers": ["RSVP"]
         },
         {
           "source": "@/components/portfolio/Footer",
-          "specifiers": [
-            "Footer"
-          ]
+          "specifiers": ["Footer"]
         }
       ],
-      "exports": [
-        "Route"
-      ],
+      "exports": ["Route"],
       "totalLines": 73,
       "hasStructuralAnalysis": true
     },
@@ -1318,19 +1010,14 @@
       "functions": [
         {
           "name": "imageUrl",
-          "params": [
-            "slug",
-            "index"
-          ],
+          "params": ["slug", "index"],
           "returnType": "string",
           "exported": false,
           "lineCount": 3
         },
         {
           "name": "ImageWithSkeleton",
-          "params": [
-            "{ src, alt, hue }"
-          ],
+          "params": ["{ src, alt, hue }"],
           "exported": false,
           "lineCount": 22
         },
@@ -1345,29 +1032,19 @@
       "imports": [
         {
           "source": "react",
-          "specifiers": [
-            "useState"
-          ]
+          "specifiers": ["useState"]
         },
         {
           "source": "@tanstack/react-router",
-          "specifiers": [
-            "Link",
-            "createFileRoute"
-          ]
+          "specifiers": ["Link", "createFileRoute"]
         },
         {
           "source": "framer-motion",
-          "specifiers": [
-            "motion"
-          ]
+          "specifiers": ["motion"]
         },
         {
           "source": "lucide-react",
-          "specifiers": [
-            "ArrowLeft",
-            "Heart"
-          ]
+          "specifiers": ["ArrowLeft", "Heart"]
         },
         {
           "source": "@/components/ui/carousel",
@@ -1380,9 +1057,7 @@
           ]
         }
       ],
-      "exports": [
-        "Route"
-      ],
+      "exports": ["Route"],
       "totalLines": 197,
       "hasStructuralAnalysis": true
     },
@@ -1394,26 +1069,18 @@
       "imports": [
         {
           "source": "./routes/__root",
-          "specifiers": [
-            "rootRouteImport"
-          ]
+          "specifiers": ["rootRouteImport"]
         },
         {
           "source": "./routes/index",
-          "specifiers": [
-            "IndexRouteImport"
-          ]
+          "specifiers": ["IndexRouteImport"]
         },
         {
           "source": "./routes/memory.$slug",
-          "specifiers": [
-            "MemorySlugRouteImport"
-          ]
+          "specifiers": ["MemorySlugRouteImport"]
         }
       ],
-      "exports": [
-        "routeTree"
-      ],
+      "exports": ["routeTree"],
       "totalLines": 78,
       "hasStructuralAnalysis": true
     },
@@ -1434,17 +1101,8 @@
       "classes": [
         {
           "name": "MockIntersectionObserver",
-          "methods": [
-            "observe",
-            "unobserve",
-            "disconnect",
-            "takeRecords"
-          ],
-          "properties": [
-            "root",
-            "rootMargin",
-            "thresholds"
-          ],
+          "methods": ["observe", "unobserve", "disconnect", "takeRecords"],
+          "properties": ["root", "rootMargin", "thresholds"],
           "exported": false,
           "lineCount": 11
         }
@@ -1487,33 +1145,23 @@
       "imports": [
         {
           "source": "vite",
-          "specifiers": [
-            "defineConfig"
-          ]
+          "specifiers": ["defineConfig"]
         },
         {
           "source": "@tanstack/router-plugin/vite",
-          "specifiers": [
-            "TanStackRouterVite"
-          ]
+          "specifiers": ["TanStackRouterVite"]
         },
         {
           "source": "@vitejs/plugin-react",
-          "specifiers": [
-            "react"
-          ]
+          "specifiers": ["react"]
         },
         {
           "source": "@tailwindcss/vite",
-          "specifiers": [
-            "tailwindcss"
-          ]
+          "specifiers": ["tailwindcss"]
         },
         {
           "source": "vite-tsconfig-paths",
-          "specifiers": [
-            "tsconfigPaths"
-          ]
+          "specifiers": ["tsconfigPaths"]
         }
       ],
       "exports": [],
@@ -1528,21 +1176,15 @@
       "imports": [
         {
           "source": "vitest/config",
-          "specifiers": [
-            "defineConfig"
-          ]
+          "specifiers": ["defineConfig"]
         },
         {
           "source": "@vitejs/plugin-react",
-          "specifiers": [
-            "react"
-          ]
+          "specifiers": ["react"]
         },
         {
           "source": "vite-tsconfig-paths",
-          "specifiers": [
-            "tsconfigPaths"
-          ]
+          "specifiers": ["tsconfigPaths"]
         }
       ],
       "exports": [],

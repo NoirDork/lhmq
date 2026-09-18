@@ -1,0 +1,21 @@
+{
+  "entry": ["src/main.tsx", "src/router.tsx", "vite.config.ts", "vitest.config.ts"],
+  "project": ["src/**/*.{ts,tsx}", "!src/**/*.test.ts", "!src/**/*.test.tsx"],
+  "ignore": [
+    "src/routes/__root.tsx",
+    "src/routeTree.gen.ts",
+    "src/components/portfolio/Signature.tsx"
+  ],
+  "ignoreDependencies": [
+    "tailwindcss",
+    "tw-animate-css",
+    "@types/react",
+    "@types/react-dom",
+    "@types/node",
+    "@types/three",
+    "@types/canvas-confetti"
+  ],
+  "vite": {
+    "config": "vite.config.ts"
+  }
+}

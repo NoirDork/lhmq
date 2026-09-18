@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Particle {
@@ -17,73 +17,14 @@ function prefersReduced(): boolean {
 export function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isMobile = useIsMobile();
+  const animIdRef = useRef<number | null>(null);
+  const particlesRef = useRef<Particle[]>([]);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const dimsRef = useRef({ w: 0, h: 0 });
+  const isVisibleRef = useRef(true);
 
-  useEffect(() => {
-    if (prefersReduced() || isMobile) return;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number | null = null;
-    let w = 0;
-    let h = 0;
-    let isVisible = true;
-
-    const particles: Particle[] = [];
-    const PARTICLE_COUNT = window.innerWidth < 1024 ? 20 : 40;
-
-    function handleVisibilityChange() {
-      if (document.hidden) {
-        isVisible = false;
-        if (animId !== null) {
-          cancelAnimationFrame(animId);
-          animId = null;
-        }
-      } else {
-        isVisible = true;
-        if (animId === null) {
-          animId = requestAnimationFrame(animate);
-        }
-      }
-    }
-
-    function resize() {
-      const parent = canvas!.parentElement!;
-      w = parent.offsetWidth;
-      h = parent.offsetHeight;
-      canvas!.width = w;
-      canvas!.height = h;
-    }
-
-    function createParticle(): Particle {
-      return {
-        x: Math.random() * w,
-        y: h + Math.random() * h * 0.5,
-        size: 1.5 + Math.random() * 3,
-        speedY: -(0.15 + Math.random() * 0.35),
-        speedX: (Math.random() - 0.5) * 0.15,
-        opacity: 0.04 + Math.random() * 0.12,
-      };
-    }
-
-    function initParticles() {
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        const p = createParticle();
-        p.y = Math.random() * h;
-        particles.push(p);
-      }
-    }
-
-    function drawCap(
-      ctx: CanvasRenderingContext2D,
-      x: number,
-      y: number,
-      size: number,
-      opacity: number,
-    ) {
+  const drawCap = useCallback(
+    (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, opacity: number) => {
       ctx.save();
       ctx.globalAlpha = opacity;
       ctx.fillStyle = "#D4A853";
@@ -100,52 +41,117 @@ export function ParticleField() {
       ctx.arc(x + s * 1.5, y - s * 2.5, s * 0.5, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
-    }
+    },
+    [],
+  );
 
-    function animate() {
-      if (!isVisible) return;
+  const createParticle = useCallback((): Particle => {
+    const { w, h } = dimsRef.current;
+    return {
+      x: Math.random() * w,
+      y: h + Math.random() * h * 0.5,
+      size: 1.5 + Math.random() * 3,
+      speedY: -(0.15 + Math.random() * 0.35),
+      speedX: (Math.random() - 0.5) * 0.15,
+      opacity: 0.04 + Math.random() * 0.12,
+    };
+  }, []);
 
-      ctx!.clearRect(0, 0, w, h);
+  const animate = useCallback(() => {
+    if (!isVisibleRef.current) return;
 
-      for (const p of particles) {
-        p.x += p.speedX;
-        p.y += p.speedY;
+    const ctx = ctxRef.current;
+    const { w, h } = dimsRef.current;
+    const particles = particlesRef.current;
+    if (!ctx || !w || !h) return;
 
-        if (p.y + p.size < 0) {
-          Object.assign(p, createParticle());
-          p.y = h + p.size;
-        }
+    ctx.clearRect(0, 0, w, h);
 
-        if (p.x < -10) p.x = w + 10;
-        if (p.x > w + 10) p.x = -10;
+    for (const p of particles) {
+      p.x += p.speedX;
+      p.y += p.speedY;
 
-        if (p.size > 3) {
-          drawCap(ctx!, p.x, p.y, p.size, p.opacity);
-        } else {
-          ctx!.globalAlpha = p.opacity;
-          ctx!.fillStyle = "#D4A853";
-          ctx!.beginPath();
-          ctx!.arc(p.x, p.y, p.size * 0.5, 0, Math.PI * 2);
-          ctx!.fill();
-        }
+      if (p.y + p.size < 0) {
+        Object.assign(p, createParticle());
+        p.y = h + p.size;
       }
 
-      animId = requestAnimationFrame(animate);
+      if (p.x < -10) p.x = w + 10;
+      if (p.x > w + 10) p.x = -10;
+
+      if (p.size > 3) {
+        drawCap(ctx, p.x, p.y, p.size, p.opacity);
+      } else {
+        ctx.globalAlpha = p.opacity;
+        ctx.fillStyle = "#D4A853";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * 0.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
+
+    animIdRef.current = requestAnimationFrame(animate);
+  }, [createParticle, drawCap]);
+
+  useEffect(() => {
+    if (prefersReduced() || isMobile) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctxRef.current = ctx;
+    const PARTICLE_COUNT = window.innerWidth < 1024 ? 20 : 40;
+
+    const resize = () => {
+      const parent = canvas.parentElement!;
+      const w = parent.offsetWidth;
+      const h = parent.offsetHeight;
+      dimsRef.current = { w, h };
+      canvas.width = w;
+      canvas.height = h;
+    };
+
+    const initParticles = () => {
+      particlesRef.current = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        const p = createParticle();
+        p.y = Math.random() * dimsRef.current.h;
+        particlesRef.current.push(p);
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        isVisibleRef.current = false;
+        if (animIdRef.current !== null) {
+          cancelAnimationFrame(animIdRef.current);
+          animIdRef.current = null;
+        }
+      } else {
+        isVisibleRef.current = true;
+        if (animIdRef.current === null) {
+          animIdRef.current = requestAnimationFrame(animate);
+        }
+      }
+    };
 
     resize();
     initParticles();
-    animId = requestAnimationFrame(animate);
+    animIdRef.current = requestAnimationFrame(animate);
 
     window.addEventListener("resize", resize);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      if (animId !== null) cancelAnimationFrame(animId);
+      if (animIdRef.current !== null) cancelAnimationFrame(animIdRef.current);
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      ctxRef.current = null;
     };
-  }, []);
+  }, [animate, createParticle, isMobile]);
 
   if (isMobile) return null;
 

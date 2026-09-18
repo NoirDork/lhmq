@@ -48,7 +48,8 @@ const memories: Record<
   },
   "family-support": {
     title: "Hậu Phương Gia Đình",
-    caption: "Gửi lời cảm ơn đến gia đình — những người luôn tin tưởng tôi từng bước trên đường đời.",
+    caption:
+      "Gửi lời cảm ơn đến gia đình — những người luôn tin tưởng tôi từng bước trên đường đời.",
     detail:
       "Gia đình là điểm tựa của tôi trong suốt chặng đường. Từ những lời động viên lúc nửa đêm đến niềm tin không lay chuyển vào khả năng của tôi, họ không bao giờ để tôi bỏ cuộc. Họ cùng tôi ăn mừng từng chiến thắng nhỏ và nâng tôi dậy trong những giây phút yếu lòng. Tấm bằng này thuộc về họ cũng như thuộc về tôi.",
     hue: "from-indigo-900/60 to-violet-900/60",

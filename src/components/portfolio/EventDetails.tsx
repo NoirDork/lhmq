@@ -50,10 +50,7 @@ export function EventDetails() {
           </p>
         </div>
 
-        <div
-          ref={cardsRef}
-          className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <div ref={cardsRef} className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {details.map((d) => {
             const Icon = d.icon;
             return (

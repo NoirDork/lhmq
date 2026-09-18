@@ -49,8 +49,9 @@ export function About() {
           transition={{ duration: 0.7 }}
           className="max-w-5xl text-5xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-7xl lg:text-8xl"
         >
-          Một hành trình <span className="text-muted-foreground">trưởng thành, đam mê & tình bạn</span> —
-          kết tinh trong ngày đặc biệt này.
+          Một hành trình{" "}
+          <span className="text-muted-foreground">trưởng thành, đam mê & tình bạn</span> — kết tinh
+          trong ngày đặc biệt này.
         </motion.h2>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-2">
@@ -66,10 +67,7 @@ export function About() {
             cô, bạn bè và người thân đã luôn ở bên cạnh. Tấm bằng này thuộc về tất cả chúng ta.
           </motion.p>
 
-          <ul
-            ref={milestonesRef}
-            className="grid grid-cols-2 gap-3 sm:grid-cols-3"
-          >
+          <ul ref={milestonesRef} className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {milestones.map((s) => (
               <li
                 key={s}

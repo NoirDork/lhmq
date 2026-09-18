@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import {
   motion,
   useMotionValue,
@@ -12,7 +12,6 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Reveal, RevealItem } from "./Reveal";
 import { ParticleField } from "./ParticleField";
-import handSig from "/images/hand-sig/hand-sig.png";
 
 const info = [
   { Icon: GraduationCap, text: "Đại học Kinh tế - Luật, ĐHQG-HCM" },
@@ -20,6 +19,39 @@ const info = [
   { Icon: MapPin, text: "Trường Đại học Kinh tế - Luật, ĐHQG-HCM" },
   { Icon: Mail, text: "lamquan3005@gmail.com" },
 ];
+
+function HandSigSkeleton() {
+  return (
+    <div
+      className="pointer-events-none absolute left-1/2 top-1/2 z-10 h-auto w-[clamp(120px,22vw,300px)] -translate-x-1/2 -translate-y-[50%] select-none sm:w-[clamp(160px,22vw,300px)] sm:-translate-y-[44%] animate-pulse"
+      aria-hidden="true"
+    >
+      <div className="aspect-[3/2] bg-gradient-to-br from-amber-900/40 to-rose-900/40 rounded-full mix-blend-overlay" />
+    </div>
+  );
+}
+
+function HandSigImage() {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <>
+      {!loaded && <HandSigSkeleton />}
+      <picture>
+        <source srcSet="/images/hand-sig/hand-sig.avif" type="image/avif" />
+        <source srcSet="/images/hand-sig/hand-sig.webp" type="image/webp" />
+        <img
+          src="/images/hand-sig/hand-sig.png"
+          alt=""
+          aria-hidden
+          width={300}
+          height={200}
+          onLoad={() => setLoaded(true)}
+          className={`pointer-events-none absolute left-1/2 top-1/2 z-10 h-auto w-[clamp(120px,22vw,300px)] -translate-x-1/2 -translate-y-[50%] select-none sm:w-[clamp(160px,22vw,300px)] sm:-translate-y-[44%] transition-opacity duration-500 ${loaded ? "opacity-70" : "opacity-0"}`}
+        />
+      </picture>
+    </>
+  );
+}
 
 export function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -71,7 +103,11 @@ export function Hero() {
     if (prefersReduced) return;
     const tl = gsap.timeline({ defaults: { ease: "power1.inOut" } });
     tl.to(dotRef.current, { scale: 1.35, duration: 1.8, repeat: -1, yoyo: true }, 0);
-    tl.to(shimmerRef.current, { backgroundPosition: "100% 0%", duration: 7, repeat: -1, ease: "none" }, 0);
+    tl.to(
+      shimmerRef.current,
+      { backgroundPosition: "100% 0%", duration: 7, repeat: -1, ease: "none" },
+      0,
+    );
   }, [prefersReduced]);
 
   return (
@@ -92,10 +128,7 @@ export function Hero() {
           className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.2em] text-muted-foreground"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1">
-            <span
-              ref={dotRef}
-              className="inline-block h-1.5 w-1.5 rounded-full bg-signature"
-            />
+            <span ref={dotRef} className="inline-block h-1.5 w-1.5 rounded-full bg-signature" />
             <span>Bạn đã được mời — 2026</span>
           </span>
           <span>Khóa 2026 · Tài chính – Ngân hàng</span>
@@ -119,18 +152,13 @@ export function Hero() {
               className="bg-[length:250%_100%] bg-clip-text text-transparent"
               style={{
                 backgroundImage:
-                  'linear-gradient(90deg, var(--foreground) 35%, var(--signature) 50%, var(--foreground) 65%)',
+                  "linear-gradient(90deg, var(--foreground) 35%, var(--signature) 50%, var(--foreground) 65%)",
                 backgroundPosition: "0% 0%",
               }}
             >
               graduation
             </span>
-            <img
-              src={handSig}
-              alt=""
-              aria-hidden
-              className="pointer-events-none absolute left-1/2 top-1/2 z-10 h-auto w-[clamp(120px,22vw,300px)] -translate-x-1/2 -translate-y-[50%] select-none sm:w-[clamp(160px,22vw,300px)] sm:-translate-y-[44%]"
-            />
+            <HandSigImage />
           </motion.h1>
         </div>
 
@@ -146,9 +174,9 @@ export function Hero() {
               Bạn được mời đến dự lễ tốt nghiệp đại học của tôi.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Sau những năm tháng học tập, nỗ lực và kỷ niệm khó quên, ngày đặc biệt này
-              đánh dấu sự khởi đầu của một hành trình mới. Sự hiện diện của bạn sẽ làm
-              cho ngày này thêm ý nghĩa.
+              Sau những năm tháng học tập, nỗ lực và kỷ niệm khó quên, ngày đặc biệt này đánh dấu sự
+              khởi đầu của một hành trình mới. Sự hiện diện của bạn sẽ làm cho ngày này thêm ý
+              nghĩa.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">

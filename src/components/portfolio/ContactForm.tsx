@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, type FormEvent } from "react";
+import { useEffect, useState, useRef, useCallback, type FormEvent } from "react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
@@ -11,14 +11,49 @@ const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
+interface FormState {
+  status: FormStatus;
+  errorMessage: string;
+  sent: boolean;
+  selectKey: number;
+}
+
+const initialState: FormState = {
+  status: "idle",
+  errorMessage: "",
+  sent: false,
+  selectKey: 0,
+};
+
+function formReducer(state: FormState, action: { type: string; payload?: unknown }): FormState {
+  switch (action.type) {
+    case "SUBMIT_START":
+      return { ...state, status: "submitting", errorMessage: "", sent: false };
+    case "SUBMIT_SUCCESS":
+      return { ...state, status: "success", sent: true, selectKey: state.selectKey + 1 };
+    case "SUBMIT_ERROR":
+      return {
+        ...state,
+        status: "error",
+        errorMessage: String(action.payload ?? "Error"),
+        sent: false,
+      };
+    case "RESET_SUCCESS":
+      return { ...state, status: "idle", sent: false };
+    default:
+      return state;
+  }
+}
+
 export function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [selectKey, setSelectKey] = useState(0);
+  const [formState, dispatch] = useState<FormState>(initialState);
+  const { status, errorMessage, sent, selectKey } = formState;
+  const loading = status === "submitting";
+  const error = status === "error";
 
   useEffect(() => {
     if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
@@ -26,14 +61,17 @@ export function ContactForm() {
     }
   }, []);
 
-  useGSAP(() => {
-    if (!successRef.current) return;
-    gsap.fromTo(
-      successRef.current,
-      { opacity: 0, y: 16, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
-    );
-  }, { dependencies: [sent] });
+  useGSAP(
+    () => {
+      if (!successRef.current) return;
+      gsap.fromTo(
+        successRef.current,
+        { opacity: 0, y: 16, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
+      );
+    },
+    { dependencies: [sent] },
+  );
 
   useGSAP(
     (_, contextSafe) => {
@@ -46,13 +84,23 @@ export function ContactForm() {
       const onFocus = contextSafe((e: FocusEvent) => {
         const el = e.currentTarget as HTMLElement;
         if (reduceMotion) return;
-        gsap.to(el, { scale: 1.01, borderColor: "var(--color-foreground)", duration: 0.25, ease: "power2.out" });
+        gsap.to(el, {
+          scale: 1.01,
+          borderColor: "var(--color-foreground)",
+          duration: 0.25,
+          ease: "power2.out",
+        });
       });
 
       const onBlur = contextSafe((e: FocusEvent) => {
         const el = e.currentTarget as HTMLElement;
         if (reduceMotion) return;
-        gsap.to(el, { scale: 1, borderColor: "var(--color-border)", duration: 0.3, ease: "power2.out" });
+        gsap.to(el, {
+          scale: 1,
+          borderColor: "var(--color-border)",
+          duration: 0.3,
+          ease: "power2.out",
+        });
       });
 
       inputs.forEach((el) => {
@@ -70,7 +118,7 @@ export function ContactForm() {
     { scope: formRef },
   );
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
 
@@ -79,56 +127,47 @@ export function ContactForm() {
 
     if (!guestName) return;
 
-    setLoading(true);
-    setError(false);
-    setErrorMessage("");
-
-    let emailOk = false;
-    let rsvpOk = false;
+    dispatch({ type: "SUBMIT_START" });
 
     const attendingStatus = formData.get("attendance") as string;
     const email = formData.get("email") as string;
 
     try {
       await submitRsvp({ guestName, attendingStatus, email });
-      rsvpOk = true;
     } catch (e) {
-      setError(true);
-      setErrorMessage(e instanceof Error ? e.message : "Không thể gửi RSVP. Vui lòng thử lại.");
-      setLoading(false);
+      dispatch({
+        type: "SUBMIT_ERROR",
+        payload: e instanceof Error ? e.message : "Không thể gửi RSVP. Vui lòng thử lại.",
+      });
       return;
     }
 
     try {
       const formDataObj = Object.fromEntries(formData.entries());
       await emailjs.send(SERVICE_ID, TEMPLATE_ID, formDataObj, PUBLIC_KEY);
-      emailOk = true;
     } catch (e) {
       console.error("EmailJS error:", e);
+      dispatch({
+        type: "SUBMIT_ERROR",
+        payload: "RSVP của bạn đã được lưu công khai, nhưng email thông báo không gửi được.",
+      });
+      setTimeout(() => dispatch({ type: "RESET_SUCCESS" }), 5000);
+      return;
     }
 
-    if (emailOk && rsvpOk) {
-      setSent(true);
-      form.reset();
-      setSelectKey((k) => k + 1);
-      window.dispatchEvent(new CustomEvent("guest-submitted"));
-      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        confetti({
-          particleCount: window.innerWidth < 768 ? 40 : 80,
-          spread: 70,
-          origin: { y: 0.7 },
-          colors: ["#D4A853", "#1E293B", "#FFFFFF"],
-        });
-      }
-      setTimeout(() => setSent(false), 4000);
-    } else {
-      setError(true);
-      setErrorMessage("RSVP của bạn đã được lưu công khai, nhưng email thông báo không gửi được.");
-      setTimeout(() => setError(false), 5000);
+    dispatch({ type: "SUBMIT_SUCCESS" });
+    form.reset();
+    window.dispatchEvent(new CustomEvent("guest-submitted"));
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      confetti({
+        particleCount: window.innerWidth < 768 ? 40 : 80,
+        spread: 70,
+        origin: { y: 0.7 },
+        colors: ["#D4A853", "#1E293B", "#FFFFFF"],
+      });
     }
-
-    setLoading(false);
-  };
+    setTimeout(() => dispatch({ type: "RESET_SUCCESS" }), 4000);
+  }, []);
 
   return (
     <form ref={formRef} onSubmit={onSubmit} className="grid gap-4">
@@ -182,10 +221,7 @@ export function ContactForm() {
         )}
       </button>
       {sent && (
-        <div
-          ref={successRef}
-          className="mt-4 rounded-2xl border border-border bg-card p-5"
-        >
+        <div ref={successRef} className="mt-4 rounded-2xl border border-border bg-card p-5">
           <div className="flex items-center gap-3">
             <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-signature/10">
               <svg
@@ -287,9 +323,7 @@ function AnimatedSelect() {
         onClick={() => setOpen((p) => !p)}
         className="flex w-full items-center justify-between rounded-2xl border border-border bg-card px-5 py-4 text-sm outline-none transition-colors focus:border-foreground touch-manipulation"
       >
-        <span className={value ? "text-foreground" : "text-muted-foreground"}>
-          {label}
-        </span>
+        <span className={value ? "text-foreground" : "text-muted-foreground"}>{label}</span>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.2, ease: "easeInOut" }}

@@ -1,5 +1,5 @@
-import { useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
-import { useCallback } from "react";
+import { useMotionValue, useSpring, useTransform, useMotionValueEvent } from "framer-motion";
+import { useCallback, useMemo } from "react";
 
 type TiltResult = {
   onMouseMove: (e: React.MouseEvent<HTMLElement>) => void;
@@ -17,10 +17,19 @@ export function useMouseTilt(degrees = 12): TiltResult {
 
   const rotateX = useTransform(springY, [0, 1], [degrees, -degrees]);
   const rotateY = useTransform(springX, [0, 1], [-degrees, degrees]);
-
   const shadowX = useTransform(springX, [0, 1], [-8, 8]);
   const shadowY = useTransform(springY, [0, 1], [8, -8]);
-  const boxShadow = useMotionTemplate`${shadowX}px ${shadowY}px 24px rgba(0,0,0,0.12)`;
+
+  const style = useMemo(
+    () => ({
+      rotateX,
+      rotateY,
+      boxShadow: `${shadowX.get()}px ${shadowY.get()}px 24px rgba(0,0,0,0.12)`,
+      transformStyle: "preserve-3d" as const,
+      perspective: 1000,
+    }),
+    [rotateX, rotateY, shadowX, shadowY],
+  );
 
   const onMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
@@ -36,15 +45,5 @@ export function useMouseTilt(degrees = 12): TiltResult {
     y.set(0.5);
   }, [x, y]);
 
-  return {
-    onMouseMove,
-    onMouseLeave,
-    style: {
-      rotateX,
-      rotateY,
-      boxShadow,
-      transformStyle: "preserve-3d" as const,
-      perspective: 1000,
-    },
-  };
+  return { onMouseMove, onMouseLeave, style };
 }
