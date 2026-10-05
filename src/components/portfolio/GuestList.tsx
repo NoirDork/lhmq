@@ -86,7 +86,18 @@ export function GuestList() {
       )}
 
       {!loading && error && (
-        <p className="py-8 text-center text-sm text-red-500">Không thể tải danh sách khách mời.</p>
+        <div className="py-8 text-center">
+          <p role="alert" className="text-sm text-red-500">
+            Không thể tải danh sách khách mời.
+          </p>
+          <button
+            type="button"
+            onClick={loadGuests}
+            className="mt-3 min-h-[44px] rounded-full border border-border px-5 py-2 text-sm transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signature"
+          >
+            Thử lại
+          </button>
+        </div>
       )}
 
       {!loading && !error && guests.length === 0 && (

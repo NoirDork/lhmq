@@ -1,6 +1,5 @@
-import { useEffect, useState, useRef, useCallback, type FormEvent } from "react";
+import { useEffect, useReducer, useRef, useCallback, type FormEvent } from "react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import confetti from "canvas-confetti";
 import gsap from "gsap";
@@ -17,14 +16,12 @@ interface FormState {
   status: FormStatus;
   errorMessage: string;
   sent: boolean;
-  selectKey: number;
 }
 
 const initialState: FormState = {
   status: "idle",
   errorMessage: "",
   sent: false,
-  selectKey: 0,
 };
 
 function formReducer(state: FormState, action: { type: string; payload?: unknown }): FormState {
@@ -32,7 +29,7 @@ function formReducer(state: FormState, action: { type: string; payload?: unknown
     case "SUBMIT_START":
       return { ...state, status: "submitting", errorMessage: "", sent: false };
     case "SUBMIT_SUCCESS":
-      return { ...state, status: "success", sent: true, selectKey: state.selectKey + 1 };
+      return { ...state, status: "success", sent: true };
     case "SUBMIT_ERROR":
       return {
         ...state,
@@ -50,34 +47,36 @@ function formReducer(state: FormState, action: { type: string; payload?: unknown
 export function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const successRef = useRef<HTMLDivElement>(null);
-  const [formState, dispatch] = useState<FormState>(initialState);
-  const { status, errorMessage, sent, selectKey } = formState;
+  const [formState, dispatch] = useReducer(formReducer, initialState);
+  const { status, errorMessage, sent } = formState;
   const loading = status === "submitting";
   const error = status === "error";
 
   useEffect(() => {
-    if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) {
-      console.warn("EmailJS environment variables not configured");
-    }
-  }, []);
+    if (!sent) return;
+    const timeout = setTimeout(() => dispatch({ type: "RESET_SUCCESS" }), 4000);
+    return () => clearTimeout(timeout);
+  }, [sent]);
 
   useGSAP(
     () => {
       if (!successRef.current) return;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       gsap.fromTo(
         successRef.current,
         { opacity: 0, y: 16, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" },
+        { opacity: 1, y: 0, scale: 1, duration: reduceMotion ? 0 : 0.5, ease: "back.out(1.7)" },
       );
     },
-    { dependencies: [sent] },
+    { dependencies: [sent], scope: formRef, revertOnUpdate: true },
   );
 
   useGSAP(
     (_, contextSafe) => {
-      if (!formRef.current) return;
+      if (!formRef.current || !contextSafe) return;
 
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion || window.matchMedia("(pointer: coarse)").matches) return;
       const selector = "input, select, textarea";
       const inputs = formRef.current.querySelectorAll<HTMLElement>(selector);
 
@@ -121,38 +120,42 @@ export function ContactForm() {
   const onSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
+    if (!form.reportValidity()) return;
 
     const formData = new FormData(form);
     const guestName = (formData.get("name") as string)?.trim();
-
-    if (!guestName) return;
-
-    dispatch({ type: "SUBMIT_START" });
-
     const attendingStatus = formData.get("attendance") as string;
-    const email = formData.get("email") as string;
+    const email = (formData.get("email") as string).trim();
+    const message = (formData.get("message") as string).trim();
+    const relationship = (formData.get("relationship") as string).trim();
 
-    try {
-      await submitRsvp({ guestName, attendingStatus, email });
-    } catch (e) {
+    if (!guestName || !message || !relationship) {
       dispatch({
         type: "SUBMIT_ERROR",
-        payload: e instanceof Error ? e.message : "Không thể gửi RSVP. Vui lòng thử lại.",
+        payload: "Vui lòng điền đầy đủ tên, mối quan hệ và lời chúc.",
       });
       return;
     }
 
+    dispatch({ type: "SUBMIT_START" });
+
     try {
-      const formDataObj = Object.fromEntries(formData.entries());
-      await emailjs.send(SERVICE_ID, TEMPLATE_ID, formDataObj, PUBLIC_KEY);
-    } catch (e) {
-      console.error("EmailJS error:", e);
+      await submitRsvp({ guestName, attendingStatus, email, message, relationship });
+    } catch (cause) {
       dispatch({
         type: "SUBMIT_ERROR",
-        payload: "RSVP của bạn đã được lưu công khai, nhưng email thông báo không gửi được.",
+        payload:
+          cause && typeof cause === "object" && "code" in cause && cause.code === "23505"
+            ? "Email này đã được dùng để RSVP trước đó."
+            : "Không thể lưu lời chúc. Vui lòng thử lại.",
       });
-      setTimeout(() => dispatch({ type: "RESET_SUCCESS" }), 5000);
       return;
+    }
+
+    if (SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY) {
+      void emailjs
+        .send(SERVICE_ID, TEMPLATE_ID, Object.fromEntries(formData.entries()), PUBLIC_KEY)
+        .catch(() => console.warn("Không gửi được email thông báo lời chúc."));
     }
 
     dispatch({ type: "SUBMIT_SUCCESS" });
@@ -166,17 +169,44 @@ export function ContactForm() {
         colors: ["#D4A853", "#1E293B", "#FFFFFF"],
       });
     }
-    setTimeout(() => dispatch({ type: "RESET_SUCCESS" }), 4000);
   }, []);
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} className="grid gap-4">
+    <form ref={formRef} onSubmit={onSubmit} aria-busy={loading} className="grid gap-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Tên của bạn" name="name" placeholder="Họ và tên" />
         <Field label="Mối quan hệ" name="relationship" placeholder="Bạn bè, gia đình, thầy cô…" />
       </div>
       <Field label="Email" name="email" type="email" placeholder="email@example.com" />
-      <AnimatedSelect key={selectKey} />
+      <div>
+        <label
+          htmlFor="attendance"
+          className="mb-2 block text-xs uppercase tracking-[0.2em] text-muted-foreground"
+        >
+          Tham dự
+        </label>
+        <div className="relative">
+          <select
+            id="attendance"
+            name="attendance"
+            required
+            defaultValue=""
+            className="min-h-[48px] w-full appearance-none rounded-2xl border border-border bg-card px-5 py-4 pr-12 text-base outline-none transition-colors focus:border-foreground sm:text-sm"
+          >
+            <option value="" disabled>
+              Chọn phản hồi
+            </option>
+            <option value="Attending">Có tham dự</option>
+            <option value="Not Attending">Không tham dự</option>
+            <option value="Maybe">Có thể</option>
+          </select>
+          <ChevronDown
+            size={16}
+            aria-hidden="true"
+            className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-muted-foreground"
+          />
+        </div>
+      </div>
       <div>
         <label
           htmlFor="message"
@@ -188,10 +218,11 @@ export function ContactForm() {
           id="message"
           name="message"
           rows={5}
+          maxLength={4000}
           required
           aria-required="true"
           placeholder="Viết lời chúc, kỷ niệm hay lời nhắn…"
-          className="w-full rounded-2xl border border-border bg-card px-5 py-4 text-sm outline-none transition-colors focus:border-foreground"
+          className="w-full rounded-2xl border border-border bg-card px-5 py-4 text-base outline-none transition-colors focus:border-foreground sm:text-sm"
         />
       </div>
       <div aria-live="polite">
@@ -221,7 +252,11 @@ export function ContactForm() {
         )}
       </button>
       {sent && (
-        <div ref={successRef} className="mt-4 rounded-2xl border border-border bg-card p-5">
+        <div
+          ref={successRef}
+          role="status"
+          className="mt-4 rounded-2xl border border-border bg-card p-5"
+        >
           <div className="flex items-center gap-3">
             <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-signature/10">
               <svg
@@ -269,102 +304,12 @@ function Field({
         id={id}
         name={name}
         type={type}
+        maxLength={type === "email" ? 254 : 120}
+        autoComplete={name === "email" ? "email" : name === "name" ? "name" : "off"}
         required
         placeholder={placeholder}
-        className="w-full rounded-2xl border border-border bg-card px-5 py-4 text-sm outline-none transition-colors focus:border-foreground"
+        className="w-full rounded-2xl border border-border bg-card px-5 py-4 text-base outline-none transition-colors focus:border-foreground sm:text-sm"
       />
-    </div>
-  );
-}
-
-const options = [
-  { value: "", label: "Chọn phản hồi" },
-  { value: "Attending", label: "Có tham dự" },
-  { value: "Not Attending", label: "Không tham dự" },
-  { value: "Maybe", label: "Có thể" },
-];
-
-function AnimatedSelect() {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-  const ref = useRef<HTMLDivElement>(null);
-  const label = options.find((o) => o.value === value)?.label ?? "Chọn phản hồi";
-
-  useEffect(() => {
-    const onPointerDown = (e: PointerEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("pointerdown", onPointerDown);
-    return () => document.removeEventListener("pointerdown", onPointerDown);
-  }, []);
-
-  useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open]);
-
-  return (
-    <div ref={ref}>
-      <label className="mb-2 block text-xs uppercase tracking-[0.2em] text-muted-foreground">
-        Tham dự
-      </label>
-      <button
-        type="button"
-        role="combobox"
-        aria-expanded={open}
-        aria-haspopup="listbox"
-        aria-required="true"
-        onClick={() => setOpen((p) => !p)}
-        className="flex w-full items-center justify-between rounded-2xl border border-border bg-card px-5 py-4 text-sm outline-none transition-colors focus:border-foreground touch-manipulation"
-      >
-        <span className={value ? "text-foreground" : "text-muted-foreground"}>{label}</span>
-        <motion.span
-          animate={{ rotate: open ? 180 : 0 }}
-          transition={{ duration: 0.2, ease: "easeInOut" }}
-        >
-          <ChevronDown size={16} className="text-muted-foreground" />
-        </motion.span>
-      </button>
-      <input type="hidden" name="attendance" value={value} required aria-required="true" />
-      <AnimatePresence>
-        {open && (
-          <motion.ul
-            role="listbox"
-            initial={{ opacity: 0, y: -8, scaleY: 0.96 }}
-            animate={{ opacity: 1, y: 0, scaleY: 1 }}
-            exit={{ opacity: 0, y: -4, scaleY: 0.96 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
-            style={{ originY: 0 }}
-            className="mt-1 overflow-hidden rounded-2xl border border-border bg-card p-1 shadow-xl"
-          >
-            {options.map((opt) => (
-              <li key={opt.value} role="option" aria-selected={value === opt.value}>
-                <button
-                  type="button"
-                  disabled={!opt.value}
-                  onClick={() => {
-                    setValue(opt.value);
-                    setOpen(false);
-                  }}
-                  className={`w-full rounded-xl px-4 py-3 text-left text-sm transition-colors ${
-                    value === opt.value
-                      ? "bg-accent font-medium text-foreground"
-                      : "text-muted-foreground hover:bg-accent/50"
-                  } ${!opt.value ? "cursor-not-allowed opacity-50" : ""}`}
-                >
-                  {opt.label}
-                </button>
-              </li>
-            ))}
-          </motion.ul>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

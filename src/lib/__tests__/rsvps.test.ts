@@ -16,12 +16,16 @@ describe("RSVP data access", () => {
       guestName: "Minh Quân",
       attendingStatus: "Attending",
       email: "quan@example.com",
+      message: "Chúc mừng tốt nghiệp!",
+      relationship: "Bạn bè",
     });
 
     expect(rpc).toHaveBeenCalledWith("submit_rsvp", {
       p_guest_name: "Minh Quân",
       p_attending_status: "Attending",
       p_email: "quan@example.com",
+      p_message: "Chúc mừng tốt nghiệp!",
+      p_relationship: "Bạn bè",
     });
   });
 

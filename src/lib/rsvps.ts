@@ -10,13 +10,23 @@ interface RsvpSubmission {
   guestName: string;
   attendingStatus: string;
   email: string;
+  message: string;
+  relationship: string;
 }
 
-export async function submitRsvp({ guestName, attendingStatus, email }: RsvpSubmission) {
+export async function submitRsvp({
+  guestName,
+  attendingStatus,
+  email,
+  message,
+  relationship,
+}: RsvpSubmission) {
   const { error } = await supabase.rpc("submit_rsvp", {
     p_guest_name: guestName,
     p_attending_status: attendingStatus,
     p_email: email,
+    p_message: message,
+    p_relationship: relationship,
   });
 
   if (error) throw error;
