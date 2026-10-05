@@ -1,4 +1,6 @@
 import { lazy, Suspense } from "react";
+import { useReducedMotion } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Outlet, Link, createRootRoute, useRouter, HeadContent } from "@tanstack/react-router";
 
 import "../styles.css";
@@ -71,13 +73,17 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const isMobile = useIsMobile();
+  const prefersReduced = useReducedMotion();
   return (
     <>
       <ScrollProgress />
       <HeadContent />
-      <Suspense fallback={null}>
-        <GraduationCap3D />
-      </Suspense>
+      {!isMobile && !prefersReduced && (
+        <Suspense fallback={null}>
+          <GraduationCap3D />
+        </Suspense>
+      )}
       <Outlet />
     </>
   );

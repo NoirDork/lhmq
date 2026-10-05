@@ -1,9 +1,10 @@
 import { useRef } from "react";
+import type { Group } from "three";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 
 function GraduationCap() {
-  const groupRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<Group>(null);
 
   useFrame((_, delta) => {
     if (groupRef.current) {

@@ -12,6 +12,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Reveal, RevealItem } from "./Reveal";
 import { ParticleField } from "./ParticleField";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const info = [
   { Icon: GraduationCap, text: "Đại học Kinh tế - Luật, ĐHQG-HCM" },
@@ -58,6 +59,8 @@ export function Hero() {
   const shimmerRef = useRef<HTMLSpanElement>(null);
   const dotRef = useRef<HTMLSpanElement>(null);
   const prefersReduced = useReducedMotion();
+  const isMobile = useIsMobile();
+  const simplifiedMotion = isMobile || prefersReduced;
 
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
@@ -66,18 +69,18 @@ export function Hero() {
   const springMY = useSpring(mouseY, { stiffness: 150, damping: 30 });
 
   const { scrollY } = useScroll({
-    target: prefersReduced ? undefined : sectionRef,
+    target: simplifiedMotion ? undefined : sectionRef,
     offset: ["start start", "end start"],
   });
   const scrollProgress = useTransform(scrollY, [0, 600], [0, 1]);
 
-  const noMotion = prefersReduced ? 0 : undefined;
+  const noMotion = simplifiedMotion ? 0 : undefined;
   const heroTextRotateX = useTransform(scrollProgress, [0, 1], [0, noMotion ?? 12]);
   const heroTextY = useTransform(scrollProgress, [0, 1], [0, noMotion ?? 100]);
-  const heroTextOpacity = useTransform(scrollProgress, [0, 0.6], [1, noMotion ?? 0]);
+  const heroTextOpacity = useTransform(scrollProgress, [0, 0.6], [1, simplifiedMotion ? 1 : 0]);
   const badgeY = useTransform(scrollProgress, [0, 1], [0, noMotion ?? -60]);
   const ctaY = useTransform(scrollProgress, [0, 1], [0, noMotion ?? 80]);
-  const ctaOpacity = useTransform(scrollProgress, [0, 0.5], [1, noMotion ?? 0]);
+  const ctaOpacity = useTransform(scrollProgress, [0, 0.5], [1, simplifiedMotion ? 1 : 0]);
 
   const textLayerX = useTransform(springMX, [0, 1], [-20, 20]);
   const textLayerY = useTransform(springMY, [0, 1], [-15, 15]);
@@ -99,29 +102,32 @@ export function Hero() {
     mouseY.set(0.5);
   }, [mouseX, mouseY]);
 
-  useGSAP(() => {
-    if (prefersReduced) return;
-    const tl = gsap.timeline({ defaults: { ease: "power1.inOut" } });
-    tl.to(dotRef.current, { scale: 1.35, duration: 1.8, repeat: -1, yoyo: true }, 0);
-    tl.to(
-      shimmerRef.current,
-      { backgroundPosition: "100% 0%", duration: 7, repeat: -1, ease: "none" },
-      0,
-    );
-  }, [prefersReduced]);
+  useGSAP(
+    () => {
+      if (simplifiedMotion) return;
+      const tl = gsap.timeline({ defaults: { ease: "power1.inOut" } });
+      tl.to(dotRef.current, { scale: 1.35, duration: 1.8, repeat: -1, yoyo: true }, 0);
+      tl.to(
+        shimmerRef.current,
+        { backgroundPosition: "100% 0%", duration: 7, repeat: -1, ease: "none" },
+        0,
+      );
+    },
+    { dependencies: [simplifiedMotion], scope: sectionRef, revertOnUpdate: true },
+  );
 
   return (
     <section
       id="home"
       ref={sectionRef}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
+      onMouseMove={simplifiedMotion ? undefined : onMouseMove}
+      onMouseLeave={simplifiedMotion ? undefined : onMouseLeave}
       className="relative overflow-hidden px-4 pt-20 sm:pt-32 sm:px-6 lg:pt-40"
     >
       <ParticleField />
       <div className="relative z-10 mx-auto max-w-7xl" style={{ perspective: 1000 }}>
         <motion.div
-          style={{ x: badgeLayerX, y: badgeLayerY }}
+          style={{ x: simplifiedMotion ? 0 : badgeLayerX, y: simplifiedMotion ? 0 : badgeLayerY }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -140,7 +146,7 @@ export function Hero() {
               rotateX: heroTextRotateX,
               y: heroTextY,
               opacity: heroTextOpacity,
-              x: textLayerX,
+              x: simplifiedMotion ? 0 : textLayerX,
             }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
