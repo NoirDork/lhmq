@@ -1,10 +1,10 @@
-import { useEffect, useReducer, useRef, useCallback, type FormEvent } from "react";
+import { useReducer, useRef, useCallback, type FormEvent } from "react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import emailjs from "@emailjs/browser";
-import confetti from "canvas-confetti";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { submitRsvp } from "@/lib/rsvps";
+import { RsvpConfirmation } from "./RsvpConfirmation";
 
 const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -16,12 +16,14 @@ interface FormState {
   status: FormStatus;
   errorMessage: string;
   sent: boolean;
+  attending: boolean;
 }
 
 const initialState: FormState = {
   status: "idle",
   errorMessage: "",
   sent: false,
+  attending: false,
 };
 
 function formReducer(state: FormState, action: { type: string; payload?: unknown }): FormState {
@@ -29,7 +31,7 @@ function formReducer(state: FormState, action: { type: string; payload?: unknown
     case "SUBMIT_START":
       return { ...state, status: "submitting", errorMessage: "", sent: false };
     case "SUBMIT_SUCCESS":
-      return { ...state, status: "success", sent: true };
+      return { ...state, status: "success", sent: true, attending: action.payload === "Attending" };
     case "SUBMIT_ERROR":
       return {
         ...state,
@@ -46,30 +48,10 @@ function formReducer(state: FormState, action: { type: string; payload?: unknown
 
 export function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const successRef = useRef<HTMLDivElement>(null);
   const [formState, dispatch] = useReducer(formReducer, initialState);
-  const { status, errorMessage, sent } = formState;
+  const { status, errorMessage, sent, attending } = formState;
   const loading = status === "submitting";
   const error = status === "error";
-
-  useEffect(() => {
-    if (!sent) return;
-    const timeout = setTimeout(() => dispatch({ type: "RESET_SUCCESS" }), 4000);
-    return () => clearTimeout(timeout);
-  }, [sent]);
-
-  useGSAP(
-    () => {
-      if (!successRef.current) return;
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      gsap.fromTo(
-        successRef.current,
-        { opacity: 0, y: 16, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1, duration: reduceMotion ? 0 : 0.5, ease: "back.out(1.7)" },
-      );
-    },
-    { dependencies: [sent], scope: formRef, revertOnUpdate: true },
-  );
 
   useGSAP(
     (_, contextSafe) => {
@@ -158,17 +140,9 @@ export function ContactForm() {
         .catch(() => console.warn("Không gửi được email thông báo lời chúc."));
     }
 
-    dispatch({ type: "SUBMIT_SUCCESS" });
+    dispatch({ type: "SUBMIT_SUCCESS", payload: attendingStatus });
     form.reset();
     window.dispatchEvent(new CustomEvent("guest-submitted"));
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      confetti({
-        particleCount: window.innerWidth < 768 ? 40 : 80,
-        spread: 70,
-        origin: { y: 0.7 },
-        colors: ["#D4A853", "#1E293B", "#FFFFFF"],
-      });
-    }
   }, []);
 
   return (
@@ -198,7 +172,6 @@ export function ContactForm() {
             </option>
             <option value="Attending">Có tham dự</option>
             <option value="Not Attending">Không tham dự</option>
-            <option value="Maybe">Có thể</option>
           </select>
           <ChevronDown
             size={16}
@@ -252,29 +225,10 @@ export function ContactForm() {
         )}
       </button>
       {sent && (
-        <div
-          ref={successRef}
-          role="status"
-          className="mt-4 rounded-2xl border border-border bg-card p-5"
-        >
-          <div className="flex items-center gap-3">
-            <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-signature/10">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2.5}
-                className="h-5 w-5 text-signature"
-              >
-                <path d="M20 6L9 17l-5-5" />
-              </svg>
-            </div>
-            <div>
-              <p className="font-semibold">Đã gửi!</p>
-              <p className="text-sm text-muted-foreground">Cảm ơn bạn đã gửi lời chúc.</p>
-            </div>
-          </div>
-        </div>
+        <RsvpConfirmation
+          attending={attending}
+          onClose={() => dispatch({ type: "RESET_SUCCESS" })}
+        />
       )}
     </form>
   );
