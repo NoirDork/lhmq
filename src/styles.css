@@ -61,3 +61,82 @@
     font-feature-settings: "ss01", "cv11";
   }
 }
+
+.attendance-select {
+  color-scheme: dark;
+  cursor: pointer;
+}
+
+.attendance-select:invalid {
+  color: var(--muted-foreground);
+}
+
+.attendance-select:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+}
+
+@supports (appearance: base-select) {
+  .attendance-select,
+  .attendance-select::picker(select) {
+    appearance: base-select;
+  }
+
+  .attendance-select:open {
+    border-color: var(--signature);
+  }
+
+  .attendance-select::picker-icon {
+    display: none;
+  }
+
+  .attendance-select:open + svg {
+    rotate: 180deg;
+  }
+
+  .attendance-select::picker(select) {
+    margin-block: 8px;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--card);
+    color: var(--foreground);
+    box-shadow: 0 12px 32px color-mix(in oklch, var(--background) 80%, transparent);
+  }
+
+  .attendance-select option {
+    min-height: 48px;
+    padding: 12px 16px;
+    border: 1px solid transparent;
+    border-radius: calc(var(--radius) - 8px);
+    color: var(--foreground);
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .attendance-select option:disabled {
+    display: none;
+  }
+
+  .attendance-select option:hover,
+  .attendance-select option:focus-visible {
+    background: var(--accent);
+  }
+
+  .attendance-select option:focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: -2px;
+  }
+
+  .attendance-select option:checked {
+    border-color: color-mix(in oklch, var(--signature) 50%, transparent);
+    background: color-mix(in oklch, var(--signature) 10%, var(--card));
+    font-weight: 500;
+  }
+
+  .attendance-select option::checkmark {
+    order: 1;
+    margin-left: auto;
+    color: var(--signature);
+  }
+}

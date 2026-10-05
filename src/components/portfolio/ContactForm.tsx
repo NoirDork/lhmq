@@ -59,7 +59,7 @@ export function ContactForm() {
 
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduceMotion || window.matchMedia("(pointer: coarse)").matches) return;
-      const selector = "input, select, textarea";
+      const selector = "input, textarea";
       const inputs = formRef.current.querySelectorAll<HTMLElement>(selector);
 
       const onFocus = contextSafe((e: FocusEvent) => {
@@ -165,7 +165,7 @@ export function ContactForm() {
             name="attendance"
             required
             defaultValue=""
-            className="min-h-[48px] w-full appearance-none rounded-2xl border border-border bg-card px-5 py-4 pr-12 text-base outline-none transition-colors focus:border-foreground sm:text-sm"
+            className="attendance-select min-h-[48px] w-full appearance-none rounded-2xl border border-border bg-card px-5 py-4 pr-12 text-base transition-colors sm:text-sm"
           >
             <option value="" disabled>
               Chọn phản hồi
