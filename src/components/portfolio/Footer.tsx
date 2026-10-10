@@ -50,7 +50,7 @@ export function Footer() {
             src={handSig}
             alt=""
             aria-hidden
-            className="h-20 w-auto translate-y-1 select-none sm:h-24 sm:translate-y-2 lg:h-28 lg:translate-y-3"
+            className="h-20 w-auto translate-y-1 select-none grayscale sm:h-24 sm:translate-y-2 lg:h-28 lg:translate-y-3"
           />
         </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground">

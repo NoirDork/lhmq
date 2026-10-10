@@ -32,7 +32,7 @@ export function ScrollProgress() {
       className="fixed left-0 top-0 z-[60] h-full w-[2px] origin-top scale-y-0"
       style={{
         background:
-          "linear-gradient(180deg, transparent 0%, rgba(212,168,83,0.25) 20%, rgba(212,168,83,0.5) 50%, rgba(212,168,83,0.25) 80%, transparent 100%)",
+          "linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--primary) 50%, transparent) 20%, var(--primary) 50%, color-mix(in srgb, var(--primary) 50%, transparent) 80%, transparent 100%)",
       }}
       aria-hidden="true"
     />

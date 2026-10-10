@@ -200,7 +200,7 @@ export function ContactForm() {
       </div>
       <div aria-live="polite">
         {error && (
-          <p role="alert" className="text-sm text-red-500">
+          <p role="alert" className="text-sm text-red-700">
             {errorMessage}
           </p>
         )}

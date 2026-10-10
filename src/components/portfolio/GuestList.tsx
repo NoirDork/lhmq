@@ -4,9 +4,9 @@ import { useGSAP } from "@gsap/react";
 import { fetchGuests as fetchGuestsApi, type PublicGuest } from "@/lib/rsvps";
 
 const statusColor: Record<string, string> = {
-  Attending: "text-green-400",
-  "Not Attending": "text-red-400",
-  Maybe: "text-yellow-400",
+  Attending: "text-green-700",
+  "Not Attending": "text-red-700",
+  Maybe: "text-yellow-800",
 };
 
 export function GuestList() {
@@ -87,7 +87,7 @@ export function GuestList() {
 
       {!loading && error && (
         <div className="py-8 text-center">
-          <p role="alert" className="text-sm text-red-500">
+          <p role="alert" className="text-sm text-red-700">
             Không thể tải danh sách khách mời.
           </p>
           <button

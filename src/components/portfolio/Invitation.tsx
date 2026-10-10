@@ -22,8 +22,8 @@ export function Invitation() {
             transition={{ duration: 0.7 }}
             className="lg:col-span-5"
           >
-            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-amber-900/60 to-rose-900/60">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent,rgba(0,0,0,0.4))]" />
+            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-accent">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent,var(--primary))]" />
               <div className="absolute bottom-6 left-6 right-6 rounded-2xl bg-card/80 p-4 backdrop-blur">
                 <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   Tốt Nghiệp

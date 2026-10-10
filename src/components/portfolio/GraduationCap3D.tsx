@@ -25,7 +25,7 @@ function GraduationCap() {
         </mesh>
         <mesh position={[0.45, 0.35, 0]}>
           <sphereGeometry args={[0.08, 8, 8]} />
-          <meshStandardMaterial color="#D4A853" metalness={0.6} roughness={0.3} />
+          <meshStandardMaterial color="#BFDDF5" metalness={0.6} roughness={0.3} />
         </mesh>
       </Float>
     </group>

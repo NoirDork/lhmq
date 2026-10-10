@@ -12,38 +12,38 @@ const memories: Memory[] = [
     slug: "university-memories",
     title: "Kỷ Niệm Đại Học",
     caption: "Từ những buổi học đến đêm khuya — từng khoảnh khắc đã tạo nên tôi của ngày hôm nay.",
-    hue: "from-amber-900/60 to-rose-900/60",
+    hue: "from-primary to-accent",
   },
   {
     slug: "friends-classmates",
     title: "Bạn Bè & Đồng Môn",
     caption: "Những người đã làm hành trình này thật khó quên.",
-    hue: "from-emerald-900/60 to-teal-900/60",
+    hue: "from-accent to-primary",
   },
   {
     slug: "graduation-moments",
     title: "Khoảnh Khắc Tốt Nghiệp",
     caption: "Những nụ cười, niềm tự hào và chiếc mũ cử nhân tung bay.",
-    hue: "from-slate-700 to-slate-900",
+    hue: "from-muted to-primary",
   },
   {
     slug: "behind-the-journey",
     title: "Hậu Trường Hành Trình",
     caption: "Mồ hôi, nước mắt và sự kiên trì dẫn đến cột mốc này.",
-    hue: "from-stone-700 to-stone-900",
+    hue: "from-primary to-muted",
   },
   {
     slug: "family-support",
     title: "Hậu Phương Gia Đình",
     caption:
       "Gửi lời cảm ơn đến gia đình — những người luôn tin tưởng tôi từng bước trên đường đời.",
-    hue: "from-indigo-900/60 to-violet-900/60",
+    hue: "from-primary to-card",
   },
   {
     slug: "new-beginning",
     title: "Khởi Đầu Mới",
     caption: "Một chương kết thúc — một cuộc phiêu lưu mới bắt đầu.",
-    hue: "from-sky-900/60 to-cyan-900/60",
+    hue: "from-card to-primary",
   },
 ];
 

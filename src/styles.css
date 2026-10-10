@@ -30,20 +30,21 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.13 0 0);
-  --foreground: oklch(0.97 0 0);
-  --card: oklch(0.17 0 0);
-  --card-foreground: oklch(0.97 0 0);
-  --muted: oklch(0.21 0 0);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.24 0 0);
-  --accent-foreground: oklch(0.97 0 0);
-  --primary: oklch(0.97 0 0);
-  --primary-foreground: oklch(0.13 0 0);
-  --signature: oklch(0.65 0.22 27);
-  --border: oklch(0.28 0 0);
-  --input: oklch(0.28 0 0);
-  --ring: oklch(0.4 0 0);
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #171717;
+  --card: #f8fafc;
+  --card-foreground: var(--foreground);
+  --muted: #f1f5f9;
+  --muted-foreground: #56616e;
+  --accent: #e8f3fc;
+  --accent-foreground: var(--foreground);
+  --primary: #bfddf5;
+  --primary-foreground: var(--foreground);
+  --signature: #345f87;
+  --border: #d7e1eb;
+  --input: var(--border);
+  --ring: var(--signature);
 }
 
 @layer base {
@@ -60,10 +61,15 @@
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "ss01", "cv11";
   }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--muted-foreground);
+    opacity: 1;
+  }
 }
 
 .attendance-select {
-  color-scheme: dark;
+  color-scheme: light;
   cursor: pointer;
 }
 
@@ -101,7 +107,7 @@
     border-radius: var(--radius);
     background: var(--card);
     color: var(--foreground);
-    box-shadow: 0 12px 32px color-mix(in oklch, var(--background) 80%, transparent);
+    box-shadow: 0 12px 32px color-mix(in oklch, var(--foreground) 12%, transparent);
   }
 
   .attendance-select option {

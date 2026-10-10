@@ -39,7 +39,7 @@ export function RsvpConfirmation({
             particleCount: window.innerWidth < 768 ? 40 : 80,
             spread: 80,
             origin: { y: 0.65 },
-            colors: ["#D4A853", "#1E293B", "#FFFFFF"],
+            colors: ["#BFDDF5", "#345F87", "#FFFFFF"],
             disableForReducedMotion: true,
           });
         } else {
@@ -69,7 +69,7 @@ export function RsvpConfirmation({
         event.preventDefault();
         onClose();
       }}
-      className="m-auto w-[calc(100%-2rem)] max-w-md overflow-visible border-0 bg-transparent p-0 text-foreground backdrop:bg-black/75 backdrop:backdrop-blur-sm"
+      className="m-auto w-[calc(100%-2rem)] max-w-md overflow-visible border-0 bg-transparent p-0 text-foreground backdrop:bg-black/35 backdrop:backdrop-blur-sm"
     >
       {!reduceMotion &&
         (attending ? (
@@ -86,7 +86,7 @@ export function RsvpConfirmation({
                 <span
                   key={index}
                   data-rain-icon
-                  className="absolute -top-8 text-signature opacity-0"
+                  className="absolute -top-8 text-primary opacity-0"
                   style={{ left: `${3 + index * 4}%` }}
                 >
                   <RainIcon size={index % 3 === 0 ? 24 : 16} />
@@ -101,7 +101,7 @@ export function RsvpConfirmation({
       >
         <span
           aria-hidden="true"
-          className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-signature/30 bg-signature/10 text-signature"
+          className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-primary bg-accent text-signature"
         >
           <Icon size={28} strokeWidth={1.5} />
         </span>

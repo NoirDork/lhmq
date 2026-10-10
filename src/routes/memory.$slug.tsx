@@ -23,28 +23,28 @@ const memories: Record<
     caption: "Từ những buổi học đến đêm khuya — từng khoảnh khắc đã tạo nên tôi của ngày hôm nay.",
     detail:
       "Những năm đại học là chuỗi ngày trải nghiệm mới mẻ. Từ giảng đường đầu tiên đến kỳ thi cuối cùng, mỗi ngày đều mang đến điều mới — tình bạn, kiến thức, thử thách và chiến thắng. Những buổi học trong thư viện, đồ án nhóm, tiếng cười ở căng tin — tất cả đã xây nên con người tôi hôm nay.",
-    hue: "from-amber-900/60 to-rose-900/60",
+    hue: "from-primary to-accent",
   },
   "friends-classmates": {
     title: "Bạn Bè & Đồng Môn",
     caption: "Những người đã làm hành trình này thật khó quên.",
     detail:
       "Mọi thứ sẽ chẳng thể trọn vẹn nếu thiếu những con người tuyệt vời tôi gặp trên đường đời. Bạn học thành bạn nhóm, rồi thành bạn thân, rồi thành gia đình. Những áp lực trước kỳ thi, những niềm vui sau hạn chót, và vô vàn kỷ niệm giữa những khoảnh khắc ấy — những sợi dây liên kết này sẽ tồn tại mãi.",
-    hue: "from-emerald-900/60 to-teal-900/60",
+    hue: "from-accent to-primary",
   },
   "graduation-moments": {
     title: "Khoảnh Khắc Tốt Nghiệp",
     caption: "Những nụ cười, niềm tự hào và chiếc mũ cử nhân tung bay.",
     detail:
       "Bước lên sân khấu, tấm bằng trong tay, là kết tinh của bao năm cống hiến. Tiếng vỗ tay, tiếng reo hò của gia đình dưới khán đài, sức nặng của áo cử nhân — từng giây phút thật kỳ diệu. Đây là khoảnh khắc tất cả chúng ta đã hướng đến, và nó đẹp hơn cả những gì ta từng mơ.",
-    hue: "from-slate-700 to-slate-900",
+    hue: "from-muted to-primary",
   },
   "behind-the-journey": {
     title: "Hậu Trường Hành Trình",
     caption: "Mồ hôi, nước mắt và sự kiên trì dẫn đến cột mốc này.",
     detail:
       "Những gì bạn thấy trong ngày tốt nghiệp chỉ là phần nổi của tảng băng. Đằng sau mỗi chiếc mũ và áo cử nhân là vô số đêm thức trắng, những phút giây nghi ngờ, hàng trang ghi chép, vô số tách cà phê và quyết tâm thầm lặng để tiếp tục bước đi. Hành trình này đã dạy tôi về sự kiên cường, nhẫn nại và giá trị của lao động chăm chỉ.",
-    hue: "from-stone-700 to-stone-900",
+    hue: "from-primary to-muted",
   },
   "family-support": {
     title: "Hậu Phương Gia Đình",
@@ -52,14 +52,14 @@ const memories: Record<
       "Gửi lời cảm ơn đến gia đình — những người luôn tin tưởng tôi từng bước trên đường đời.",
     detail:
       "Gia đình là điểm tựa của tôi trong suốt chặng đường. Từ những lời động viên lúc nửa đêm đến niềm tin không lay chuyển vào khả năng của tôi, họ không bao giờ để tôi bỏ cuộc. Họ cùng tôi ăn mừng từng chiến thắng nhỏ và nâng tôi dậy trong những giây phút yếu lòng. Tấm bằng này thuộc về họ cũng như thuộc về tôi.",
-    hue: "from-indigo-900/60 to-violet-900/60",
+    hue: "from-primary to-card",
   },
   "new-beginning": {
     title: "Khởi Đầu Mới",
     caption: "Một chương kết thúc — một cuộc phiêu lưu mới bắt đầu.",
     detail:
       "Tốt nghiệp không chỉ là điểm kết — mà là cánh cửa mở ra mọi điều phía trước. Với hành trang kiến thức, kỷ niệm và sự ủng hộ của những người tin tưởng tôi, tôi sẵn sàng bước ra thế giới và xây dựng tương lai. Những điều tốt đẹp nhất vẫn đang chờ đón.",
-    hue: "from-sky-900/60 to-cyan-900/60",
+    hue: "from-card to-primary",
     images: 3,
   },
 };

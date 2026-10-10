@@ -27,7 +27,7 @@ function HandSigSkeleton() {
       className="pointer-events-none absolute left-1/2 top-1/2 z-10 h-auto w-[clamp(120px,22vw,300px)] -translate-x-1/2 -translate-y-[50%] select-none sm:w-[clamp(160px,22vw,300px)] sm:-translate-y-[44%] animate-pulse"
       aria-hidden="true"
     >
-      <div className="aspect-[3/2] bg-gradient-to-br from-amber-900/40 to-rose-900/40 rounded-full mix-blend-overlay" />
+      <div className="aspect-[3/2] bg-gradient-to-br from-primary/40 to-accent/40 rounded-full mix-blend-overlay" />
     </div>
   );
 }
@@ -37,6 +37,14 @@ function HandSigImage() {
   return (
     <>
       {!loaded && <HandSigSkeleton />}
+      <svg width="0" height="0" aria-hidden className="absolute">
+        <defs>
+          <filter id="hero-signature-blue" colorInterpolationFilters="sRGB">
+            <feFlood floodColor="#6BA9DE" />
+            <feComposite in2="SourceAlpha" operator="in" />
+          </filter>
+        </defs>
+      </svg>
       <picture>
         <source srcSet="/images/hand-sig/hand-sig.avif" type="image/avif" />
         <source srcSet="/images/hand-sig/hand-sig.webp" type="image/webp" />
@@ -47,7 +55,8 @@ function HandSigImage() {
           width={300}
           height={200}
           onLoad={() => setLoaded(true)}
-          className={`pointer-events-none absolute left-1/2 top-1/2 z-10 h-auto w-[clamp(120px,22vw,300px)] -translate-x-1/2 -translate-y-[50%] select-none sm:w-[clamp(160px,22vw,300px)] sm:-translate-y-[44%] transition-opacity duration-500 ${loaded ? "opacity-70" : "opacity-0"}`}
+          style={{ filter: "url(#hero-signature-blue)" }}
+          className={`pointer-events-none absolute left-1/2 top-1/2 z-10 h-auto w-[clamp(120px,22vw,300px)] -translate-x-1/2 -translate-y-[50%] select-none sm:w-[clamp(160px,22vw,300px)] sm:-translate-y-[44%] transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
       </picture>
     </>

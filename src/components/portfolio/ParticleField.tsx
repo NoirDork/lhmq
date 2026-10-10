@@ -27,7 +27,7 @@ export function ParticleField() {
     (ctx: CanvasRenderingContext2D, x: number, y: number, size: number, opacity: number) => {
       ctx.save();
       ctx.globalAlpha = opacity;
-      ctx.fillStyle = "#D4A853";
+      ctx.fillStyle = "#BFDDF5";
       ctx.beginPath();
       const s = size * 0.5;
       ctx.moveTo(x - s * 3, y);
@@ -83,7 +83,7 @@ export function ParticleField() {
         drawCap(ctx, p.x, p.y, p.size, p.opacity);
       } else {
         ctx.globalAlpha = p.opacity;
-        ctx.fillStyle = "#D4A853";
+        ctx.fillStyle = "#BFDDF5";
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size * 0.5, 0, Math.PI * 2);
         ctx.fill();
