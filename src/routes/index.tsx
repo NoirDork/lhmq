@@ -70,8 +70,8 @@ function Index() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <Hero />
       <Invitation />
+      <Hero />
       <About />
       <EventDetails />
       <Gallery />
@@ -81,7 +81,7 @@ function Index() {
         <div className="mx-auto max-w-7xl">
           <SectionTitle eyebrow="Khách Mời" title="Phản hồi từ khách." />
           <p className="mt-4 max-w-md text-sm text-muted-foreground">
-            Lời nhắn và xác nhận tham dự từ những người đã đồng hành trong hành trình này.
+            Những lời chúc và kỷ niệm được gửi đến Minh Quân.
           </p>
           <div className="mt-10 w-full">
             <GuestList />

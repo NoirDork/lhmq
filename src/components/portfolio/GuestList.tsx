@@ -2,15 +2,11 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { fetchGuests as fetchGuestsApi, type PublicGuest } from "@/lib/rsvps";
-
-const statusColor: Record<string, string> = {
-  Attending: "text-green-700",
-  "Not Attending": "text-red-700",
-  Maybe: "text-yellow-800",
-};
+import { GuestLetter } from "./GuestLetter";
 
 export function GuestList() {
   const [guests, setGuests] = useState<PublicGuest[]>([]);
+  const [selectedGuest, setSelectedGuest] = useState<PublicGuest | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
@@ -111,29 +107,31 @@ export function GuestList() {
           ref={listRef}
           className="mx-auto grid w-full max-w-5xl grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {guests.map((guest, i) => (
-            <div
-              key={`${guest.created_at}-${i}`}
-              className="w-full rounded-2xl border border-border bg-card px-5 py-4"
+          {guests.map((guest) => (
+            <button
+              key={guest.id}
+              type="button"
+              aria-label={`Mở thư của ${guest.guest_name}`}
+              onClick={() => setSelectedGuest(guest)}
+              className="group relative min-h-44 w-full overflow-hidden rounded-2xl border border-border bg-card px-6 pb-5 pt-16 text-left transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signature"
             >
-              <div className="flex items-center justify-between gap-4">
-                <div className="min-w-0">
-                  <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                    Gửi: <span className="font-medium text-foreground">Minh Quân</span>
-                  </p>
-                  <p className="mt-1 truncate text-sm">
-                    Từ: <span className="font-medium">{guest.guest_name}</span>
-                  </p>
-                </div>
-                <span
-                  className={`shrink-0 text-right text-xs font-medium uppercase tracking-[0.1em] ${statusColor[guest.attending_status] ?? "text-muted-foreground"}`}
-                >
-                  {guest.attending_status}
-                </span>
-              </div>
-            </div>
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-16 border-b border-border bg-accent [clip-path:polygon(0_0,100%_0,50%_100%)]"
+              />
+              <p className="text-xs uppercase tracking-widest text-muted-foreground">
+                Gửi Minh Quân
+              </p>
+              <p className="mt-2 break-words font-medium">
+                Từ: <span>{guest.guest_name}</span>
+              </p>
+              <span className="mt-4 inline-block text-sm text-signature">Mở thư ↗</span>
+            </button>
           ))}
         </div>
+      )}
+      {selectedGuest && (
+        <GuestLetter guest={selectedGuest} onClose={() => setSelectedGuest(null)} />
       )}
     </section>
   );
