@@ -24,7 +24,7 @@
 
 ## Dữ liệu và tài khoản
 
-Hai bản ghi cũ đã ghi nhận là 4 và 6; test local là 1018 và 1020. Chỉ xoá đúng những ID này sau review và backup đầy đủ vào `.local-backups/rsvp-before-cleanup.json` (ignored, ngoài public assets). Các phản hồi thật mới không nằm trong tập này phải được giữ lại.
+Đã backup đầy đủ và đọc lại khớp toàn bộ tám trường của bốn bản ghi, sau đó xoá đúng hai ID cũ 4/6 và hai ID test 1018/1020. Backup: `.local-backups/rsvp-before-cleanup.json` (ignored, ngoài public assets). Xác nhận database còn 0 lời chúc và vẫn giữ đúng một tài khoản/admin allowlist; không có ID ngoài tập dọn tại thời điểm kiểm tra. Mọi phản hồi thật mới ngoài tập này phải được giữ lại.
 
 Tài khoản thật được chủ trang tạo qua Dashboard với Auto confirm; đúng một tài khoản/UUID được allowlist. Mật khẩu không có trong Git, tài liệu hoặc VITE. Alias `admin@lhmq.invalid` không nhận email khôi phục; chủ trang quản lý mật khẩu qua Supabase Dashboard.
 
@@ -32,7 +32,7 @@ Tài khoản thật được chủ trang tạo qua Dashboard với Auto confirm;
 
 - Mốc source trước thay đổi: `rollback/pre-rsvp-letters-20261012` → `7fcab85296488a4e5a736761e30e26610cddf40e`.
 - Deployment trước thay đổi: `dpl_3j4cssaVbbihTRNG4RUMKJoi6Jnv`, `https://lhmq-2gxoymc5t-noirdorks-projects.vercel.app`.
-- Mốc release dự kiến: `release/rsvp-letters-admin-20261012`; chỉ gắn/push khi kiểm tra release đạt.
+- Mốc source phát hành: `release/rsvp-letters-admin-20261012`; gắn/push sau khi deployment và kiểm tra production đạt.
 
 Không promote deployment cũ một cách mù quáng: nó chứa EmailJS và public DTO cũ. Muốn trở lại bố cục cũ, tạo nhánh rollback từ release hiện tại, khôi phục riêng Hero/Invitation/Navbar từ tag trước thay đổi và giữ luồng lưu/public privacy/admin mới; test rồi deploy build tương thích. Không revert migration để lộ lại trạng thái tham dự. Rollback code không khôi phục dữ liệu đã xoá; backup riêng dùng để phục hồi khi cần.
 
@@ -47,4 +47,4 @@ Không promote deployment cũ một cách mù quáng: nó chứa EmailJS và pub
 
 ## Trạng thái vận hành
 
-Nguồn đã được kiểm thử local. Review độc lập, backup/xoá đúng ID và kiểm chứng production là các bước bắt buộc còn lại trước khi xác nhận release hoàn tất. Bằng chứng sau release được lưu riêng trong `.local-backups/release-verification.json`; không lưu mật khẩu/token hoặc lời nhắn trong tài liệu release.
+Nguồn đã được kiểm thử local, review độc lập và sửa findings bằng RED→GREEN; backup/xoá đúng ID đã hoàn tất. Production phải đạt READY, đúng Git SHA và qua kiểm tra form/admin/workbook trước khi xác nhận release. Bằng chứng sau release được lưu riêng trong `.local-backups/release-verification.json`; không lưu mật khẩu/token hoặc lời nhắn trong tài liệu release.
