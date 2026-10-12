@@ -125,7 +125,6 @@ export function GuestList() {
               <p className="mt-2 break-words font-medium">
                 Từ: <span>{guest.guest_name}</span>
               </p>
-              <span className="mt-4 inline-block text-sm text-signature">Mở thư ↗</span>
             </button>
           ))}
         </div>
