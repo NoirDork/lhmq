@@ -110,9 +110,8 @@ export function AdminPanel() {
     try {
       await signOutAdmin();
     } catch {
-      await supabase.auth.signOut({ scope: "local" });
       if (mountedRef.current)
-        setError("Không thể kết thúc phiên trên máy chủ. Vui lòng thử lại khi có mạng.");
+        setError("Mất kết nối. Trang được tải lại để xoá phiên đăng nhập trên thiết bị.");
     } finally {
       if (mountedRef.current) {
         busyRef.current = null;

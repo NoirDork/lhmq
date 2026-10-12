@@ -10,7 +10,9 @@ export function GuestLetter({ guest, onClose }: { guest: PublicGuest; onClose: (
     const previousFocus = document.activeElement as HTMLElement | null;
     const previousOverflow = document.body.style.overflow;
     dialog.showModal();
-    dialog.querySelector<HTMLButtonElement>("button")?.focus();
+    dialog.querySelector<HTMLElement>("#guest-letter-title")?.focus({ preventScroll: true });
+    const panel = dialog.firstElementChild;
+    if (panel) panel.scrollTop = 0;
     document.body.style.overflow = "hidden";
     return () => {
       dialog.close();
@@ -31,7 +33,11 @@ export function GuestLetter({ guest, onClose }: { guest: PublicGuest; onClose: (
     >
       <div className="max-h-[calc(100dvh-2rem)] overflow-y-auto p-6 sm:p-8">
         <Mail aria-hidden="true" size={24} className="mb-6 text-signature" />
-        <h2 id="guest-letter-title" className="break-words font-serif text-2xl leading-snug">
+        <h2
+          id="guest-letter-title"
+          tabIndex={-1}
+          className="break-words font-serif text-2xl leading-snug"
+        >
           Lời chúc từ {guest.guest_name}
         </h2>
         <p

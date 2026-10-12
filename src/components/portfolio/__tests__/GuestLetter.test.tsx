@@ -48,6 +48,7 @@ it("keeps duplicate-name letters separate and retains a 4000-character wish", as
   render(<GuestList />);
   const envelopes = await screen.findAllByRole("button", { name: "Mở thư của Cô Hà" });
   fireEvent.click(envelopes[1]);
+  expect(screen.getByRole("heading", { name: "Lời chúc từ Cô Hà" })).toHaveFocus();
   expect(screen.getByRole("dialog").querySelector("[data-letter-message]")?.textContent).toBe(
     "x".repeat(4000),
   );

@@ -1,18 +1,22 @@
-import { beforeEach, expect, it, vi } from "vitest";
-const { rpc, signInWithPassword, signOut } = vi.hoisted(() => ({
+import { afterEach, beforeEach, expect, it, vi } from "vitest";
+const { rpc, signInWithPassword, signOut, reload } = vi.hoisted(() => ({
   rpc: vi.fn(),
   signInWithPassword: vi.fn(),
   signOut: vi.fn(),
+  reload: vi.fn(),
 }));
 vi.mock("@/lib/supabase", () => ({ supabase: { rpc, auth: { signInWithPassword, signOut } } }));
 import { signInAdmin, fetchAdminGuests, signOutAdmin } from "../admin-rsvps";
 const session = { access_token: "fake-token", expires_at: 2000000000 };
 beforeEach(() => {
   vi.resetAllMocks();
+  vi.stubGlobal("location", { reload });
   signInWithPassword.mockResolvedValue({ data: { session }, error: null });
   signOut.mockResolvedValue({ error: null });
   rpc.mockResolvedValue({ data: [], error: null });
 });
+afterEach(() => vi.unstubAllGlobals());
+
 it("uses Supabase password authentication and probes database permission", async () => {
   expect(await signInAdmin(" admin ", "test-only-password")).toBe(session);
   expect(signInWithPassword).toHaveBeenCalledWith({
@@ -51,4 +55,14 @@ it("does not turn a denied export into an empty list", async () => {
 it("propagates logout failure", async () => {
   signOut.mockResolvedValue({ error: new Error("Network") });
   await expect(signOutAdmin()).rejects.toThrow("Network");
+  expect(reload).toHaveBeenCalledTimes(1);
+});
+
+it("drops the in-memory document when rejected-login cleanup cannot reach the server", async () => {
+  rpc.mockResolvedValue({ error: { code: "42501" } });
+  signOut.mockResolvedValue({ error: new Error("Network") });
+  await expect(signInAdmin("admin", "test-only-password")).rejects.toMatchObject({
+    message: "Network",
+  });
+  expect(reload).toHaveBeenCalledTimes(1);
 });

@@ -25,13 +25,19 @@ export async function signInAdmin(username: string, password: string): Promise<S
   try {
     await fetchAdminGuests();
   } catch (cause) {
-    await supabase.auth.signOut();
+    await signOutAdmin();
     throw cause;
   }
   return data.session;
 }
 
 export async function signOutAdmin(): Promise<void> {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw error;
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+  } catch (cause) {
+    // Memory-only auth: reload clears the client even when server revocation fails.
+    location.reload();
+    throw cause;
+  }
 }

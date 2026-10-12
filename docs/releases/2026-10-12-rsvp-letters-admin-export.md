@@ -12,9 +12,11 @@
 
 ## Kiểm chứng trước phát hành
 
-- 44 unit/integration tests đạt; type-check và production build đạt.
+- 45 unit/integration tests đạt; type-check và production build đạt.
 - SQL transactional tests đạt: RPC cũ lưu riêng tư, consent mới, validation, email trùng, anon/raw SELECT bị chặn, nonadmin/logout/expiry bị chặn, scalar export hơn 1.000 dòng; fixtures rollback.
 - Chrome local: mật khẩu sai không có quyền, admin đúng tải được `.xlsx` đọc lại đủ hai bản ghi nền, reload yêu cầu login, meta noindex/nofollow có trong DOM.
+- Review độc lập: sửa lỗi logout mất mạng bằng document reload để xoá client memory-only; áp dụng cả expiry và cleanup của login bị từ chối. Server revocation có thể chưa thành công khi mất mạng, nhưng phiên không tự phục hồi trên thiết bị sau reload.
+- Sửa vị trí mở thư dài: focus tiêu đề, panel bắt đầu ở đầu thư thay vì tự cuộn xuống nút đóng.
 - Hai submission thật trong luồng test: IDs 1018 và 1020, đúng trạng thái và publication flag; nguyên văn popup và canvas chung, không rain icon.
 - Network: duplicate 409, save 204, public list 200; không có EmailJS request.
 - Phong thư 4.000 ký tự tại 390×844: panel cuộn được, không tràn ngang, Escape trả focus về phong thư; HTML-like text không tạo img/script.
