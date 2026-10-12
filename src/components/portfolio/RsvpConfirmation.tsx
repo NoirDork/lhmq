@@ -14,9 +14,12 @@ export function RsvpConfirmation({ onClose }: { onClose: () => void }) {
     () => {
       const dialog = dialogRef.current;
       if (!dialog) return;
-      const previousFocus = document.activeElement as HTMLElement | null;
+      const previousFocus =
+        dialog.closest("form")?.querySelector<HTMLButtonElement>('button[type="submit"]') ??
+        (document.activeElement as HTMLElement | null);
       const previousOverflow = document.body.style.overflow;
       dialog.showModal();
+      dialog.querySelector<HTMLButtonElement>("button")?.focus();
       document.body.style.overflow = "hidden";
       let burst: ReturnType<typeof confetti.create> | undefined;
       if (!reduceMotion) {
@@ -91,7 +94,6 @@ export function RsvpConfirmation({ onClose }: { onClose: () => void }) {
         </p>
         <button
           type="button"
-          autoFocus
           onClick={onClose}
           className="mt-8 min-h-[48px] w-full cursor-pointer rounded-full bg-primary px-6 py-3 text-base font-medium text-primary-foreground transition-opacity hover:opacity-90 active:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-signature"
         >

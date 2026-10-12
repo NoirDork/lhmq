@@ -1,6 +1,6 @@
 # Lời chúc dạng thư và xuất danh sách tham dự
 
-Ngày: 12/10/2026. Trạng thái: chờ duyệt bản thiết kế trước khi lập kế hoạch triển khai.
+Ngày: 12/10/2026. Trạng thái: người dùng đã duyệt thiết kế; lập kế hoạch triển khai.
 
 ## Mục tiêu và phạm vi
 

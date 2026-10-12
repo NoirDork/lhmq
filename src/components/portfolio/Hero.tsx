@@ -40,7 +40,7 @@ function HandSigImage() {
       <svg width="0" height="0" aria-hidden className="absolute">
         <defs>
           <filter id="hero-signature-blue" colorInterpolationFilters="sRGB">
-            <feFlood floodColor="#6BA9DE" />
+            <feFlood floodColor="#234A6B" />
             <feComposite in2="SourceAlpha" operator="in" />
           </filter>
         </defs>
@@ -77,11 +77,10 @@ export function Hero() {
   const springMX = useSpring(mouseX, { stiffness: 150, damping: 30 });
   const springMY = useSpring(mouseY, { stiffness: 150, damping: 30 });
 
-  const { scrollY } = useScroll({
+  const { scrollYProgress: scrollProgress } = useScroll({
     target: simplifiedMotion ? undefined : sectionRef,
     offset: ["start start", "end start"],
   });
-  const scrollProgress = useTransform(scrollY, [0, 600], [0, 1]);
 
   const noMotion = simplifiedMotion ? 0 : undefined;
   const heroTextRotateX = useTransform(scrollProgress, [0, 1], [0, noMotion ?? 12]);
@@ -131,7 +130,7 @@ export function Hero() {
       ref={sectionRef}
       onMouseMove={simplifiedMotion ? undefined : onMouseMove}
       onMouseLeave={simplifiedMotion ? undefined : onMouseLeave}
-      className="relative overflow-hidden px-4 pt-20 sm:pt-32 sm:px-6 lg:pt-40"
+      className="relative min-h-svh overflow-hidden px-4 pt-20 sm:pt-32 sm:px-6 lg:pt-40"
     >
       <ParticleField />
       <div className="relative z-10 mx-auto max-w-7xl" style={{ perspective: 1000 }}>
@@ -166,8 +165,7 @@ export function Hero() {
               ref={shimmerRef}
               className="bg-[length:250%_100%] bg-clip-text text-transparent"
               style={{
-                backgroundImage:
-                  "linear-gradient(90deg, var(--foreground) 35%, var(--signature) 50%, var(--foreground) 65%)",
+                backgroundImage: "linear-gradient(90deg, #6BA9DE 35%, #C6E6FF 50%, #6BA9DE 65%)",
                 backgroundPosition: "0% 0%",
               }}
             >

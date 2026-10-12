@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -7,13 +7,25 @@ const links = [
   { href: "#invitation", label: "Lời Mời" },
   { href: "#details", label: "Chi Tiết" },
   { href: "#memories", label: "Kỷ Niệm" },
-  { href: "#rsvp", label: "RSVP" },
+  { href: "#rsvp", label: "Tham dự" },
 ];
 
 const easeOut = [0.22, 1, 0.36, 1] as const;
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [overInvitation, setOverInvitation] = useState(true);
+
+  useEffect(() => {
+    const invitation = document.getElementById("invitation");
+    if (!invitation) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setOverInvitation(entry.isIntersecting),
+      { rootMargin: "-80px 0px 0px 0px" },
+    );
+    observer.observe(invitation);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <motion.header
@@ -22,7 +34,9 @@ export function Navbar() {
       transition={{ duration: 0.6, ease: easeOut }}
       className="fixed inset-x-0 top-4 z-50 mx-auto max-w-[calc(100vw-2rem)] sm:max-w-none sm:inset-x-6"
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-border bg-card/80 px-4 py-2 backdrop-blur-xl sm:px-6">
+      <nav
+        className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-2 transition-colors duration-300 motion-reduce:transition-none sm:px-6 ${overInvitation ? "border-transparent bg-transparent text-white" : "border-border bg-card/90 text-foreground backdrop-blur-xl"}`}
+      >
         <motion.a
           href="#home"
           whileHover={{ scale: 1.03 }}
@@ -31,12 +45,13 @@ export function Navbar() {
           className="flex items-center gap-2 font-semibold tracking-tight"
         >
           <motion.span
-            className="inline-block h-2 w-2 rounded-full bg-signature"
+            className={`inline-block h-2 w-2 rounded-full ${overInvitation ? "bg-primary" : "bg-signature"}`}
             initial={{ scale: 1, opacity: 1 }}
             animate={{ scale: [1, 1.25, 1], opacity: [1, 0.75, 1] }}
             transition={{ duration: 2.4, repeat: 2, ease: "easeInOut" }}
           />
-          grad<span className="text-muted-foreground">·2026</span>
+          grad
+          <span className={overInvitation ? "text-white/80" : "text-muted-foreground"}>·2026</span>
         </motion.a>
         <ul className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
@@ -46,7 +61,7 @@ export function Navbar() {
                 whileHover="hover"
                 initial="rest"
                 animate="rest"
-                className="relative inline-block rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className={`relative inline-block rounded-full px-4 py-2 text-sm transition-colors ${overInvitation ? "text-white" : "text-muted-foreground hover:text-foreground"}`}
               >
                 <motion.span
                   variants={{
@@ -54,7 +69,7 @@ export function Navbar() {
                     hover: { opacity: 1, scale: 1 },
                   }}
                   transition={{ duration: 0.25, ease: easeOut }}
-                  className="absolute inset-0 rounded-full bg-accent"
+                  className={`absolute inset-0 rounded-full ${overInvitation ? "bg-white/10" : "bg-accent"}`}
                   aria-hidden
                 />
                 <span className="relative">{l.label}</span>
@@ -74,7 +89,7 @@ export function Navbar() {
           </motion.a>
           <motion.button
             whileTap={{ scale: 0.92 }}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border md:hidden"
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-full border md:hidden ${overInvitation ? "border-white/30" : "border-border"}`}
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >

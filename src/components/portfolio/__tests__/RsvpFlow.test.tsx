@@ -127,6 +127,7 @@ describe("RSVP flow", () => {
     async (attendance, title) => {
       submitRsvp.mockResolvedValueOnce(undefined);
       render(<ContactForm />);
+      screen.getByRole("button", { name: "Gửi lời chúc" }).focus();
       fireEvent.submit(fillForm(attendance));
 
       const dialog = await screen.findByRole("dialog", { name: title });
@@ -142,6 +143,7 @@ describe("RSVP flow", () => {
       fireEvent.click(screen.getByRole("button", { name: "Đóng" }));
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
       expect(screen.getByRole("button", { name: "Gửi lời chúc" })).toBeEnabled();
+      expect(screen.getByRole("button", { name: "Gửi lời chúc" })).toHaveFocus();
       expect(burst.reset).toHaveBeenCalled();
       expect(document.body.style.overflow).not.toBe("hidden");
     },

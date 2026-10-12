@@ -16,7 +16,7 @@ function imageUrl(slug: string, index: number): string {
 
 const memories: Record<
   string,
-  { title: string; caption: string; detail: string; hue: string; images: number }
+  { title: string; caption: string; detail: string; hue: string; images?: number }
 > = {
   "university-memories": {
     title: "Kỷ Niệm Đại Học",
@@ -137,7 +137,7 @@ function MemoryDetail() {
         >
           <Carousel className="w-full">
             <CarouselContent>
-              {Array.from({ length: memory.images }).map((_, i) => (
+              {Array.from({ length: memory.images ?? 0 }).map((_, i) => (
                 <CarouselItem key={i}>
                   <ImageWithSkeleton
                     src={imageUrl(slug, i)}
