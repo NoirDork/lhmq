@@ -1,45 +1,52 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, expect, it, vi } from "vitest";
 
 const { rpc } = vi.hoisted(() => ({ rpc: vi.fn() }));
+vi.mock("@/lib/supabase", () => ({ supabase: { rpc } }));
+import { submitRsvp, fetchGuests } from "../rsvps";
 
-vi.mock("@/lib/supabase", () => ({
-  supabase: { rpc },
-}));
+beforeEach(() => vi.resetAllMocks());
 
-import { fetchGuests, submitRsvp } from "../rsvps";
+it("saves the complete wish with explicit publication consent", async () => {
+  rpc.mockResolvedValue({ error: null });
+  await submitRsvp({
+    guestName: "Cô Hà",
+    attendingStatus: "Not Attending",
+    email: "ha@example.com",
+    message: "Chúc mừng con!",
+    relationship: "Thầy cô",
+  });
+  expect(rpc).toHaveBeenCalledWith("submit_rsvp", {
+    p_guest_name: "Cô Hà",
+    p_attending_status: "Not Attending",
+    p_email: "ha@example.com",
+    p_message: "Chúc mừng con!",
+    p_relationship: "Thầy cô",
+    p_publish_message: true,
+  });
+});
 
-describe("RSVP data access", () => {
-  it("submits an RSVP through the protected database function", async () => {
-    rpc.mockResolvedValueOnce({ error: null });
-
-    await submitRsvp({
-      guestName: "Minh Quân",
+it("keeps database errors visible to the form", async () => {
+  const error = { code: "23505" };
+  rpc.mockResolvedValue({ error });
+  await expect(
+    submitRsvp({
+      guestName: "Hà",
       attendingStatus: "Attending",
-      email: "quan@example.com",
-      message: "Chúc mừng tốt nghiệp!",
-      relationship: "Bạn bè",
-    });
+      email: "ha@example.com",
+      message: "Chúc mừng",
+      relationship: "Bạn",
+    }),
+  ).rejects.toBe(error);
+});
 
-    expect(rpc).toHaveBeenCalledWith("submit_rsvp", {
-      p_guest_name: "Minh Quân",
-      p_attending_status: "Attending",
-      p_email: "quan@example.com",
-      p_message: "Chúc mừng tốt nghiệp!",
-      p_relationship: "Bạn bè",
-    });
-  });
+it("returns an empty public list rather than null", async () => {
+  rpc.mockResolvedValue({ data: null, error: null });
+  expect(await fetchGuests()).toEqual([]);
+});
 
-  it("returns only public guest fields from the protected database function", async () => {
-    const guests = [
-      {
-        guest_name: "Minh Quân",
-        attending_status: "Attending",
-        created_at: "2026-08-28T00:00:00Z",
-      },
-    ];
-    rpc.mockResolvedValueOnce({ data: guests, error: null });
-
-    await expect(fetchGuests()).resolves.toEqual(guests);
-    expect(rpc).toHaveBeenCalledWith("get_public_rsvps");
-  });
+it("reads public wishes through the protected database function", async () => {
+  const guests = [{ id: 1, guest_name: "Minh Quân", message: "Chúc mừng!", created_at: "2026-08-28T00:00:00Z" }];
+  rpc.mockResolvedValue({ data: guests, error: null });
+  expect(await fetchGuests()).toEqual(guests);
+  expect(rpc).toHaveBeenCalledWith("get_public_rsvps");
 });

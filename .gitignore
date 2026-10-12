@@ -23,3 +23,5 @@ dist
 *.sln
 *.sw?
 .vercel
+.local-backups/
+supabase/.temp/

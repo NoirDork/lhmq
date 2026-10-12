@@ -1,8 +1,9 @@
 import { supabase } from "@/lib/supabase";
 
 export interface PublicGuest {
+  id: number;
   guest_name: string;
-  attending_status: string;
+  message: string;
   created_at: string;
 }
 
@@ -27,6 +28,7 @@ export async function submitRsvp({
     p_email: email,
     p_message: message,
     p_relationship: relationship,
+    p_publish_message: true,
   });
 
   if (error) throw error;
