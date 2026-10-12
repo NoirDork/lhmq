@@ -1,14 +1,9 @@
 import { useReducer, useRef, useCallback, type FormEvent } from "react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
-import emailjs from "@emailjs/browser";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { submitRsvp } from "@/lib/rsvps";
 import { RsvpConfirmation } from "./RsvpConfirmation";
-
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -16,14 +11,12 @@ interface FormState {
   status: FormStatus;
   errorMessage: string;
   sent: boolean;
-  attending: boolean;
 }
 
 const initialState: FormState = {
   status: "idle",
   errorMessage: "",
   sent: false,
-  attending: false,
 };
 
 function formReducer(state: FormState, action: { type: string; payload?: unknown }): FormState {
@@ -31,7 +24,7 @@ function formReducer(state: FormState, action: { type: string; payload?: unknown
     case "SUBMIT_START":
       return { ...state, status: "submitting", errorMessage: "", sent: false };
     case "SUBMIT_SUCCESS":
-      return { ...state, status: "success", sent: true, attending: action.payload === "Attending" };
+      return { ...state, status: "success", sent: true };
     case "SUBMIT_ERROR":
       return {
         ...state,
@@ -48,8 +41,9 @@ function formReducer(state: FormState, action: { type: string; payload?: unknown
 
 export function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
+  const submittingRef = useRef(false);
   const [formState, dispatch] = useReducer(formReducer, initialState);
-  const { status, errorMessage, sent, attending } = formState;
+  const { status, errorMessage, sent } = formState;
   const loading = status === "submitting";
   const error = status === "error";
 
@@ -102,7 +96,7 @@ export function ContactForm() {
   const onSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
-    if (!form.reportValidity()) return;
+    if (submittingRef.current || !form.reportValidity()) return;
 
     const formData = new FormData(form);
     const guestName = (formData.get("name") as string)?.trim();
@@ -119,6 +113,7 @@ export function ContactForm() {
       return;
     }
 
+    submittingRef.current = true;
     dispatch({ type: "SUBMIT_START" });
 
     try {
@@ -132,15 +127,11 @@ export function ContactForm() {
             : "Không thể lưu lời chúc. Vui lòng thử lại.",
       });
       return;
+    } finally {
+      submittingRef.current = false;
     }
 
-    if (SERVICE_ID && TEMPLATE_ID && PUBLIC_KEY) {
-      void emailjs
-        .send(SERVICE_ID, TEMPLATE_ID, Object.fromEntries(formData.entries()), PUBLIC_KEY)
-        .catch(() => console.warn("Không gửi được email thông báo lời chúc."));
-    }
-
-    dispatch({ type: "SUBMIT_SUCCESS", payload: attendingStatus });
+    dispatch({ type: "SUBMIT_SUCCESS" });
     form.reset();
     window.dispatchEvent(new CustomEvent("guest-submitted"));
   }, []);
@@ -205,6 +196,9 @@ export function ContactForm() {
           </p>
         )}
       </div>
+      <p className="text-xs leading-relaxed text-muted-foreground">
+        Tên và lời chúc sẽ hiển thị công khai. Email và lựa chọn tham dự được giữ riêng tư.
+      </p>
       <button
         type="submit"
         disabled={loading}
@@ -224,12 +218,7 @@ export function ContactForm() {
           <ArrowUpRight size={16} className="transition-transform group-hover:rotate-45" />
         )}
       </button>
-      {sent && (
-        <RsvpConfirmation
-          attending={attending}
-          onClose={() => dispatch({ type: "RESET_SUCCESS" })}
-        />
-      )}
+      {sent && <RsvpConfirmation onClose={() => dispatch({ type: "RESET_SUCCESS" })} />}
     </form>
   );
 }

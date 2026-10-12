@@ -1,16 +1,14 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
-const { submitRsvp, fetchGuests, sendEmail, createConfetti, burst } = vi.hoisted(() => ({
+const { submitRsvp, fetchGuests, createConfetti, burst } = vi.hoisted(() => ({
   submitRsvp: vi.fn(),
   fetchGuests: vi.fn(),
-  sendEmail: vi.fn(),
   createConfetti: vi.fn(),
   burst: Object.assign(vi.fn(), { reset: vi.fn() }),
 }));
 
 vi.mock("@/lib/rsvps", () => ({ submitRsvp, fetchGuests }));
-vi.mock("@emailjs/browser", () => ({ default: { send: sendEmail } }));
 vi.mock("canvas-confetti", () => ({ default: Object.assign(vi.fn(), { create: createConfetti }) }));
 
 import { GuestList } from "../GuestList";
@@ -32,9 +30,6 @@ beforeAll(async () => {
       },
     },
   });
-  vi.stubEnv("VITE_EMAILJS_SERVICE_ID", "test-service");
-  vi.stubEnv("VITE_EMAILJS_TEMPLATE_ID", "test-template");
-  vi.stubEnv("VITE_EMAILJS_PUBLIC_KEY", "test-key");
   ({ ContactForm } = await import("../ContactForm"));
 });
 
@@ -46,7 +41,6 @@ afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
 });
-afterAll(() => vi.unstubAllEnvs());
 
 function fillForm(attendance = "Attending") {
   fireEvent.change(screen.getByLabelText("Tên của bạn"), { target: { value: "Khách kiểm thử" } });
@@ -61,7 +55,7 @@ function fillForm(attendance = "Attending") {
 }
 
 describe("RSVP flow", () => {
-  it("locks submission while saving and refreshes guests even if the notification email fails", async () => {
+  it("locks duplicate submission while saving and refreshes guests after success", async () => {
     let finishSave!: () => void;
     submitRsvp.mockImplementationOnce(
       () =>
@@ -69,7 +63,6 @@ describe("RSVP flow", () => {
           finishSave = resolve;
         }),
     );
-    sendEmail.mockRejectedValueOnce(new Error("Notification unavailable"));
     vi.spyOn(console, "warn").mockImplementation(() => {});
     let refreshed = false;
     const onSubmitted = () => {
@@ -77,7 +70,10 @@ describe("RSVP flow", () => {
     };
     window.addEventListener("guest-submitted", onSubmitted, { once: true });
     render(<ContactForm />);
-    fireEvent.submit(fillForm());
+    const form = fillForm();
+    fireEvent.submit(form);
+    fireEvent.submit(form);
+    expect(submitRsvp).toHaveBeenCalledTimes(1);
 
     expect(screen.getByRole("button", { name: /Đang gửi/ })).toBeDisabled();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -90,7 +86,9 @@ describe("RSVP flow", () => {
     });
     await act(async () => finishSave());
 
-    expect(await screen.findByText("Cảm ơn bạn đã gửi lời chúc.")).toBeInTheDocument();
+    expect(
+      await screen.findByRole("dialog", { name: "Gửi lời chúc thành công" }),
+    ).toBeInTheDocument();
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     expect(screen.getByLabelText("Lời nhắn hay lời chúc")).toHaveValue("");
     expect(refreshed).toBe(true);
@@ -122,40 +120,35 @@ describe("RSVP flow", () => {
   });
 
   it.each([
-    ["Attending", "Cảm ơn sự hiện diện của bạn vào ngày trọng đại của mình."],
-    ["Not Attending", "Thật tiếc khi không có bạn bên cạnh."],
+    ["Attending", "Gửi lời chúc thành công"],
+    ["Not Attending", "Gửi lời chúc thành công"],
   ])(
     "shows the matching popup after saving %s and lets the guest dismiss it",
     async (attendance, title) => {
       submitRsvp.mockResolvedValueOnce(undefined);
-      sendEmail.mockResolvedValueOnce(undefined);
       render(<ContactForm />);
       fireEvent.submit(fillForm(attendance));
 
       const dialog = await screen.findByRole("dialog", { name: title });
       expect(dialog).toHaveAttribute("open");
       expect(screen.getByLabelText("Tham dự")).toHaveValue("");
-      if (attendance === "Attending") {
-        expect(createConfetti).toHaveBeenCalledWith(dialog.querySelector("canvas"), {
-          resize: true,
-        });
-        expect(burst).toHaveBeenCalledWith(expect.objectContaining({ particleCount: 80 }));
-        expect(dialog.querySelector("[data-rain-icon]")).toBeNull();
-      } else {
-        expect(dialog.querySelectorAll("[data-rain-icon]").length).toBeGreaterThan(0);
-        expect(createConfetti).not.toHaveBeenCalled();
-      }
+      expect(dialog.querySelector("#rsvp-confirmation-description")?.textContent).toBe(
+        "Cảm ơn Thầy Cô anh chị em bạn dì cô chú đã cùng đồng hành, hỗ trợ và chở che con/em trong suốt hành trình thanh xuân vừa qua để hôm nay có một phiên bản trưởng thành, vững vàng và rực rỡ nhất <3.",
+      );
+      expect(createConfetti).toHaveBeenCalledWith(dialog.querySelector("canvas"), { resize: true });
+      expect(burst).toHaveBeenCalledWith(expect.objectContaining({ particleCount: 80 }));
+      expect(dialog.querySelector("[data-rain-icon]")).toBeNull();
 
       fireEvent.click(screen.getByRole("button", { name: "Đóng" }));
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
       expect(screen.getByRole("button", { name: "Gửi lời chúc" })).toBeEnabled();
-      if (attendance === "Attending") expect(burst.reset).toHaveBeenCalled();
+      expect(burst.reset).toHaveBeenCalled();
+      expect(document.body.style.overflow).not.toBe("hidden");
     },
   );
 
   it("dismisses the popup when the browser sends an Escape cancellation", async () => {
     submitRsvp.mockResolvedValueOnce(undefined);
-    sendEmail.mockResolvedValueOnce(undefined);
     render(<ContactForm />);
     fireEvent.submit(fillForm());
 
@@ -172,7 +165,6 @@ describe("RSVP flow", () => {
         matches: query.includes("prefers-reduced-motion"),
       }));
       submitRsvp.mockResolvedValueOnce(undefined);
-      sendEmail.mockResolvedValueOnce(undefined);
       render(<ContactForm />);
       fireEvent.submit(fillForm(attendance));
 
@@ -188,7 +180,8 @@ describe("RSVP flow", () => {
     fetchGuests.mockResolvedValueOnce([
       {
         guest_name: "Khách đã lưu",
-        attending_status: "Attending",
+        id: 101,
+        message: "Chúc mừng!",
         created_at: "2026-10-05T00:00:00Z",
       },
     ]);

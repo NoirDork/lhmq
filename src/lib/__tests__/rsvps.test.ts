@@ -45,7 +45,9 @@ it("returns an empty public list rather than null", async () => {
 });
 
 it("reads public wishes through the protected database function", async () => {
-  const guests = [{ id: 1, guest_name: "Minh Quân", message: "Chúc mừng!", created_at: "2026-08-28T00:00:00Z" }];
+  const guests = [
+    { id: 1, guest_name: "Minh Quân", message: "Chúc mừng!", created_at: "2026-08-28T00:00:00Z" },
+  ];
   rpc.mockResolvedValue({ data: guests, error: null });
   expect(await fetchGuests()).toEqual(guests);
   expect(rpc).toHaveBeenCalledWith("get_public_rsvps");
