@@ -28,6 +28,23 @@ const guest = {
   created_at: "2026-10-12T00:00:00Z",
 };
 
+it("loads the attached photo only after the envelope is opened", async () => {
+  fetchGuests.mockResolvedValue([
+    {
+      ...guest,
+      photo_url: "https://example.supabase.co/storage/v1/object/public/wish-photos/test.jpg",
+    },
+  ]);
+  render(<GuestList />);
+  const envelope = await screen.findByRole("button", { name: "Mở thư của Cô Hà" });
+  expect(screen.queryByRole("img")).not.toBeInTheDocument();
+  fireEvent.click(envelope);
+  expect(screen.getByRole("img", { name: "Ảnh kỷ niệm từ Cô Hà" })).toHaveAttribute(
+    "src",
+    "https://example.supabase.co/storage/v1/object/public/wish-photos/test.jpg",
+  );
+});
+
 it("opens literal multiline text and returns focus to the envelope after Escape", async () => {
   fetchGuests.mockResolvedValue([guest]);
   render(<GuestList />);
@@ -61,7 +78,7 @@ it("keeps the empty state and refreshes after a saved wish", async () => {
   fetchGuests.mockResolvedValueOnce([]).mockResolvedValueOnce([guest]);
   render(<GuestList />);
   expect(
-    await screen.findByText("Chưa có phản hồi nào. Hãy là người đầu tiên!"),
+    await screen.findByText("Chưa có lời chúc nào. Hãy là người đầu tiên!"),
   ).toBeInTheDocument();
   await act(async () => window.dispatchEvent(new CustomEvent("guest-submitted")));
   expect(await screen.findByRole("button", { name: "Mở thư của Cô Hà" })).toBeInTheDocument();

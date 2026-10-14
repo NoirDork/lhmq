@@ -1,9 +1,18 @@
-import { useReducer, useRef, useCallback, type FormEvent } from "react";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import {
+  useReducer,
+  useRef,
+  useCallback,
+  useState,
+  useEffect,
+  type FormEvent,
+  type ChangeEvent,
+} from "react";
+import { ArrowUpRight, ImagePlus, X } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { submitRsvp } from "@/lib/rsvps";
 import { RsvpConfirmation } from "./RsvpConfirmation";
+import { prepareWishPhoto } from "@/lib/wish-photo";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -42,10 +51,53 @@ function formReducer(state: FormState, action: { type: string; payload?: unknown
 export function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const submittingRef = useRef(false);
+  const requestRef = useRef<{ fingerprint: string; id: string } | null>(null);
+  const photoInputRef = useRef<HTMLInputElement>(null);
+  const [photo, setPhoto] = useState<Blob>();
+  const [preview, setPreview] = useState("");
+  const [preparing, setPreparing] = useState(false);
+  const photoVersion = useRef(0);
   const [formState, dispatch] = useReducer(formReducer, initialState);
   const { status, errorMessage, sent } = formState;
   const loading = status === "submitting";
   const error = status === "error";
+
+  useEffect(() => {
+    if (!photo) {
+      setPreview("");
+      return;
+    }
+    const url = URL.createObjectURL(photo);
+    setPreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [photo]);
+
+  async function choosePhoto(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    const version = ++photoVersion.current;
+    setPhoto(undefined);
+    requestRef.current = null;
+    if (!file) return;
+    setPreparing(true);
+    try {
+      const prepared = await prepareWishPhoto(file);
+      if (version === photoVersion.current) {
+        setPhoto(prepared);
+        dispatch({ type: "RESET_SUCCESS" });
+      }
+    } catch (cause) {
+      if (version === photoVersion.current) {
+        event.target.value = "";
+        dispatch({
+          type: "SUBMIT_ERROR",
+          payload:
+            cause instanceof Error ? cause.message : "Không đọc được ảnh. Vui lòng chọn ảnh khác.",
+        });
+      }
+    } finally {
+      if (version === photoVersion.current) setPreparing(false);
+    }
+  }
 
   useGSAP(
     (_, contextSafe) => {
@@ -93,102 +145,139 @@ export function ContactForm() {
     { scope: formRef },
   );
 
-  const onSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    if (submittingRef.current || !form.reportValidity()) return;
+  const onSubmit = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      if (submittingRef.current || preparing || !form.reportValidity()) return;
 
-    const formData = new FormData(form);
-    const guestName = (formData.get("name") as string)?.trim();
-    const attendingStatus = formData.get("attendance") as string;
-    const email = (formData.get("email") as string).trim();
-    const message = (formData.get("message") as string).trim();
-    const relationship = (formData.get("relationship") as string).trim();
+      const formData = new FormData(form);
+      const guestName = (formData.get("name") as string)?.trim();
+      const message = (formData.get("message") as string).trim();
+      const relationship = (formData.get("relationship") as string).trim();
 
-    if (!guestName || !message || !relationship) {
-      dispatch({
-        type: "SUBMIT_ERROR",
-        payload: "Vui lòng điền đầy đủ tên, mối quan hệ và lời chúc.",
-      });
-      return;
-    }
+      if (!guestName || !message || !relationship) {
+        dispatch({
+          type: "SUBMIT_ERROR",
+          payload: "Vui lòng điền đầy đủ tên, mối quan hệ và lời chúc.",
+        });
+        return;
+      }
 
-    submittingRef.current = true;
-    dispatch({ type: "SUBMIT_START" });
+      submittingRef.current = true;
+      dispatch({ type: "SUBMIT_START" });
+      const fingerprint = JSON.stringify([guestName, message, relationship, photoVersion.current]);
+      if (requestRef.current?.fingerprint !== fingerprint) {
+        requestRef.current = { fingerprint, id: crypto.randomUUID() };
+      }
 
-    try {
-      await submitRsvp({ guestName, attendingStatus, email, message, relationship });
-    } catch (cause) {
-      dispatch({
-        type: "SUBMIT_ERROR",
-        payload:
-          cause && typeof cause === "object" && "code" in cause && cause.code === "23505"
-            ? "Email này đã được dùng để RSVP trước đó."
-            : "Không thể lưu lời chúc. Vui lòng thử lại.",
-      });
-      return;
-    } finally {
-      submittingRef.current = false;
-    }
+      try {
+        await submitRsvp({
+          guestName,
+          message,
+          relationship,
+          photo,
+          requestId: requestRef.current.id,
+        });
+      } catch {
+        dispatch({
+          type: "SUBMIT_ERROR",
+          payload: "Không thể lưu lời chúc. Vui lòng thử lại.",
+        });
+        return;
+      } finally {
+        submittingRef.current = false;
+      }
 
-    dispatch({ type: "SUBMIT_SUCCESS" });
-    form.reset();
-    window.dispatchEvent(new CustomEvent("guest-submitted"));
-  }, []);
+      dispatch({ type: "SUBMIT_SUCCESS" });
+      form.reset();
+      setPhoto(undefined);
+      requestRef.current = null;
+      window.dispatchEvent(new CustomEvent("guest-submitted"));
+    },
+    [photo, preparing],
+  );
 
   return (
     <form ref={formRef} onSubmit={onSubmit} aria-busy={loading} className="grid gap-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Tên của bạn" name="name" placeholder="Họ và tên" />
-        <Field label="Mối quan hệ" name="relationship" placeholder="Bạn bè, gia đình, thầy cô…" />
-      </div>
-      <Field label="Email" name="email" type="email" placeholder="email@example.com" />
-      <div>
-        <label
-          htmlFor="attendance"
-          className="mb-2 block text-xs uppercase tracking-[0.2em] text-muted-foreground"
-        >
-          Tham dự
-        </label>
-        <div className="relative">
-          <select
-            id="attendance"
-            name="attendance"
-            required
-            defaultValue=""
-            className="attendance-select min-h-[48px] w-full appearance-none rounded-2xl border border-border bg-card px-5 py-4 pr-12 text-base transition-colors sm:text-sm"
+      <fieldset disabled={loading || preparing} className="grid min-w-0 gap-4">
+        <div className="grid gap-4">
+          <Field label="Minh Quân gọi đằng ấy là gì tar" name="name" />
+          <Field label="Mối quan hệ" name="relationship" placeholder="Bạn bè, gia đình, thầy cô…" />
+        </div>
+        <div>
+          <label
+            htmlFor="message"
+            className="mb-2 block text-xs uppercase tracking-[0.2em] text-muted-foreground"
           >
-            <option value="" disabled>
-              Chọn phản hồi
-            </option>
-            <option value="Attending">Có tham dự</option>
-            <option value="Not Attending">Không tham dự</option>
-          </select>
-          <ChevronDown
-            size={16}
-            aria-hidden="true"
-            className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-muted-foreground"
+            Lời nhắn hay lời chúc
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows={5}
+            maxLength={4000}
+            required
+            aria-required="true"
+            placeholder="Viết lời chúc, kỷ niệm hay lời nhắn…"
+            className="w-full rounded-2xl border border-border bg-card px-5 py-4 text-base outline-none transition-colors focus:border-foreground sm:text-sm"
           />
         </div>
-      </div>
-      <div>
-        <label
-          htmlFor="message"
-          className="mb-2 block text-xs uppercase tracking-[0.2em] text-muted-foreground"
-        >
-          Lời nhắn hay lời chúc
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          rows={5}
-          maxLength={4000}
-          required
-          aria-required="true"
-          placeholder="Viết lời chúc, kỷ niệm hay lời nhắn…"
-          className="w-full rounded-2xl border border-border bg-card px-5 py-4 text-base outline-none transition-colors focus:border-foreground sm:text-sm"
-        />
-      </div>
+        <div>
+          <label
+            htmlFor="wish-photo"
+            className="mb-2 block text-xs uppercase tracking-[0.2em] text-muted-foreground"
+          >
+            Ảnh kỷ niệm (không bắt buộc)
+          </label>
+          <p id="photo-help" className="mb-3 text-sm leading-relaxed text-muted-foreground">
+            Nếu chúng ta có chụp chung tấm hình nào đó, hãy chia sẻ cho tớ với nhaa.
+          </p>
+          <div className="rounded-2xl border border-dashed border-border bg-background p-4">
+            <ImagePlus size={24} aria-hidden="true" className="mb-3 text-signature" />
+            <input
+              ref={photoInputRef}
+              id="wish-photo"
+              name="photo"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={choosePhoto}
+              aria-describedby="photo-help photo-public"
+              className="block w-full min-w-0 text-sm file:mr-3 file:rounded-full file:border-0 file:bg-primary file:px-4 file:py-2 file:text-primary-foreground"
+            />
+            <p className="mt-3 text-xs text-muted-foreground">
+              1 ảnh JPG, PNG hoặc WebP · tối đa 5 MB
+            </p>
+            {preview && (
+              <div className="mt-4">
+                <img
+                  src={preview}
+                  alt="Ảnh kỷ niệm đã chọn"
+                  className="max-h-56 w-full rounded-xl object-contain"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    photoVersion.current++;
+                    setPhoto(undefined);
+                    requestRef.current = null;
+                    if (photoInputRef.current) photoInputRef.current.value = "";
+                  }}
+                  className="mt-2 inline-flex min-h-11 items-center gap-2 text-sm text-muted-foreground"
+                >
+                  <X size={16} />
+                  Bỏ ảnh
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </fieldset>
+      {preparing && (
+        <p role="status" className="text-sm text-muted-foreground">
+          Đang chuẩn bị ảnh…
+        </p>
+      )}
       <div aria-live="polite">
         {error && (
           <p role="alert" className="text-sm text-red-700">
@@ -196,12 +285,13 @@ export function ContactForm() {
           </p>
         )}
       </div>
-      <p className="text-xs leading-relaxed text-muted-foreground">
-        Tên và lời chúc sẽ hiển thị công khai. Email và lựa chọn tham dự được giữ riêng tư.
+      <p id="photo-public" className="text-xs leading-relaxed text-muted-foreground">
+        Tên, lời chúc và ảnh đính kèm sẽ hiển thị công khai khi mở bao thư. Chỉ gửi ảnh bạn đồng ý
+        chia sẻ.
       </p>
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || preparing}
         className="group mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 min-h-[44px]"
       >
         {loading ? (

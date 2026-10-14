@@ -46,7 +46,14 @@ export function GuestLetter({ guest, onClose }: { guest: PublicGuest; onClose: (
         >
           {guest.message}
         </p>
-        <p className="mt-8 text-sm text-muted-foreground">Gửi Minh Quân, với yêu thương.</p>
+        {guest.photo_url && (
+          <img
+            src={guest.photo_url}
+            alt={`Ảnh kỷ niệm từ ${guest.guest_name}`}
+            loading="lazy"
+            className="mt-6 max-h-[60vh] w-full rounded-2xl object-contain"
+          />
+        )}
         <button
           type="button"
           onClick={onClose}

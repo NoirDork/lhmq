@@ -65,7 +65,7 @@ export function GuestList() {
   return (
     <section className="mx-auto flex w-full max-w-6xl flex-col items-center">
       <div className="mb-10 text-center">
-        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">PHẢN HỒI KHÁCH</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">LỜI CHÚC</p>
       </div>
 
       {loading && (
@@ -73,7 +73,7 @@ export function GuestList() {
           ref={listRef}
           className="mx-auto grid w-full max-w-5xl grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-3"
           aria-busy="true"
-          aria-label="Đang tải phản hồi khách"
+          aria-label="Đang tải lời chúc"
         >
           {Array.from({ length: 6 }).map((_, i) => (
             <GuestCardSkeleton key={i} />
@@ -98,7 +98,7 @@ export function GuestList() {
 
       {!loading && !error && guests.length === 0 && (
         <p className="py-8 text-center text-sm text-muted-foreground">
-          Chưa có phản hồi nào. Hãy là người đầu tiên!
+          Chưa có lời chúc nào. Hãy là người đầu tiên!
         </p>
       )}
 
@@ -119,9 +119,6 @@ export function GuestList() {
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 h-16 border-b border-border bg-accent [clip-path:polygon(0_0,100%_0,50%_100%)]"
               />
-              <p className="text-xs uppercase tracking-widest text-muted-foreground">
-                Gửi Minh Quân
-              </p>
               <p className="mt-2 break-words font-medium">
                 Từ: <span>{guest.guest_name}</span>
               </p>

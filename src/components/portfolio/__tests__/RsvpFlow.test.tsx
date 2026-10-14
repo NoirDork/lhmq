@@ -1,14 +1,16 @@
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
-const { submitRsvp, fetchGuests, createConfetti, burst } = vi.hoisted(() => ({
+const { submitRsvp, fetchGuests, createConfetti, burst, prepareWishPhoto } = vi.hoisted(() => ({
   submitRsvp: vi.fn(),
   fetchGuests: vi.fn(),
   createConfetti: vi.fn(),
   burst: Object.assign(vi.fn(), { reset: vi.fn() }),
+  prepareWishPhoto: vi.fn(),
 }));
 
 vi.mock("@/lib/rsvps", () => ({ submitRsvp, fetchGuests }));
+vi.mock("@/lib/wish-photo", () => ({ prepareWishPhoto }));
 vi.mock("canvas-confetti", () => ({ default: Object.assign(vi.fn(), { create: createConfetti }) }));
 
 import { GuestList } from "../GuestList";
@@ -40,21 +42,45 @@ beforeEach(() => {
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
 });
 
-function fillForm(attendance = "Attending") {
-  fireEvent.change(screen.getByLabelText("Tên của bạn"), { target: { value: "Khách kiểm thử" } });
+function fillForm() {
+  fireEvent.change(screen.getByLabelText("Minh Quân gọi đằng ấy là gì tar"), {
+    target: { value: "Khách kiểm thử" },
+  });
   fireEvent.change(screen.getByLabelText("Mối quan hệ"), { target: { value: "Bạn bè" } });
-  fireEvent.change(screen.getByLabelText("Email"), { target: { value: "test@example.com" } });
   fireEvent.change(screen.getByLabelText("Lời nhắn hay lời chúc"), {
     target: { value: "Chúc mừng tốt nghiệp!" },
   });
   const form = screen.getByRole("button", { name: "Gửi lời chúc" }).closest("form")!;
-  fireEvent.change(form.querySelector('[name="attendance"]')!, { target: { value: attendance } });
   return form;
 }
 
 describe("RSVP flow", () => {
+  it("clears a rejected-photo error when a valid replacement is ready", async () => {
+    vi.stubGlobal(
+      "URL",
+      class extends URL {
+        static createObjectURL() {
+          return "blob:valid-photo";
+        }
+        static revokeObjectURL() {}
+      },
+    );
+    prepareWishPhoto
+      .mockRejectedValueOnce(new Error("Ảnh không hợp lệ"))
+      .mockResolvedValueOnce(new Blob(["photo"], { type: "image/jpeg" }));
+    render(<ContactForm />);
+    const input = screen.getByLabelText("Ảnh kỷ niệm (không bắt buộc)");
+    fireEvent.change(input, { target: { files: [new File(["bad"], "bad.jpg")] } });
+    expect(await screen.findByRole("alert")).toHaveTextContent("Ảnh không hợp lệ");
+    fireEvent.change(input, { target: { files: [new File(["photo"], "good.jpg")] } });
+    expect(await screen.findByRole("img", { name: "Ảnh kỷ niệm đã chọn" })).toBeInTheDocument();
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Bỏ ảnh" }));
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+  });
   it("locks duplicate submission while saving and refreshes guests after success", async () => {
     let finishSave!: () => void;
     submitRsvp.mockImplementationOnce(
@@ -79,8 +105,8 @@ describe("RSVP flow", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(submitRsvp).toHaveBeenCalledWith({
       guestName: "Khách kiểm thử",
-      attendingStatus: "Attending",
-      email: "test@example.com",
+      requestId: expect.any(String),
+      photo: undefined,
       message: "Chúc mừng tốt nghiệp!",
       relationship: "Bạn bè",
     });
@@ -97,7 +123,7 @@ describe("RSVP flow", () => {
 
   it.each([
     ["P0001", "Không thể lưu lời chúc. Vui lòng thử lại."],
-    ["23505", "Email này đã được dùng để RSVP trước đó."],
+    ["23505", "Không thể lưu lời chúc. Vui lòng thử lại."],
   ])("keeps the written message when database saving fails with %s", async (code, message) => {
     submitRsvp.mockRejectedValueOnce({ code, message: "Database error" });
     render(<ContactForm />);
@@ -109,45 +135,37 @@ describe("RSVP flow", () => {
     expect(screen.getByRole("button", { name: "Gửi lời chúc" })).toBeEnabled();
   });
 
-  it("requires an attendance choice using the native select", () => {
+  it("allows wishes without email or attendance and explains public photo sharing", () => {
     render(<ContactForm />);
-    const select = screen.getByLabelText("Tham dự") as HTMLSelectElement;
-    expect(select.tagName).toBe("SELECT");
-    expect(screen.queryByRole("option", { name: "Có thể" })).not.toBeInTheDocument();
-    expect(select.checkValidity()).toBe(false);
-    fireEvent.change(select, { target: { value: "Not Attending" } });
-    expect(select.checkValidity()).toBe(true);
+    expect(screen.queryByLabelText("Tham dự")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Email")).not.toBeInTheDocument();
+    expect(screen.getByLabelText("Ảnh kỷ niệm (không bắt buộc)")).not.toBeRequired();
+    expect(screen.getByText(/ảnh đính kèm sẽ hiển thị công khai/)).toBeInTheDocument();
+    expect(fillForm().checkValidity()).toBe(true);
   });
 
-  it.each([
-    ["Attending", "Gửi lời chúc thành công"],
-    ["Not Attending", "Gửi lời chúc thành công"],
-  ])(
-    "shows the matching popup after saving %s and lets the guest dismiss it",
-    async (attendance, title) => {
-      submitRsvp.mockResolvedValueOnce(undefined);
-      render(<ContactForm />);
-      screen.getByRole("button", { name: "Gửi lời chúc" }).focus();
-      fireEvent.submit(fillForm(attendance));
+  it("shows the success popup with confetti and lets the guest dismiss it", async () => {
+    submitRsvp.mockResolvedValueOnce(undefined);
+    render(<ContactForm />);
+    screen.getByRole("button", { name: "Gửi lời chúc" }).focus();
+    fireEvent.submit(fillForm());
 
-      const dialog = await screen.findByRole("dialog", { name: title });
-      expect(dialog).toHaveAttribute("open");
-      expect(screen.getByLabelText("Tham dự")).toHaveValue("");
-      expect(dialog.querySelector("#rsvp-confirmation-description")?.textContent).toBe(
-        "Cảm ơn Thầy Cô anh chị em bạn dì cô chú đã cùng đồng hành, hỗ trợ và chở che con/em trong suốt hành trình thanh xuân vừa qua để hôm nay có một phiên bản trưởng thành, vững vàng và rực rỡ nhất <3.",
-      );
-      expect(createConfetti).toHaveBeenCalledWith(dialog.querySelector("canvas"), { resize: true });
-      expect(burst).toHaveBeenCalledWith(expect.objectContaining({ particleCount: 80 }));
-      expect(dialog.querySelector("[data-rain-icon]")).toBeNull();
+    const dialog = await screen.findByRole("dialog", { name: "Gửi lời chúc thành công" });
+    expect(dialog).toHaveAttribute("open");
+    expect(dialog.querySelector("#rsvp-confirmation-description")?.textContent).toBe(
+      "Cảm ơn Thầy Cô anh chị em bạn dì cô chú đã cùng đồng hành, hỗ trợ và chở che con/em trong suốt hành trình thanh xuân vừa qua để hôm nay có một phiên bản trưởng thành, vững vàng và rực rỡ nhất <3.",
+    );
+    expect(createConfetti).toHaveBeenCalledWith(dialog.querySelector("canvas"), { resize: true });
+    expect(burst).toHaveBeenCalledWith(expect.objectContaining({ particleCount: 80 }));
+    expect(dialog.querySelector("[data-rain-icon]")).toBeNull();
 
-      fireEvent.click(screen.getByRole("button", { name: "Đóng" }));
-      expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Gửi lời chúc" })).toBeEnabled();
-      expect(screen.getByRole("button", { name: "Gửi lời chúc" })).toHaveFocus();
-      expect(burst.reset).toHaveBeenCalled();
-      expect(document.body.style.overflow).not.toBe("hidden");
-    },
-  );
+    fireEvent.click(screen.getByRole("button", { name: "Đóng" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Gửi lời chúc" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Gửi lời chúc" })).toHaveFocus();
+    expect(burst.reset).toHaveBeenCalled();
+    expect(document.body.style.overflow).not.toBe("hidden");
+  });
 
   it("dismisses the popup when the browser sends an Escape cancellation", async () => {
     submitRsvp.mockResolvedValueOnce(undefined);
@@ -158,24 +176,21 @@ describe("RSVP flow", () => {
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 
-  it.each(["Attending", "Not Attending"])(
-    "keeps the %s popup without particles for reduced motion",
-    async (attendance) => {
-      const matchMedia = window.matchMedia;
-      vi.spyOn(window, "matchMedia").mockImplementation((query) => ({
-        ...matchMedia(query),
-        matches: query.includes("prefers-reduced-motion"),
-      }));
-      submitRsvp.mockResolvedValueOnce(undefined);
-      render(<ContactForm />);
-      fireEvent.submit(fillForm(attendance));
+  it("keeps the popup without particles for reduced motion", async () => {
+    const matchMedia = window.matchMedia;
+    vi.spyOn(window, "matchMedia").mockImplementation((query) => ({
+      ...matchMedia(query),
+      matches: query.includes("prefers-reduced-motion"),
+    }));
+    submitRsvp.mockResolvedValueOnce(undefined);
+    render(<ContactForm />);
+    fireEvent.submit(fillForm());
 
-      const dialog = await screen.findByRole("dialog");
-      expect(dialog).toHaveAttribute("open");
-      expect(dialog.querySelector("canvas, [data-rain-icon]")).toBeNull();
-      expect(createConfetti).not.toHaveBeenCalled();
-    },
-  );
+    const dialog = await screen.findByRole("dialog");
+    expect(dialog).toHaveAttribute("open");
+    expect(dialog.querySelector("canvas, [data-rain-icon]")).toBeNull();
+    expect(createConfetti).not.toHaveBeenCalled();
+  });
 
   it("reloads the guest list after a failed request", async () => {
     fetchGuests.mockRejectedValueOnce(new Error("Network unavailable"));
