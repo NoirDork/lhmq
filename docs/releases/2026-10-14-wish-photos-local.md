@@ -1,6 +1,6 @@
 # Guest photos — local verification
 
-Status: verified locally and prepared for a feature-branch push. No production deployment, production migration or guest-data deletion performed. Production release remains gated on the checks below.
+Status: local verification followed by authorized production migration and real Storage verification on 2026-10-14. See `2026-10-14-production-release.md` for the release checks; the original local-only limitations below describe the earlier test stage.
 
 ## Implemented
 

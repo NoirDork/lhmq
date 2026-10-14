@@ -35,5 +35,5 @@ Read the live document through the browser on 2026-10-14. It now has 17 pages; p
 
 - Music source was supplied by the user and bundled successfully (8.26 MB); audio uses preload="none". Playback was checked in Chromium mobile emulation, not on physical iOS/Android devices or through a speaker listening check.
 - Timeline photos are intentionally awaiting user assets. Avatar currently reuses their cover image.
-- Prepared for a feature-branch push only; do not promote to production until the photo RPC migration and real Storage testing recorded in `2026-10-14-wish-photos-local.md` are complete. No production Supabase change has been made.
+- The photo RPC migration and real Supabase Storage checks were completed with release authorization on 2026-10-14; see `2026-10-14-production-release.md`.
 - Local preview at http://127.0.0.1:5174 uses only in-memory local guest test data.
