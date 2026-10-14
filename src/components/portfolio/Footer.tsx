@@ -2,7 +2,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import handSig from "/images/hand-sig/hand-sig.png";
+import handSig from "../../../images/hand-sig/hand-sig-new.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,12 +50,14 @@ export function Footer() {
             src={handSig}
             alt=""
             aria-hidden
-            className="h-20 w-auto translate-y-1 select-none grayscale sm:h-24 sm:translate-y-2 lg:h-28 lg:translate-y-3"
+            width={738}
+            height={174}
+            className="h-auto w-full max-w-xs select-none grayscale sm:max-w-sm"
           />
         </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground">
           <p>© {new Date().getFullYear()} Lâm Hồng Minh Quân — Tốt Nghiệp 2026</p>
-          <p>Đại học Kinh tế - Luật, ĐHQG-HCM · Tài chính – Ngân hàng</p>
+          <p>Trường Đại học Kinh tế - Luật, ĐHQG-HCM / Khoa Tài chính - Ngân hàng</p>
         </div>
       </div>
     </footer>

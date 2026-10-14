@@ -2,9 +2,11 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Reveal, RevealItem } from "./Reveal";
 import { GraduationCap, BookOpen, Hash, Users } from "lucide-react";
 import coverPhoto from "../../../images/bìa.jpg";
+import { Countdown } from "./Countdown";
+import { SCHOOL } from "@/lib/event";
 
 const highlights = [
-  { icon: GraduationCap, label: "Trường", value: "Đại học Kinh tế - Luật, ĐHQG-HCM" },
+  { icon: GraduationCap, label: "Trường", value: SCHOOL },
   { icon: BookOpen, label: "Ngành", value: "Tài chính – Ngân hàng" },
   { icon: Hash, label: "Lớp", value: "K22404" },
   { icon: Users, label: "MSSV", value: "K224040541" },
@@ -21,7 +23,7 @@ export function Invitation() {
     >
       <img
         src={coverPhoto}
-        alt="Lâm Hồng Minh Quân trong áo tốt nghiệp tại trường Đại học Kinh tế - Luật"
+        alt={`Lâm Hồng Minh Quân trong áo tốt nghiệp tại ${SCHOOL}`}
         width={1331}
         height={885}
         decoding="async"
@@ -33,7 +35,7 @@ export function Invitation() {
       />
       <div className="relative mx-auto flex min-h-svh max-w-7xl flex-col gap-10 px-6 pb-8 pt-[420px] sm:px-8 sm:pt-[460px] lg:min-h-[max(800px,100svh)] lg:px-6 lg:pb-10 lg:pt-40">
         <p className="absolute left-6 right-6 top-24 text-xs leading-relaxed tracking-[0.12em] text-white/85 sm:left-8 sm:right-8 lg:left-6">
-          ĐẠI HỌC KINH TẾ - LUẬT, ĐHQG-HCM · KHÓA 2026
+          {SCHOOL} · KHÓA 2026
         </p>
         <motion.div
           initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
@@ -55,6 +57,10 @@ export function Invitation() {
           <p className="max-w-2xl text-balance font-serif text-[clamp(2.25rem,4vw,4.5rem)] font-bold leading-[1.2] tracking-[-0.02em] text-white">
             Lâm Hồng Minh Quân
           </p>
+          <div className="mt-8 max-w-md text-white">
+            <p className="mb-3 text-sm text-white/90">Cùng đếm ngược đến 10:30 · 23.10.2026</p>
+            <Countdown />
+          </div>
         </motion.div>
         <div className="grid gap-6 border-t border-white/20 pt-6 lg:grid-cols-12 lg:gap-10">
           <motion.p

@@ -7,7 +7,7 @@ const links = [
   { href: "#invitation", label: "Lời Mời" },
   { href: "#details", label: "Chi Tiết" },
   { href: "#memories", label: "Kỷ Niệm" },
-  { href: "#rsvp", label: "Tham dự" },
+  { href: "#rsvp", label: "Lời chúc" },
 ];
 
 const easeOut = [0.22, 1, 0.36, 1] as const;

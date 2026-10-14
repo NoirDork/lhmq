@@ -7,27 +7,28 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
-import { ArrowUpRight, MapPin, Mail, Calendar, GraduationCap } from "lucide-react";
+import { ArrowUpRight, MapPin, Mail, Calendar } from "lucide-react";
+import { SCHOOL } from "@/lib/event";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Reveal, RevealItem } from "./Reveal";
 import { ParticleField } from "./ParticleField";
 import { useIsMobile } from "@/hooks/use-mobile";
+import handSig from "../../../images/hand-sig/hand-sig-new.png";
 
 const info = [
-  { Icon: GraduationCap, text: "Đại học Kinh tế - Luật, ĐHQG-HCM" },
-  { Icon: Calendar, text: "Lễ Tốt Nghiệp — 2026" },
-  { Icon: MapPin, text: "Trường Đại học Kinh tế - Luật, ĐHQG-HCM" },
+  { Icon: MapPin, text: SCHOOL },
+  { Icon: Calendar, text: "Lễ Tốt Nghiệp — 23.10.2026" },
   { Icon: Mail, text: "lamquan3005@gmail.com" },
 ];
 
 function HandSigSkeleton() {
   return (
     <div
-      className="pointer-events-none absolute left-1/2 top-1/2 z-10 h-auto w-[clamp(120px,22vw,300px)] -translate-x-1/2 -translate-y-[50%] select-none sm:w-[clamp(160px,22vw,300px)] sm:-translate-y-[44%] animate-pulse"
+      className="pointer-events-none absolute left-[64%] top-[78%] z-10 h-auto w-[clamp(128px,34vw,448px)] -translate-x-1/2 -translate-y-1/2 -rotate-6 select-none animate-pulse"
       aria-hidden="true"
     >
-      <div className="aspect-[3/2] bg-gradient-to-br from-primary/40 to-accent/40 rounded-full mix-blend-overlay" />
+      <div className="aspect-[738/174] bg-gradient-to-br from-primary/40 to-accent/40 rounded-full mix-blend-overlay" />
     </div>
   );
 }
@@ -37,26 +38,15 @@ function HandSigImage() {
   return (
     <>
       {!loaded && <HandSigSkeleton />}
-      <svg width="0" height="0" aria-hidden className="absolute">
-        <defs>
-          <filter id="hero-signature-blue" colorInterpolationFilters="sRGB">
-            <feFlood floodColor="#234A6B" />
-            <feComposite in2="SourceAlpha" operator="in" />
-          </filter>
-        </defs>
-      </svg>
       <picture>
-        <source srcSet="/images/hand-sig/hand-sig.avif" type="image/avif" />
-        <source srcSet="/images/hand-sig/hand-sig.webp" type="image/webp" />
         <img
-          src="/images/hand-sig/hand-sig.png"
+          src={handSig}
           alt=""
           aria-hidden
-          width={300}
-          height={200}
+          width={738}
+          height={174}
           onLoad={() => setLoaded(true)}
-          style={{ filter: "url(#hero-signature-blue)" }}
-          className={`pointer-events-none absolute left-1/2 top-1/2 z-10 h-auto w-[clamp(120px,22vw,300px)] -translate-x-1/2 -translate-y-[50%] select-none sm:w-[clamp(160px,22vw,300px)] sm:-translate-y-[44%] transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
+          className={`pointer-events-none absolute left-[64%] top-[78%] z-10 h-auto w-[clamp(128px,34vw,448px)] -translate-x-1/2 -translate-y-1/2 -rotate-6 select-none transition-opacity duration-500 ${loaded ? "opacity-100" : "opacity-0"}`}
         />
       </picture>
     </>
@@ -159,7 +149,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="relative font-serif text-[16vw] font-bold leading-[0.85] tracking-[-0.04em] sm:text-[20vw] lg:text-[16rem]"
+            className="relative font-serif text-[16vw] font-bold leading-[0.85] tracking-[-0.04em] sm:text-[18vw] lg:text-[min(16vw,16rem)]"
           >
             <span
               ref={shimmerRef}
@@ -184,12 +174,12 @@ export function Hero() {
         >
           <div className="max-w-md">
             <p className="text-lg text-muted-foreground">
-              Bạn được mời đến dự lễ tốt nghiệp đại học của tôi.
+              Bạn được mời đến dự lễ tốt nghiệp đại học của Minh Quân.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Sau những năm tháng học tập, nỗ lực và kỷ niệm khó quên, ngày đặc biệt này đánh dấu sự
-              khởi đầu của một hành trình mới. Sự hiện diện của bạn sẽ làm cho ngày này thêm ý
-              nghĩa.
+              Mỗi trang kỷ niệm của những năm tháng giảng đường đều đã được viết trọn vẹn, để hôm
+              nay mở ra một chương mới đầy hy vọng. Thật tuyệt vời nếu trong khoảnh khắc chuyển giao
+              đặc biệt ấy, mình được đón nhận sự hiện diện và nụ cười của bạn.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -209,7 +199,7 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <Reveal className="mt-16 grid grid-cols-2 gap-y-4 border-t border-border pt-6 text-sm text-muted-foreground md:grid-cols-4">
+        <Reveal className="mt-16 grid gap-4 border-t border-border pt-6 text-sm text-muted-foreground md:grid-cols-3">
           {info.map(({ Icon, text }) => (
             <RevealItem key={text} className="flex items-center gap-2">
               <Icon size={14} />

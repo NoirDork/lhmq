@@ -10,6 +10,8 @@ import { RSVP } from "@/components/portfolio/RSVP";
 import { GuestList } from "@/components/portfolio/GuestList";
 import { SectionTitle } from "@/components/portfolio/SectionTitle";
 import { Footer } from "@/components/portfolio/Footer";
+import { BackgroundMusic } from "@/components/portfolio/BackgroundMusic";
+import { GRADUATION_START, GRADUATION_END, SCHOOL } from "@/lib/event";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,8 +19,7 @@ export const Route = createFileRoute("/")({
       { title: "Thiệp Mời Tốt Nghiệp | Lâm Hồng Minh Quân" },
       {
         name: "description",
-        content:
-          "Trân trọng mời bạn đến tham dự lễ tốt nghiệp của Lâm Hồng Minh Quân tại Đại học Kinh tế - Luật, ĐHQG-HCM.",
+        content: `Trân trọng mời bạn đến tham dự lễ tốt nghiệp của Lâm Hồng Minh Quân tại ${SCHOOL}.`,
       },
       { property: "og:title", content: "Thiệp Mời Tốt Nghiệp | Lâm Hồng Minh Quân" },
       {
@@ -33,8 +34,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:title", content: "Thiệp Mời Tốt Nghiệp | Lâm Hồng Minh Quân" },
       {
         name: "twitter:description",
-        content:
-          "Trân trọng mời bạn đến tham dự lễ tốt nghiệp của Lâm Hồng Minh Quân tại Đại học Kinh tế - Luật, ĐHQG-HCM.",
+        content: `Trân trọng mời bạn đến tham dự lễ tốt nghiệp của Lâm Hồng Minh Quân tại ${SCHOOL}.`,
       },
     ],
     links: [{ rel: "canonical", href: "https://lhmq.vercel.app" }],
@@ -45,13 +45,13 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Event",
           name: "Lễ Tốt Nghiệp của Lâm Hồng Minh Quân",
-          description:
-            "Chào mừng đến với lễ tốt nghiệp của Lâm Hồng Minh Quân tại Đại học Kinh tế - Luật, ĐHQG-HCM.",
-          startDate: "2026",
+          description: `Chào mừng đến với lễ tốt nghiệp của Lâm Hồng Minh Quân tại ${SCHOOL}.`,
+          startDate: GRADUATION_START,
+          endDate: GRADUATION_END,
           location: {
             "@type": "Place",
-            name: "Trường Đại học Kinh tế - Luật, ĐHQG-HCM",
-            address: "Đại học Kinh tế - Luật, ĐHQG-HCM",
+            name: SCHOOL,
+            address: "669 Đỗ Mười, phường Linh Xuân, Thành phố Hồ Chí Minh",
           },
           organizer: {
             "@type": "Person",
@@ -73,15 +73,16 @@ function Index() {
       <Invitation />
       <Hero />
       <About />
-      <EventDetails />
-      <Gallery />
       <Timeline />
+      <Gallery />
+      <EventDetails />
       <RSVP />
       <section id="guests" className="scroll-mt-24 px-4 py-20 sm:py-32 sm:px-6">
         <div className="mx-auto max-w-7xl">
-          <SectionTitle eyebrow="Khách Mời" title="Phản hồi từ khách." />
-          <p className="mt-4 max-w-md text-sm text-muted-foreground">
-            Những lời chúc và kỷ niệm được gửi đến Minh Quân.
+          <SectionTitle eyebrow="Với lòng biết ơn" title="LỜI YÊU THƯƠNG CỦA MỌI NGƯỜI" />
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
+            Minh Quân xin chân thành cảm ơn những lời chúc tốt đẹp và tình cảm quý báu mà mọi người
+            đã dành cho Quân ạ
           </p>
           <div className="mt-10 w-full">
             <GuestList />
@@ -89,6 +90,7 @@ function Index() {
         </div>
       </section>
       <Footer />
+      <BackgroundMusic />
     </main>
   );
 }
