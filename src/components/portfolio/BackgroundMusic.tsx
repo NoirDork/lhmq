@@ -1,11 +1,9 @@
-import { useEffect, useRef } from "react";
-import track from "../../../music/HOÀNG DŨNG GIỮ ANH CHO NGÀY HÔM QUA feat.RHYMASTIC OFFICIAL MUSIC VIDEO.mp3";
+import { useEffect } from "react";
 
 export function BackgroundMusic() {
-  const audioRef = useRef<HTMLAudioElement>(null);
-
   useEffect(() => {
-    const audio = audioRef.current;
+    // Reuse the HTML audio element so downloading starts before React loads.
+    const audio = document.querySelector<HTMLAudioElement>("#background-music");
     if (!audio) return;
     let pending = false;
     const removeListeners = () => {
@@ -34,5 +32,5 @@ export function BackgroundMusic() {
     };
   }, []);
 
-  return <audio ref={audioRef} src={track} autoPlay loop preload="auto" aria-hidden="true" />;
+  return null;
 }

@@ -1,19 +1,31 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, expect, it, vi } from "vitest";
+import { readFileSync } from "node:fs";
+import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import { BackgroundMusic } from "../BackgroundMusic";
+
+beforeEach(() => {
+  const html = readFileSync("index.html", "utf8");
+  const page = new DOMParser().parseFromString(html, "text/html");
+  document.body.append(page.querySelector("audio")!);
+});
 
 afterEach(() => {
   cleanup();
+  document.querySelector("#background-music")?.remove();
   vi.restoreAllMocks();
 });
 
-it("starts the new track automatically without playback controls", async () => {
+it("reuses the preloading HTML track without duplicate audio or playback controls", async () => {
   const play = vi.spyOn(HTMLMediaElement.prototype, "play").mockResolvedValue();
   vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => {});
-  const { container } = render(<BackgroundMusic />);
-  const audio = container.querySelector("audio")!;
+  const audio = document.querySelector("audio")!;
+  expect(audio.preload).toBe("auto");
+  expect(audio.autoplay).toBe(false);
+  render(<BackgroundMusic />);
   await waitFor(() => expect(play).toHaveBeenCalledTimes(1));
-  expect(audio.autoplay).toBe(true);
+  expect(document.querySelectorAll("audio")).toHaveLength(1);
+  expect(document.querySelector("audio")).toBe(audio);
+  expect(audio.volume).toBe(0.35);
   expect(audio.loop).toBe(true);
   expect(audio.controls).toBe(false);
   expect(decodeURI(audio.src)).toContain("RHYMASTIC");
