@@ -28,3 +28,8 @@ Local preview: http://127.0.0.1:5174/#journey. Release authorized for `main` and
 - Previous/next buttons have fully transparent backgrounds, including hover, with white arrows and a small icon shadow. Accessible labels, keyboard focus and 44 px targets are preserved.
 - Release checks: 38 tests, scoped ESLint, TypeScript and production build passed. Local browser computed styles confirmed transparent backgrounds. Existing large-chunk warning remains; no database or environment changes.
 - Previous production: commit `43333e9`, deployment `dpl_2uzZxxEErS23nks8kMYTxsEkS7p7`. Rollback tag: `backup/pre-transparent-gallery-controls-2026-10-15`.
+
+## Follow-up: Người Thương invitation
+
+- Replaced the event invitation image with the supplied Người Thương PNG, preserving the layout and using its 1600 × 2000 intrinsic dimensions. The previous source image remains available for rollback.
+- Verified the new image loads locally; 38 tests, scoped ESLint, TypeScript and production build passed. No database or environment changes.

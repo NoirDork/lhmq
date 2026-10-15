@@ -1,7 +1,7 @@
 import { Calendar, Clock, MapPin, Phone, ArrowUpRight } from "lucide-react";
 import { Countdown } from "./Countdown";
 import { SCHOOL } from "@/lib/event";
-import invitationCard from "../../../images/invitation-card.png";
+import invitationCard from "../../../images/NGƯỜI-THƯƠNG.png";
 
 const contacts = [
   { name: "Minh Quân", number: "0931 314 605", href: "tel:0931314605" },
@@ -31,8 +31,8 @@ export function EventDetails() {
           <img
             src={invitationCard}
             alt="Thiệp mời lễ tốt nghiệp Lâm Hồng Minh Quân, ngày 23.10.2026"
-            width={578}
-            height={800}
+            width={1600}
+            height={2000}
             loading="lazy"
             className="mx-auto w-full max-w-md rounded-2xl"
           />
