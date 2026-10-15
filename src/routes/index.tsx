@@ -10,7 +10,6 @@ import { RSVP } from "@/components/portfolio/RSVP";
 import { GuestList } from "@/components/portfolio/GuestList";
 import { SectionTitle } from "@/components/portfolio/SectionTitle";
 import { Footer } from "@/components/portfolio/Footer";
-import { BackgroundMusic } from "@/components/portfolio/BackgroundMusic";
 import { GRADUATION_START, GRADUATION_END, SCHOOL } from "@/lib/event";
 
 export const Route = createFileRoute("/")({
@@ -90,7 +89,6 @@ function Index() {
         </div>
       </section>
       <Footer />
-      <BackgroundMusic />
     </main>
   );
 }

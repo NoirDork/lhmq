@@ -3,49 +3,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { SectionTitle } from "./SectionTitle";
-import { ProjectCard, type Memory } from "./ProjectCard";
+import { ProjectCard } from "./ProjectCard";
+import { memories } from "@/lib/memories";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const memories: Memory[] = [
-  {
-    slug: "university-memories",
-    title: "Kỷ Niệm Đại Học",
-    caption: "Từ những buổi học đến đêm khuya — từng khoảnh khắc đã tạo nên tôi của ngày hôm nay.",
-    hue: "from-primary to-accent",
-  },
-  {
-    slug: "friends-classmates",
-    title: "Bạn Bè & Đồng Môn",
-    caption: "Những người đã làm hành trình này thật khó quên.",
-    hue: "from-accent to-primary",
-  },
-  {
-    slug: "graduation-moments",
-    title: "Khoảnh Khắc Tốt Nghiệp",
-    caption: "Những nụ cười, niềm tự hào và chiếc mũ cử nhân tung bay.",
-    hue: "from-muted to-primary",
-  },
-  {
-    slug: "behind-the-journey",
-    title: "Hậu Trường Hành Trình",
-    caption: "Mồ hôi, nước mắt và sự kiên trì dẫn đến cột mốc này.",
-    hue: "from-primary to-muted",
-  },
-  {
-    slug: "family-support",
-    title: "Hậu Phương Gia Đình",
-    caption:
-      "Gửi lời cảm ơn đến gia đình — những người luôn tin tưởng tôi từng bước trên đường đời.",
-    hue: "from-primary to-card",
-  },
-  {
-    slug: "new-beginning",
-    title: "Khởi Đầu Mới",
-    caption: "Một chương kết thúc — một cuộc phiêu lưu mới bắt đầu.",
-    hue: "from-card to-primary",
-  },
-];
 
 export function Gallery() {
   const cardsRef = useRef<HTMLDivElement>(null);

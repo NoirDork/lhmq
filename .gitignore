@@ -25,3 +25,7 @@ dist
 .vercel
 .local-backups/
 supabase/.temp/
+
+# Original photo collections stay local; publish optimized WebP copies.
+/images/[0-9]*. */
+/images/ẢNH THÊM/

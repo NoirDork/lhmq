@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "@tanstack/react-router";
 import { getRouter } from "./router";
+import { BackgroundMusic } from "./components/portfolio/BackgroundMusic";
 
 const router = getRouter();
 
@@ -10,6 +11,7 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
+      <BackgroundMusic />
       <RouterProvider router={router} />
     </StrictMode>,
   );

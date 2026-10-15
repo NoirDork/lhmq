@@ -7,61 +7,50 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-it("plays only on request and lets the guest pause", async () => {
-  const play = vi.spyOn(HTMLMediaElement.prototype, "play").mockImplementation(function (
-    this: HTMLMediaElement,
-  ) {
-    this.dispatchEvent(new Event("play"));
-    return Promise.resolve();
-  });
-  const pause = vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(function (
-    this: HTMLMediaElement,
-  ) {
-    this.dispatchEvent(new Event("pause"));
-  });
+it("starts the new track automatically without playback controls", async () => {
+  const play = vi.spyOn(HTMLMediaElement.prototype, "play").mockResolvedValue();
+  vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => {});
   const { container } = render(<BackgroundMusic />);
-  expect(play).not.toHaveBeenCalled();
   const audio = container.querySelector("audio")!;
-  expect(audio.autoplay).toBe(false);
-  expect(audio.preload).toBe("none");
+  await waitFor(() => expect(play).toHaveBeenCalledTimes(1));
+  expect(audio.autoplay).toBe(true);
   expect(audio.loop).toBe(true);
-  fireEvent.click(screen.getByRole("button", { name: /Bật nhạc nền/ }));
-  await waitFor(() =>
-    expect(screen.getByRole("button", { name: /Tắt nhạc nền/ })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    ),
-  );
+  expect(audio.controls).toBe(false);
+  expect(decodeURI(audio.src)).toContain("RHYMASTIC");
+  expect(screen.queryByRole("button")).not.toBeInTheDocument();
+  await waitFor(() => expect(play).toHaveResolved());
+  fireEvent.pointerUp(document);
+  fireEvent.keyDown(document, { key: "Enter" });
   expect(play).toHaveBeenCalledTimes(1);
-  fireEvent.click(screen.getByRole("button", { name: /Tắt nhạc nền/ }));
-  expect(pause).toHaveBeenCalledTimes(1);
-  expect(screen.getByRole("button", { name: /Bật nhạc nền/ })).toHaveAttribute(
-    "aria-pressed",
-    "false",
-  );
 });
 
-it("reports a blocked playback and allows retry", async () => {
-  vi.spyOn(HTMLMediaElement.prototype, "play")
-    .mockRejectedValueOnce(new Error("NotAllowedError"))
-    .mockImplementationOnce(function (this: HTMLMediaElement) {
-      this.dispatchEvent(new Event("play"));
-      return Promise.resolve();
-    });
+it("retries blocked autoplay on a real gesture then removes retry listeners", async () => {
+  const play = vi
+    .spyOn(HTMLMediaElement.prototype, "play")
+    .mockRejectedValueOnce(new DOMException("Blocked", "NotAllowedError"))
+    .mockResolvedValue();
+  vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => {});
   render(<BackgroundMusic />);
-  fireEvent.click(screen.getByRole("button", { name: /Bật nhạc nền/ }));
-  expect(await screen.findByRole("alert")).toHaveTextContent("Không phát được nhạc");
-  fireEvent.click(screen.getByRole("button", { name: /Bật nhạc nền/ }));
-  await waitFor(() => expect(screen.queryByRole("alert")).not.toBeInTheDocument());
-  expect(screen.getByRole("button", { name: /Tắt nhạc nền/ })).toBeEnabled();
+  await expect(play.mock.results[0].value).rejects.toHaveProperty("name", "NotAllowedError");
+  await Promise.resolve();
+  fireEvent.pointerUp(document);
+  await waitFor(() => expect(play).toHaveBeenCalledTimes(2));
+  await waitFor(() => expect(play).toHaveLastResolvedWith(undefined));
+  fireEvent.pointerUp(document);
+  expect(play).toHaveBeenCalledTimes(2);
 });
 
-it("resets the control if the audio file fails to load", () => {
-  const { container } = render(<BackgroundMusic />);
-  fireEvent.error(container.querySelector("audio")!);
-  expect(screen.getByRole("alert")).toHaveTextContent("Không phát được nhạc");
-  expect(screen.getByRole("button", { name: /Bật nhạc nền/ })).toHaveAttribute(
-    "aria-pressed",
-    "false",
-  );
+it("supports a keyboard gesture and stops retrying after unmount", async () => {
+  const play = vi.spyOn(HTMLMediaElement.prototype, "play").mockRejectedValue(new Error("Blocked"));
+  const pause = vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => {});
+  const { unmount } = render(<BackgroundMusic />);
+  await expect(play.mock.results[0].value).rejects.toThrow("Blocked");
+  await Promise.resolve();
+  fireEvent.keyDown(document, { key: "Enter" });
+  await waitFor(() => expect(play).toHaveBeenCalledTimes(2));
+  unmount();
+  expect(pause).toHaveBeenCalledTimes(1);
+  fireEvent.pointerUp(document);
+  fireEvent.keyDown(document, { key: "Enter" });
+  expect(play).toHaveBeenCalledTimes(2);
 });

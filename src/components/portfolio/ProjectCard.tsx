@@ -3,13 +3,7 @@ import { motion } from "framer-motion";
 import { Heart } from "lucide-react";
 import { revealVariants } from "./Reveal";
 import { useMouseTilt } from "@/hooks/use-mouse-tilt";
-
-export interface Memory {
-  slug: string;
-  title: string;
-  caption: string;
-  hue: string;
-}
+import type { Memory } from "@/lib/memories";
 
 export function ProjectCard({ project }: { project: Memory }) {
   const tilt = useMouseTilt(6);
@@ -22,10 +16,15 @@ export function ProjectCard({ project }: { project: Memory }) {
         className="group cursor-pointer rounded-3xl border border-border bg-card p-4 transition-shadow hover:shadow-xl"
         {...tilt}
       >
-        <div
-          className={`relative aspect-[4/3] overflow-hidden rounded-2xl bg-gradient-to-br ${project.hue}`}
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,transparent,var(--primary))]" />
+        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
+          <img
+            src={project.cover}
+            alt={`Ảnh bìa ${project.title}`}
+            width={960}
+            height={720}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
           <div className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-card text-foreground transition-transform duration-500 group-hover:scale-110">
             <Heart size={16} />
           </div>
@@ -35,7 +34,7 @@ export function ProjectCard({ project }: { project: Memory }) {
         </div>
         <div className="px-2 pb-2 pt-5">
           <h3 className="text-xl font-semibold tracking-tight">{project.title}</h3>
-          <p className="mt-2 text-sm text-muted-foreground">{project.caption}</p>
+          <p className="mt-2 text-sm text-muted-foreground">{project.images.length} ảnh kỷ niệm</p>
         </div>
       </motion.article>
     </Link>

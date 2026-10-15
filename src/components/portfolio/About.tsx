@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import portrait from "../../../images/bìa.jpg";
+import portrait from "../../../images/optimized/story/portrait.webp";
 
 export function About() {
   const reduceMotion = useReducedMotion();
@@ -12,14 +12,14 @@ export function About() {
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
         <motion.img
           src={portrait}
-          alt="Lâm Hồng Minh Quân trong ngày tốt nghiệp"
-          width={1331}
-          height={885}
+          alt="Lâm Hồng Minh Quân"
+          width={800}
+          height={800}
           loading="lazy"
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mx-auto aspect-square w-full max-w-md rounded-full object-cover object-[65%_center]"
+          className="mx-auto aspect-square w-full max-w-md rounded-full object-cover object-center"
         />
         <div>
           <p className="mb-4 text-xs uppercase tracking-[0.2em] text-signature">Một chút về mình</p>
