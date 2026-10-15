@@ -34,7 +34,6 @@ export function ProjectCard({ project }: { project: Memory }) {
         </div>
         <div className="px-2 pb-2 pt-5">
           <h3 className="text-xl font-semibold tracking-tight">{project.title}</h3>
-          <p className="mt-2 text-sm text-muted-foreground">{project.images.length} ảnh kỷ niệm</p>
         </div>
       </motion.article>
     </Link>

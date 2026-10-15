@@ -66,8 +66,16 @@ export function AlbumCarousel({ memory }: { memory: Memory }) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious aria-label="Ảnh trước" className="left-3 h-11 w-11" />
-        <CarouselNext aria-label="Ảnh tiếp theo" className="right-3 h-11 w-11" />
+        <CarouselPrevious
+          variant="ghost"
+          aria-label="Ảnh trước"
+          className="left-3 h-11 w-11 border-0 bg-transparent text-white shadow-none hover:bg-transparent hover:text-white focus-visible:ring-white/80 [&_svg]:drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]"
+        />
+        <CarouselNext
+          variant="ghost"
+          aria-label="Ảnh tiếp theo"
+          className="right-3 h-11 w-11 border-0 bg-transparent text-white shadow-none hover:bg-transparent hover:text-white focus-visible:ring-white/80 [&_svg]:drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]"
+        />
       </div>
       <div role="group" aria-label="Chọn ảnh" className="mt-4 flex justify-center gap-1">
         {nodes.map((index) => (

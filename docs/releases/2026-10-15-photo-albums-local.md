@@ -21,3 +21,10 @@ Local preview: http://127.0.0.1:5174/#journey. Release authorized for `main` and
 - Album counter replaced with at most five clickable nodes. From the third image, the active node stays in slot three while the node window slides in either direction, including loop boundaries. Selected node follows arrow/swipe/keyboard navigation; slideshow advances every five seconds with looping. Every manual image selection restarts the full five-second delay. Playback toggle removed as requested.
 - Timer and Embla listeners are cleaned up on unmount. No autoplay dependency added.
 - Final release checks: 38 unit tests passed. TypeScript and scoped ESLint passed. Browser scroll-down check: first chapter opacity 0 after leaving view; scroll-up: first chapter opacity 1 again. Browser slideshow advances and manual node/arrow selection works; five-node window stays within the 320 px page, active slot stays centered after reaching the third node. Playback toggle is absent. Timer-reset and listener-cleanup regression tests passed.
+
+## Follow-up: minimal gallery controls
+
+- Removed photo-count captions from gallery cards. Album detail counts remain unchanged.
+- Previous/next buttons have fully transparent backgrounds, including hover, with white arrows and a small icon shadow. Accessible labels, keyboard focus and 44 px targets are preserved.
+- Release checks: 38 tests, scoped ESLint, TypeScript and production build passed. Local browser computed styles confirmed transparent backgrounds. Existing large-chunk warning remains; no database or environment changes.
+- Previous production: commit `43333e9`, deployment `dpl_2uzZxxEErS23nks8kMYTxsEkS7p7`. Rollback tag: `backup/pre-transparent-gallery-controls-2026-10-15`.
